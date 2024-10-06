@@ -5,10 +5,6 @@
 #include "GameFramework/Actor.h"
 #include "SBaseTower.generated.h"
 
-class USphereComponent;
-class ASProjectile;
-class UArrowComponent;
-
 UCLASS(Abstract, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASBaseTower : public AActor
 {
@@ -34,14 +30,14 @@ protected:
 	UStaticMeshComponent* Turret = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = Components)
-	USphereComponent* TurretRangeSphere = nullptr;
+	class USphereComponent* TurretRangeSphere = nullptr;
 
 	UPROPERTY(EditAnywhere, Category = Components)
 	UStaticMeshComponent* TurretRangeIndicatorMesh = nullptr;
 
 	virtual void FireTurret() PURE_VIRTUAL(ASBaseTower::FireTurret);
 
-	ASProjectile* FindProjectileFromPool();
+	class ASProjectile* FindProjectileFromPool();
 
 	TArray<AActor*> InRangeEnemies = {};
 
@@ -69,9 +65,8 @@ private:
 
 	uint32 ProjectilePoolSize = 5;
 
-	/*
 public:
 
 	FORCEINLINE const UStaticMeshComponent* GetTurret() const { return Turret; }
-	*/
+
 };

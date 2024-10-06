@@ -4,19 +4,19 @@
 
 void ASArcherTower::FireTurret()
 {
-	/*
-	if (!ProjectileClass)
+	ASProjectile* Projectile = FindProjectileFromPool();
+
+	if (Projectile)
 	{
-		UE_LOG(LogTemp, Error, TEXT("<=== ERROR ===> ASArcherTower::FireTurret invalid ProjectileClass"));
-		return;
+		Projectile->ActivateThisObject(this);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("ASCanonTower::FireTurret Projectile null"));
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASCanonTower::FireTurret Projectile null"));
 	}
 
-	ASProjectile* SpawnedProjectile = GetWorld()->SpawnActor<ASProjectile>(
-		ProjectileClass,
-		Turret->GetSocketTransform(FName("ProjectileAttach"))
-	);
-
-	SpawnedProjectile->AttachToComponent(Turret, FAttachmentTransformRules::KeepWorldTransform, FName("ProjectileAttach"));
+	GetWorldTimerManager().ClearTimer(FireCooldownTimer);
 
 	GetWorldTimerManager().SetTimer(
 		FireCooldownTimer,
@@ -24,5 +24,4 @@ void ASArcherTower::FireTurret()
 		&ASArcherTower::FireTurret,
 		FireRate
 	);
-	*/
 }

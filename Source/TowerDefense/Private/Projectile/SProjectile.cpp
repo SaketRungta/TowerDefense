@@ -1,6 +1,7 @@
 
 #include "Projectile/SProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Towers/SBaseTower.h"
 
 ASProjectile::ASProjectile()
 {
@@ -32,9 +33,9 @@ void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AAc
 	DeactivateThisObject();
 }
 
-void ASProjectile::ActivateThisObject(const FTransform& InTurretSocketTransform)
+void ASProjectile::ActivateThisObject(const ASBaseTower* OwningTower)
 {
-	TurretSocketTransform = InTurretSocketTransform;
+	TurretSocketTransform = OwningTower->GetTurret()->GetSocketTransform(FName("ProjectileFire"));
 
 	bIsInUse = true;
 
@@ -45,7 +46,7 @@ void ASProjectile::ActivateThisObject(const FTransform& InTurretSocketTransform)
 	SetActorEnableCollision(true);
 
 	ProjectileMovementComponent->Velocity = GetActorForwardVector() * 1500.f;
-	
+
 	GetWorldTimerManager().SetTimer(
 		DeactivateTimer,
 		[this]()

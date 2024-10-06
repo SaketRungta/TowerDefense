@@ -107,7 +107,7 @@ void ASBaseTower::SpawnProjectilePool()
 			ProjectileClass,
 			Turret->GetSocketTransform(FName("ProjectileFire"))
 		);
-
+		
 		ProjectilePool.Add(SpawnedProjectile);
 	}
 }

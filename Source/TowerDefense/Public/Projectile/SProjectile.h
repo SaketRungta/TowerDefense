@@ -5,10 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "SProjectile.generated.h"
 
-class UProjectileMovementComponent;
-class ASBaseTower;
-
-UCLASS(Abstract, BlueprintType, ClassGroup = Projectile)
+UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Projectile)
 class TOWERDEFENSE_API ASProjectile : public AActor
 {
 	GENERATED_BODY()
@@ -18,17 +15,17 @@ public:
 
 	virtual void PostInitializeComponents() override;
 
-	void ActivateThisObject(const FTransform& InTurretSocketTransform);
+	void ActivateThisObject(const class ASBaseTower* OwningTower);
 
 protected:
-	UPROPERTY(EditAnywhere, Category = Components)
-	USceneComponent* SceneRoot = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	TObjectPtr<USceneComponent> SceneRoot;
 
-	UPROPERTY(EditAnywhere, Category = Components)
-	UStaticMeshComponent* ProjectileMesh = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
-	UPROPERTY(EditAnywhere, Category = Components)
-	UProjectileMovementComponent* ProjectileMovementComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent;
 
 private:
 	UFUNCTION()
@@ -44,4 +41,5 @@ private:
 
 public:
 	const bool IsProjectileInUse() const { return bIsInUse; }
+
 };

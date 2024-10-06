@@ -1,16 +1,14 @@
 
 #include "Towers/SCanonTower.h"
 #include "Projectile/SProjectile.h"
-#include "Components/ArrowComponent.h"
 
 void ASCanonTower::FireTurret()
 {
-	UE_LOG(LogTemp, Error, TEXT("ASCanonTower::FireTurret()"));
 	ASProjectile* Projectile = FindProjectileFromPool();
 
 	if (Projectile)
 	{
-		Projectile->ActivateThisObject(Turret->GetSocketTransform(FName("ProjectileFire")));
+		Projectile->ActivateThisObject(this);
 	}
 	else
 	{
