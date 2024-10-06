@@ -14,8 +14,8 @@ ASBaseTower::ASBaseTower()
 	TowerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TowerMesh"));
 	TowerMesh->SetupAttachment(SceneRoot);
 
-	Turret = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret"));
-	Turret->SetupAttachment(TowerMesh, FName("BaseAttachment"));
+	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
+	TurretMesh->SetupAttachment(TowerMesh, FName("BaseAttachment"));
 
 	TurretRangeSphere = CreateDefaultSubobject<USphereComponent>(TEXT("TurretRangeSphere"));
 	TurretRangeSphere->SetupAttachment(SceneRoot);
@@ -48,8 +48,8 @@ void ASBaseTower::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	TurretRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnInTurretRangeBeginOverlap);
-	TurretRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnInTurretRangeEndOverlap);
+	TurretRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTurretRangeSphereOverlap);
+	TurretRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTurretRangeSphereEndOverlap);
 }
 
 void ASBaseTower::BeginPlay()
@@ -66,37 +66,35 @@ void ASBaseTower::BeginPlay()
 	}
 }
 
-void ASBaseTower::OnInTurretRangeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ASBaseTower::OnTurretRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (!InRangeEnemies.Contains(OtherActor))
+	if (InRangeEnemies.Contains(OtherActor)) return;
+	
+	InRangeEnemies.Add(OtherActor);
+	if (InRangeEnemies.Num() == 1)
 	{
-		InRangeEnemies.Add(OtherActor);
-		if (InRangeEnemies.Num() == 1)
-		{
-			SetActorTickEnabled(true);
-			SetTurretLookAtEnemy(); // Calling this before FireTurret() so that projectile move in the correct direction
-			FireTurret();
-		}
+		SetActorTickEnabled(true);
+		SetTurretLookAtEnemy();
+		FireTurret();
 	}
 }
 
-void ASBaseTower::OnInTurretRangeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void ASBaseTower::OnTurretRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (InRangeEnemies.Contains(OtherActor))
+	if (!InRangeEnemies.Contains(OtherActor)) return;
+
+	InRangeEnemies.Remove(OtherActor);
+	if (InRangeEnemies.Num() == 0)
 	{
-		InRangeEnemies.Remove(OtherActor);
-		if (InRangeEnemies.Num() == 0)
-		{
-			SetActorTickEnabled(false);
-			GetWorldTimerManager().ClearTimer(FireCooldownTimer);
-		}
+		SetActorTickEnabled(false);
+		GetWorldTimerManager().ClearTimer(FireCooldownTimer);
 	}
 }
 void ASBaseTower::SetTurretLookAtEnemy()
 {
-	FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(Turret->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());
+	FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());
 
-	Turret->SetWorldRotation(FRotator(0.f, TurretLookAtEnemyRotation.Yaw, 0.f));
+	TurretMesh->SetWorldRotation(FRotator(0.f, TurretLookAtEnemyRotation.Yaw, 0.f));
 }
 
 void ASBaseTower::SpawnProjectilePool()
@@ -105,22 +103,60 @@ void ASBaseTower::SpawnProjectilePool()
 	{
 		ASProjectile* SpawnedProjectile = GetWorld()->SpawnActor<ASProjectile>(
 			ProjectileClass,
-			Turret->GetSocketTransform(FName("ProjectileFire"))
+			TurretMesh->GetSocketTransform(FName("ProjectileFire"))
 		);
 		
-		ProjectilePool.Add(SpawnedProjectile);
+		if (SpawnedProjectile) ProjectilePool.Add(SpawnedProjectile);
 	}
 }
 
-ASProjectile* ASBaseTower::FindProjectileFromPool()
+void ASBaseTower::FireTurret()
+{
+	/**
+	 * Not using as a smart pointer beacuse
+	 * - Since the pointer is not stored or referenced elsewhere
+	 * - Minimal overhead, as raw pointers most efficient access in performace critical sections like this
+	 * 
+	 * TObjectPtr can be used when it would have been used in multiple functions
+	 * TWeakObjectPtr as we are not destroying or deleting it here in this function
+	 */
+	ASProjectile* Projectile = nullptr;		
+
+	if (FindProjectileFromPool(Projectile))
+	{
+		if(Projectile) Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("ASBaseTower::FireTurret Projectile is nullptr"));
+			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASBaseTower::FireTurret Projectile is nullptr"));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("ASBaseTower::FireTurret Projectile pool is empty"));
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASBaseTower::FireTurret Projectile pool is empty"));
+	}
+
+	GetWorldTimerManager().ClearTimer(FireCooldownTimer);
+
+	GetWorldTimerManager().SetTimer(
+		FireCooldownTimer,
+		this,
+		&ASBaseTower::FireTurret,
+		FireRate
+	);
+}
+
+bool ASBaseTower::FindProjectileFromPool(ASProjectile*& InProjectileRef)
 {
 	for (ASProjectile* CurrProjectile : ProjectilePool)
 	{
 		if (!CurrProjectile->IsProjectileInUse())
 		{
-			return CurrProjectile;
+			InProjectileRef = CurrProjectile;
+			return true;
 		}
 	}
 
-	return nullptr;
+	return false;
 }

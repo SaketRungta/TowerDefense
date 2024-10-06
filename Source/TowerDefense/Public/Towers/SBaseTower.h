@@ -5,68 +5,110 @@
 #include "GameFramework/Actor.h"
 #include "SBaseTower.generated.h"
 
-UCLASS(Abstract, BlueprintType, ClassGroup = Tower)
+class USphereComponent;
+class ASProjectile;
+
+UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASBaseTower : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
+	/** Default constructor */
 	ASBaseTower();
 
+	/** Tick event */
 	virtual void Tick(float DeltaTime) override;
 
+	/** Called once all the components of the actor has been initialized */
 	virtual void PostInitializeComponents() override;
 
 protected:
+	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
+	/** Actor root component */
 	UPROPERTY(EditAnywhere, Category = Components)
-	USceneComponent* SceneRoot = nullptr;
+	TObjectPtr<USceneComponent> SceneRoot;
 
+	/** Base mesh of the tower */
 	UPROPERTY(EditAnywhere, Category = Components)
-	UStaticMeshComponent* TowerMesh = nullptr;
+	TObjectPtr<UStaticMeshComponent> TowerMesh;
 
+	/** Base mesh of the turret */
 	UPROPERTY(EditAnywhere, Category = Components)
-	UStaticMeshComponent* Turret = nullptr;
+	TObjectPtr<UStaticMeshComponent> TurretMesh;
 
+	/** Sphere which enforces the range of the turret */
 	UPROPERTY(EditAnywhere, Category = Components)
-	class USphereComponent* TurretRangeSphere = nullptr;
+	TObjectPtr<USphereComponent> TurretRangeSphere;
 
+	/** A plane static mesh which has the material that marks the range of the turret */
 	UPROPERTY(EditAnywhere, Category = Components)
-	UStaticMeshComponent* TurretRangeIndicatorMesh = nullptr;
+	TObjectPtr<UStaticMeshComponent> TurretRangeIndicatorMesh;
 
-	virtual void FireTurret() PURE_VIRTUAL(ASBaseTower::FireTurret);
+	/** Invoked from ASBaseTower::OnTurretRangeSphereOverlap when enemy is in range to fire the turret */
+	virtual void FireTurret();
 
-	class ASProjectile* FindProjectileFromPool();
+	/** 
+	 * Returns true if there is any projectile in the pool
+	 * 
+	 * @param InProjectileRef reference to the projectile variable that is passed along to be initialized by the first projectile that is not in use
+	 */
+	bool FindProjectileFromPool(ASProjectile*& InProjectileRef);
 
-	TArray<AActor*> InRangeEnemies = {};
+	/** 
+	 * Contains all the enemies currently in range of the turret 
+	 * 
+	 * Notes
+	 * - TweakObjectPtr as we are dynamically deleting the enemies so it will automatically set it to nullptr
+	 * - Validity can be checked at any moment
+	 * - Becomes the part of unreal's garbage collection system
+	 */
+	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
 
+	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTurretRangeSphereEndOverlap when no of enemies are 0 */
 	FTimerHandle FireCooldownTimer;
 
+	/** The projectile that has to be spawned by this class */
 	UPROPERTY(EditAnywhere, Category = Projectile)
 	TSubclassOf<ASProjectile> ProjectileClass;
 
-	UPROPERTY(EditAnywhere, Category = TowerBehaviour)
+	/** Intervals of time in which this turret can fire */
+	UPROPERTY(EditAnywhere, Category = TowerBehaviour, meta = (ClampMin = "0.1", ClampMax = "7"))
 	float FireRate = 3.f;
 
-	TArray<ASProjectile*> ProjectilePool = {};
+	/** 
+	 * Object pool that contains all the projectiles this turret has
+	 * 
+	 * Notes
+	 * - TObjectPtr will help in garbage collection as this in not associated with UPROPERTY()
+	 * - Efficient and safer alternative to raw pointers when dealing with UObjects
+	 * - TWeakObjectPtr is not used as we not planning to delete or destroy the projectiles
+	 */
+	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
 
 private:
-
+	/** Callback when any actor overlaps the TurretRangeSphere */
 	UFUNCTION()
-	void OnInTurretRangeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
-	UFUNCTION()
-	void OnInTurretRangeEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	void OnTurretRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	/** Callback when any actor ends overlap with the TurretRangeSphere */
+	UFUNCTION()
+	void OnTurretRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	/** Called from ASBaseTower::Tick, when any enemy is in range and turret need to point at that enemy */
 	void SetTurretLookAtEnemy();
 
+	/** Called from ASBaseTower::BeginPlay to spawn the pool of projectiles for this turret */
 	void SpawnProjectilePool();
 
+	/** Number of projectiles this pool can spawn */
+	UPROPERTY(EditAnywhere, Category = TowerBehaviour, meta = (ClampMin = "1", ClampMax = "15"))
 	uint32 ProjectilePoolSize = 5;
 
 public:
-
-	FORCEINLINE const UStaticMeshComponent* GetTurret() const { return Turret; }
+	/** Getter for the TurretMesh */
+	FORCEINLINE const UStaticMeshComponent* GetTurretMesh() const { return TurretMesh; }
 
 };

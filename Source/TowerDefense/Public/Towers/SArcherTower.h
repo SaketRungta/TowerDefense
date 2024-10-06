@@ -5,16 +5,9 @@
 #include "Towers/SBaseTower.h"
 #include "SArcherTower.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASArcherTower : public ASBaseTower
 {
 	GENERATED_BODY()
-
-protected:
-
-	virtual void FireTurret() override;
 
 };

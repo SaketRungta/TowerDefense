@@ -5,7 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "SUFO.generated.h"
 
-UCLASS(Abstract, BlueprintType, ClassGroup = Tower)
+UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASUFO : public AActor
 {
 	GENERATED_BODY()
@@ -18,7 +18,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = Components)
-	UStaticMeshComponent* UFOMesh = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> UFOMesh = nullptr;
 
 };

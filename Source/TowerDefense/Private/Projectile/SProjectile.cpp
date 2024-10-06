@@ -33,19 +33,19 @@ void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AAc
 	DeactivateThisObject();
 }
 
-void ASProjectile::ActivateThisObject(const ASBaseTower* OwningTower)
+void ASProjectile::ActivateThisObject(const FTransform& InFiringSocketTransform)
 {
-	TurretSocketTransform = OwningTower->GetTurret()->GetSocketTransform(FName("ProjectileFire"));
+	OwningTurretFiringSocketTransform = InFiringSocketTransform;
 
 	bIsInUse = true;
 
-	SetActorTransform(TurretSocketTransform);
+	SetActorTransform(OwningTurretFiringSocketTransform);
 
 	SetActorHiddenInGame(false);
 
 	SetActorEnableCollision(true);
 
-	ProjectileMovementComponent->Velocity = GetActorForwardVector() * 1500.f;
+	ProjectileMovementComponent->Velocity = GetActorForwardVector() * FiringSpeed;
 
 	GetWorldTimerManager().SetTimer(
 		DeactivateTimer,
@@ -53,7 +53,7 @@ void ASProjectile::ActivateThisObject(const ASBaseTower* OwningTower)
 		{
 			if (bIsInUse) DeactivateThisObject();
 		},
-		5.f,
+		DeactivationTime,
 		false
 		);
 }
@@ -68,7 +68,7 @@ void ASProjectile::DeactivateThisObject()
 
 	bIsInUse = false;
 
-	SetActorTransform(TurretSocketTransform);
+	SetActorTransform(OwningTurretFiringSocketTransform);
 
 	SetActorHiddenInGame(true);
 }

@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -13,9 +12,5 @@ UCLASS()
 class TOWERDEFENSE_API ASCanonTower : public ASBaseTower
 {
 	GENERATED_BODY()
-	
-protected:
-
-	virtual void FireTurret() override;
 
 };
