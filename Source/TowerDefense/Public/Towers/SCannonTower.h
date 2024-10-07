@@ -3,10 +3,10 @@
 
 #include "CoreMinimal.h"
 #include "Towers/SBaseTower.h"
-#include "SCanonTower.generated.h"
+#include "SCannonTower.generated.h"
 
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
-class TOWERDEFENSE_API ASCanonTower : public ASBaseTower
+class TOWERDEFENSE_API ASCannonTower : public ASBaseTower
 {
 	GENERATED_BODY()
 

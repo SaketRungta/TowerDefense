@@ -1,8 +1,8 @@
 
-#include "Towers/SCanonTower.h"
+#include "Towers/SCannonTower.h"
 #include "Projectile/SProjectile.h"
 
-void ASCanonTower::FireTurret()
+void ASCannonTower::FireTurret()
 {
 	Super::FireTurret();
 
