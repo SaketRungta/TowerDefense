@@ -59,7 +59,7 @@ private:
 
 public:
 	/** Getter for bIsInUse, true when projectile is in use or is active and cannot be used */
-	const bool IsProjectileInUse() const 
+	FORCEINLINE const bool IsProjectileInUse() const 
 	{ return bIsInUse; }
 
 	/** Time taken by the projectile to deactivate once activated, if the projectile does not hit the target then it will deactivate after given time */

@@ -5,10 +5,7 @@
 #include "Towers/SBaseTower.h"
 #include "SCanonTower.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASCanonTower : public ASBaseTower
 {
 	GENERATED_BODY()

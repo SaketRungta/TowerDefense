@@ -109,6 +109,7 @@ private:
 
 public:
 	/** Getter for the TurretMesh */
-	FORCEINLINE const UStaticMeshComponent* GetTurretMesh() const { return TurretMesh; }
+	FORCEINLINE const UStaticMeshComponent* GetTurretMesh() const 
+	{ return TurretMesh; }
 
 };
