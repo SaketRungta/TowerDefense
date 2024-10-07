@@ -6,6 +6,7 @@
 #include "SProjectile.generated.h"
 
 class ASBaseTower;
+class UProjectileMovementComponent;
 
 UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Projectile)
 class TOWERDEFENSE_API ASProjectile : public AActor
@@ -29,16 +30,16 @@ public:
 
 protected:
 	/** Root component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	UPROPERTY(EditAnywhere, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot;
 
 	/** Mesh of the projectile */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	UPROPERTY(EditAnywhere, Category = Components)
 	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
 	/** Projectile movement component to handle the projectile physics */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
-	TObjectPtr<class UProjectileMovementComponent> ProjectileMovementComponent;
+	UPROPERTY(EditAnywhere, Category = Components)
+	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;
 
 private:
 	/** Callback when the projectile mesh overlaps something */
@@ -63,10 +64,10 @@ public:
 	{ return bIsInUse; }
 
 	/** Time taken by the projectile to deactivate once activated, if the projectile does not hit the target then it will deactivate after given time */
-	UPROPERTY(EditAnywhere, Category = Behaviour, meta = (ClampMin = "0.1", ClampMax = "15"))
+	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "0.1", ClampMax = "15"))
 	float DeactivationTime = 5.f;
 
 	/** Speed at which the projectile can be fired */
-	UPROPERTY(EditAnywhere, Category = Behaviour, meta = (ClampMin = "500", ClampMax = "4500"))
+	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "4500"))
 	float FiringSpeed = 1500.f;
 };

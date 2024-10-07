@@ -1,10 +1,27 @@
 
-#include "Towers/SArcherTower.h"
+#include "Towers/SCatapultTower.h"
 #include "Projectile/SProjectile.h"
 
-void ASArcherTower::FireTurret()
+ASCatapultTower::ASCatapultTower()
+{
+	GetTurretMesh()->SetRelativeLocation(FVector(0.f, 0.f, 48.f));
+
+	TurretBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretBase"));
+	TurretBase->SetupAttachment(TowerMesh, FName("BaseAttachment"));
+}
+
+void ASCatapultTower::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	TurretBase->SetRelativeRotation(FRotator(0.f, GetTurretMesh()->GetComponentRotation().Yaw, 0.f));
+}
+
+void ASCatapultTower::FireTurret()
 {
 	Super::FireTurret();
+
+	FireCatapult();
 
 	/**
 	 * Not using as a smart pointer beacuse
@@ -13,7 +30,7 @@ void ASArcherTower::FireTurret()
 	 *
 	 * TObjectPtr can be used when it would have been used in multiple functions
 	 * TWeakObjectPtr as we are not destroying or deleting it here in this function
-	 */
+	 *//*
 	ASProjectile* Projectile = nullptr;
 
 	if (FindProjectileFromPool(Projectile))
@@ -29,5 +46,12 @@ void ASArcherTower::FireTurret()
 	{
 		UE_LOG(LogTemp, Error, TEXT("ASArcherTower::FireTurret Projectile pool is empty"));
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASArcherTower::FireTurret Projectile pool is empty"));
-	}
+	}*/
+}
+
+void ASCatapultTower::SetTurretMeshPitch(const float& InPitch)
+{
+	FRotator TurretMeshCurrentRotation = GetTurretMesh()->GetComponentRotation();
+	TurretMeshCurrentRotation.Pitch = InPitch;
+	GetTurretMesh()->SetWorldRotation(TurretMeshCurrentRotation);
 }
