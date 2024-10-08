@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "SUFO.generated.h"
 
+class USplineComponent;
+
 UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = UFO)
 class TOWERDEFENSE_API ASUFO : public AActor
 {
@@ -25,4 +27,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> UFOMesh = nullptr;
 
+public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void MoveAlongSplinePath(const USplineComponent* SplinePath);
 };

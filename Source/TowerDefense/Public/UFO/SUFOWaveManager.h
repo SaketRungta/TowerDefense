@@ -6,6 +6,7 @@
 #include "SUFOWaveManager.generated.h"
 
 class ASUFO;
+class ASUFOSplinePath;
 
 USTRUCT(BlueprintType)
 struct FWaveSpawnData
@@ -21,14 +22,14 @@ public:
 	uint32 SpawnCount = 0;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<AActor> Path;
+	TObjectPtr<ASUFOSplinePath> SplinePath;
 
 	UPROPERTY(EditAnywhere)
 	float SpawningRate = 3.f;
 
 };
 
-UCLASS()
+UCLASS(BlueprintType, BlueprintAble, Category = UFO)
 class TOWERDEFENSE_API ASUFOWaveManager : public AActor
 {
 	GENERATED_BODY()
