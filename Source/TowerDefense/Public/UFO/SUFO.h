@@ -28,6 +28,7 @@ protected:
 	TObjectPtr<UStaticMeshComponent> UFOMesh = nullptr;
 
 public:
+	/** Implemented in BP makes the UFO move along the designated spline path */
 	UFUNCTION(BlueprintImplementableEvent)
 	void MoveAlongSplinePath(const USplineComponent* SplinePath);
 };

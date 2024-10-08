@@ -8,6 +8,14 @@
 class ASUFO;
 class ASUFOSplinePath;
 
+/**
+ * Struct to contain the data related the wave to spawn
+ * 
+ * @param UFOToSpawn: Class of the UFO to spawn
+ * @param SpawnCount: Number of UFO to spawn
+ * @param SplinePath: Spline path class, returns the spline path this UFO has to follow
+ * @param SpawningRate: Time intervals in which UFO has to be spawned
+ ********************************************************************************************/
 USTRUCT(BlueprintType)
 struct FWaveSpawnData
 {
@@ -18,14 +26,35 @@ public:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ASUFO> UFOToSpawn;
 
-	UPROPERTY(EditAnywhere)
-	uint32 SpawnCount = 0;
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "1", ClampMax = "50"))
+	uint32 SpawnCount = 1;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<ASUFOSplinePath> SplinePath;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "10"))
 	float SpawningRate = 3.f;
+
+};
+
+/**
+ * Struct to cotain an array of wave spawn data
+ * 
+ * @param WaveData: Array of waves that are needed to be spawned currently all in one go
+ * 
+ * Notes:
+ * - We are reuired to spawn multiple waves in one go, so we needed an array of array
+ * - Unreal does not support such system so we have to make another struct
+ ********************************************************************************************/
+USTRUCT(BlueprintType)
+struct FWaveDataArray
+{
+	GENERATED_USTRUCT_BODY()
+
+public:
+
+	UPROPERTY(EditAnywhere)
+	TArray<FWaveSpawnData> WaveData;
 
 };
 
@@ -35,22 +64,41 @@ class TOWERDEFENSE_API ASUFOWaveManager : public AActor
 	GENERATED_BODY()
 	
 public:	
+	/** Default constructor */
 	ASUFOWaveManager();
 
 protected:
+	/** Begin play override */
 	virtual void BeginPlay() override;
 
+	/** Array containing the wave spawning data, to be set in BP */
 	UPROPERTY(EditAnywhere, Category = WaveData)
-	TArray<FWaveSpawnData> WaveSpawningData;
+	TArray<FWaveDataArray> WaveSpawningData;
+
+	/** Time Intervals in which waves have to be spawned */
+	UPROPERTY(EditAnywhere, Category = WaveData, meta = (ClampMin = "0.1", ClampMax = "10"))
+	float WavesSpawningRate = 3.f;
 
 private:
-	void StartSpawningNextWave();
+	/** Handles the functionality to spawn the next wave, called by ASUFOWaveManager::CompletedSpawningWave and BeginPlay */
+	void SpawnNextWave();
 
-	void SpawnUFOs();
+	/** Cheacks if the given wave data is valid, if true then calls SpawnUFOs to spawn the actual wave */
+	void CheckAndSpawnTheWaveWithGivenData(FWaveSpawnData& InWaveSpawnData);
 
-	int32 CurrentWaveIndex = -1;
+	/** Spawns the UFOs with the given data */
+	void SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned = 0);
 
-	uint32 CurrentWaveSpawnCount = 0;
+	/** Checks if all the waves have been spawned, if true then calls to spawn the next wave */
+	void CheckAndSpawnNextWave();
 
-	FTimerHandle SpawnTimer;
+	/** Index of the currently spawning wave */
+	uint32 CurrentWaveIndex = 0;
+
+	/** Total number of sub waves that are required to spawn in the current wave */
+	uint32 NumWavesToSpawn = 0;
+
+	/** Number of sub waves that have been spawned from the current wave */
+	uint32 NumWavesSpawned = 0;
+
 };

@@ -13,56 +13,96 @@ void ASUFOWaveManager::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	StartSpawningNextWave();
+	SpawnNextWave();
 }
 
-void ASUFOWaveManager::StartSpawningNextWave()
-{
-	CurrentWaveIndex += 1;
-
-	SpawnUFOs();
-}
-
-void ASUFOWaveManager::SpawnUFOs()
+void ASUFOWaveManager::SpawnNextWave()
 {
 	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex))
 	{
-		UE_LOG(LogTemp, Error, TEXT("<===ERROR===> ASUFOWaveManager::SpawnUFOs is not valid index: %d"), CurrentWaveIndex);
+		FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnNextWave WaveSpawningData is not valid index: %d"), CurrentWaveIndex);
+		UE_LOG(LogTemp, Error, TEXT("%s"), *Temp);
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Temp);
 		return;
 	}
 
-	if (CurrentWaveSpawnCount >= WaveSpawningData[CurrentWaveIndex].SpawnCount)
+	FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnNextWave Spawning new wave"));
+	UE_LOG(LogTemp, Log, TEXT("%s"), *Temp);
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Cyan, Temp);
+	
+	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
+
+	NumWavesToSpawn = CurrentWaveData.Num();
+
+	for (int32 i = 0; i < CurrentWaveData.Num(); i++)
 	{
-		CurrentWaveSpawnCount = 0;
-		StartSpawningNextWave();
+		CheckAndSpawnTheWaveWithGivenData(CurrentWaveData[i]);
+	}
+}
+
+void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(FWaveSpawnData& InWaveSpawnData)
+{
+	if (InWaveSpawnData.SpawnCount <= 0 || !InWaveSpawnData.UFOToSpawn->IsValidLowLevel() || !InWaveSpawnData.SplinePath->IsValidLowLevel())
+	{
+		FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnTheWaveWithGivenData UFOToSpawn/SplinePath is not valid or spawn count is zero"));
+		UE_LOG(LogTemp, Error, TEXT("%s"), *Temp);
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Temp);
+
+		CheckAndSpawnNextWave();
+
 		return;
 	}
 
-	if (!WaveSpawningData[CurrentWaveIndex].UFOToSpawn->IsValidLowLevel())
+	SpawnUFOs(InWaveSpawnData);
+}
+
+void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned)
+{
+	if (InNumUFOSpawned >= InWaveSpawnData.SpawnCount)
 	{
-		UE_LOG(LogTemp, Error, TEXT("<===ERROR===> ASUFOWaveManager::SpawnUFOs UFOToSpawn is not valid class index: %d"), CurrentWaveIndex);
+		CheckAndSpawnNextWave();
 		return;
 	}
 
 	ASUFO* SpawnedUFO = GetWorld()->SpawnActor<ASUFO>(
-		WaveSpawningData[CurrentWaveIndex].UFOToSpawn,
+		InWaveSpawnData.UFOToSpawn,
 		GetActorTransform()
 	);
 
-	if (SpawnedUFO && WaveSpawningData[CurrentWaveIndex].SplinePath->IsValidLowLevel())
+	if (SpawnedUFO && InWaveSpawnData.SplinePath->IsValidLowLevel())
 	{
-		SpawnedUFO->MoveAlongSplinePath(WaveSpawningData[CurrentWaveIndex].SplinePath->GetSplinePath());
+		SpawnedUFO->MoveAlongSplinePath(InWaveSpawnData.SplinePath->GetSplinePath());
 	}
 
-	CurrentWaveSpawnCount++;
+	InNumUFOSpawned += 1;
 
+	FTimerHandle SpawnTimer;
 	GetWorldTimerManager().SetTimer(
 		SpawnTimer,
-		this,
-		&ASUFOWaveManager::SpawnUFOs,
-		WaveSpawningData[CurrentWaveIndex].SpawningRate
+		[this, InWaveSpawnData, InNumUFOSpawned]()
+		{
+			SpawnUFOs(InWaveSpawnData, InNumUFOSpawned);
+		},
+		InWaveSpawnData.SpawningRate,
+		false
 	);
-
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString("ASUFOWaveManager::SpawnUFOs Spawned a UFO"));
 }
 
+void ASUFOWaveManager::CheckAndSpawnNextWave()
+{
+	NumWavesSpawned += 1;
+
+	if (NumWavesSpawned == NumWavesToSpawn)
+	{
+		CurrentWaveIndex += 1;
+		NumWavesSpawned = 0;
+
+		FTimerHandle SpawnNextWaveTimer;
+		GetWorldTimerManager().SetTimer(
+			SpawnNextWaveTimer,
+			this,
+			&ThisClass::SpawnNextWave,
+			WavesSpawningRate
+		);
+	}
+}
