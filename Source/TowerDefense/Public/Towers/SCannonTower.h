@@ -5,6 +5,10 @@
 #include "Towers/SBaseTower.h"
 #include "SCannonTower.generated.h"
 
+/**
+ * Cannon tower
+ * Fire single rapid shots dealing small amounts of damage
+ ********************************************************************************************/
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASCannonTower : public ASBaseTower
 {

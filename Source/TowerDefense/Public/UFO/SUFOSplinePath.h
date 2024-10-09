@@ -7,6 +7,10 @@
 
 class USplineComponent;
 
+/**
+ * Spline path that UFOs have to follow
+ * Can be set in the level itself and assigned to the wave manager for the UFO to follow
+ ********************************************************************************************/
 UCLASS(BlueprintType, BlueprintAble, Category = UFO)
 class TOWERDEFENSE_API ASUFOSplinePath : public AActor
 {

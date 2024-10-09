@@ -58,6 +58,10 @@ public:
 
 };
 
+/**
+ * Spawns waves of UFOs
+ * Data can be set from the level itself as every level waves will be custom
+ ********************************************************************************************/
 UCLASS(BlueprintType, BlueprintAble, Category = UFO)
 class TOWERDEFENSE_API ASUFOWaveManager : public AActor
 {
@@ -83,7 +87,7 @@ private:
 	/** Handles the functionality to spawn the next wave, called by ASUFOWaveManager::CompletedSpawningWave and BeginPlay */
 	void SpawnNextWave();
 
-	/** Cheacks if the given wave data is valid, if true then calls SpawnUFOs to spawn the actual wave */
+	/** Checks if the given wave data is valid, if true then calls SpawnUFOs to spawn the actual wave */
 	void CheckAndSpawnTheWaveWithGivenData(FWaveSpawnData& InWaveSpawnData);
 
 	/** Spawns the UFOs with the given data */

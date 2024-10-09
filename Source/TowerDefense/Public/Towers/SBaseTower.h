@@ -8,6 +8,12 @@
 class USphereComponent;
 class ASProjectile;
 
+/**
+ * Base class for tower
+ * Base class for the child towers to derive from
+ * Handles most of the functionality of tower
+ * Firing is overloaded in child class
+ ********************************************************************************************/
 UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASBaseTower : public AActor
 {

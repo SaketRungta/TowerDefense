@@ -5,6 +5,11 @@
 #include "Towers/SBaseTower.h"
 #include "SCatapultTower.generated.h"
 
+/**
+ * Catapult tower
+ * Fires single shot dealing huge damage in area
+ * Slow but powerful deals
+ ********************************************************************************************/
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASCatapultTower : public ASBaseTower
 {

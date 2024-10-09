@@ -5,6 +5,10 @@
 #include "Towers/SBaseTower.h"
 #include "SMachineGunTower.generated.h"
 
+/**
+ * Machine gun tower
+ * Fires rapid rounds dealing small damage to UFOs
+ ********************************************************************************************/
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASMachineGunTower : public ASBaseTower
 {
