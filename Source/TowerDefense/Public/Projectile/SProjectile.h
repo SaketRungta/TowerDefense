@@ -28,7 +28,8 @@ public:
 	 * Called by the tower which has spwaned this projectile to activate it
 	 * This projectile will be a part of the towers object pool system meaning it will deactivated by default
 	 * Therefore it will need to be activated by tower when required
-	 * @param InFiringSocketTransform
+	 * 
+	 * @param InFiringSocketTransform socket transform of the turret projectile firing location
 	 */
 	void ActivateThisObject(const FTransform& InFiringSocketTransform);
 

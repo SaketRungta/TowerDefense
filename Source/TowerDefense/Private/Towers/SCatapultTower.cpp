@@ -8,6 +8,9 @@ ASCatapultTower::ASCatapultTower()
 
 	TurretBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretBase"));
 	TurretBase->SetupAttachment(TowerMesh, FName("BaseAttachment"));
+
+	CatapultProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CatapultProjectileMesh"));
+	CatapultProjectileMesh->SetupAttachment(GetTurretMesh(), FName("ProjectileFire"));
 }
 
 void ASCatapultTower::Tick(float DeltaTime)
@@ -22,6 +25,18 @@ void ASCatapultTower::FireTurret()
 	Super::FireTurret();
 
 	FireCatapult();
+}
+
+void ASCatapultTower::SetTurretMeshPitch(const float& InPitch)
+{
+	FRotator TurretMeshCurrentRotation = GetTurretMesh()->GetComponentRotation();
+	TurretMeshCurrentRotation.Pitch = InPitch;
+	GetTurretMesh()->SetWorldRotation(TurretMeshCurrentRotation);
+}
+
+void ASCatapultTower::FireProjectile()
+{
+	CatapultProjectileMesh->SetHiddenInGame(true);
 
 	/**
 	 * Not using as a smart pointer beacuse
@@ -30,7 +45,7 @@ void ASCatapultTower::FireTurret()
 	 *
 	 * TObjectPtr can be used when it would have been used in multiple functions
 	 * TWeakObjectPtr as we are not destroying or deleting it here in this function
-	 *//*
+	 */
 	ASProjectile* Projectile = nullptr;
 
 	if (FindProjectileFromPool(Projectile))
@@ -38,7 +53,7 @@ void ASCatapultTower::FireTurret()
 		if (Projectile) Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
 		else
 		{
-			UE_LOG(LogTemp, Error, TEXT("ASArcherTower::FireTurret Projectile is nullptr"));
+			UE_LOG(LogTemp, Error, TEXT("ASCatapultTower::FireTurret Projectile is nullptr"));
 			GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASArcherTower::FireTurret Projectile is nullptr"));
 		}
 	}
@@ -46,12 +61,5 @@ void ASCatapultTower::FireTurret()
 	{
 		UE_LOG(LogTemp, Error, TEXT("ASArcherTower::FireTurret Projectile pool is empty"));
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASArcherTower::FireTurret Projectile pool is empty"));
-	}*/
-}
-
-void ASCatapultTower::SetTurretMeshPitch(const float& InPitch)
-{
-	FRotator TurretMeshCurrentRotation = GetTurretMesh()->GetComponentRotation();
-	TurretMeshCurrentRotation.Pitch = InPitch;
-	GetTurretMesh()->SetWorldRotation(TurretMeshCurrentRotation);
+	}
 }
