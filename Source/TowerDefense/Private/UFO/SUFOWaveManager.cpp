@@ -25,11 +25,13 @@ void ASUFOWaveManager::SpawnNextWave()
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Temp);
 		return;
 	}
-
+	
+	/*
 	FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnNextWave Spawning new wave"));
 	UE_LOG(LogTemp, Log, TEXT("%s"), *Temp);
 	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Cyan, Temp);
-	
+	*/
+
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
 	NumWavesToSpawn = CurrentWaveData.Num();
