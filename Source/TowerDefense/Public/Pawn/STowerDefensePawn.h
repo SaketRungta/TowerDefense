@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Interface/SPlayerPawnInterface.h"
 #include "STowerDefensePawn.generated.h"
 
 class UCameraComponent;
@@ -15,7 +16,7 @@ struct FInputActionValue;
  * Pawn class containing the camera and handles the input 
  ********************************************************************************************/
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Projectile)
-class TOWERDEFENSE_API ASTowerDefensePawn : public APawn
+class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISPlayerPawnInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,8 @@ public:
 
 	/** Setups the input and related callbacks for each input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) override;
 
 protected:
 	/** Begin play override */
@@ -77,4 +80,6 @@ private:
 	float CameraPanSpeed = 0.01f;
 
 #pragma endregion CameraPanning
+
+	TWeakObjectPtr<ASTowerSite> LastActiveTowerSite;
 };

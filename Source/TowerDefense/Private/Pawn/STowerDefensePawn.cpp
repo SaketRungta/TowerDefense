@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Interactions/STowerSite.h"
 
 ASTowerDefensePawn::ASTowerDefensePawn()
 {
@@ -45,12 +46,32 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
+void ASTowerDefensePawn::SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite)
+{
+	if (LastActiveTowerSite.IsValid())
+	{
+		LastActiveTowerSite->DeactivateTowerSite();
+	}
+	LastActiveTowerSite = CurrentlyActiveTowerSite;
+}
+
 void ASTowerDefensePawn::BeginPlay()
 {
 	Super::BeginPlay();
 
 	SetActorTickEnabled(false);
 	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+
+	if (PlayerController.IsValid())
+	{
+		FInputModeGameOnly InputModeData;
+		InputModeData.SetConsumeCaptureMouseDown(false);
+		PlayerController->SetInputMode(InputModeData);
+
+		PlayerController->SetShowMouseCursor(true);
+		PlayerController->bEnableClickEvents = true;
+		PlayerController->bEnableMouseOverEvents = true;
+	}
 }
 
 void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value)
