@@ -5,6 +5,8 @@
 #include "GameFramework/Actor.h"
 #include "STowerSite.generated.h"
 
+class UWidgetComponent;
+
 UCLASS(BlueprintAble, BlueprintType, ClassGroup = Interactions)
 class TOWERDEFENSE_API ASTowerSite : public AActor
 {
@@ -20,15 +22,22 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void SetMaterial(int Index);
-
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, Category = Components)
+	TObjectPtr<USceneComponent> SceneRoot;
+
+	UPROPERTY(EditAnywhere, Category = Components)
 	TObjectPtr<UStaticMeshComponent> TowerSiteMesh;
+
+	UPROPERTY(EditAnywhere, Category = Components)
+	TObjectPtr<UWidgetComponent> WidgetComponent;
 
 	UFUNCTION()
 	void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
 
 	TWeakObjectPtr<APawn> PlayerPawn;
+
+public:
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UStaticMeshComponent* GetTowerSiteMesh() const { return TowerSiteMesh; }
 };
