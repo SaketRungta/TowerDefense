@@ -12,7 +12,7 @@ class UProjectileMovementComponent;
  * Base projectile class
  * All projectiles derive from this class it is manually activated by tower
  ********************************************************************************************/
-UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Projectile)
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup = Projectile)
 class TOWERDEFENSE_API ASProjectile : public AActor
 {
 	GENERATED_BODY()

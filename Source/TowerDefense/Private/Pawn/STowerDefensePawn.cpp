@@ -43,6 +43,8 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	{
 		EnhancedInputComponent->BindAction(RightMouseButtonAction, ETriggerEvent::Started, this, &ThisClass::OnRightMouseButtonAction);
 		EnhancedInputComponent->BindAction(RightMouseButtonAction, ETriggerEvent::Completed, this, &ThisClass::OnRightMouseButtonAction);
+
+		EnhancedInputComponent->BindAction(LeftMouseButtonAction, ETriggerEvent::Started, this, &ThisClass::OnLeftMouseButtonAction);
 	}
 }
 
@@ -79,10 +81,22 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 	bIsPanning = Value.Get<bool>();
 	if (bIsPanning)
 	{
+		SetCurrentlyActiveTowerSite(nullptr);
 		PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
-		PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
+		if(PlayerController.IsValid()) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
 	}
 	SetActorTickEnabled(Value.Get<bool>());
+}
+
+void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
+{
+	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+	if (PlayerController.IsValid())
+	{
+		FHitResult HitResult;
+		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
+		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite"))) SetCurrentlyActiveTowerSite(nullptr);
+	}
 }
 
 void ASTowerDefensePawn::CameraPanImplementation()

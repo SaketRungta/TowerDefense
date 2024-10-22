@@ -9,7 +9,7 @@
  * Cannon tower
  * Fire single rapid shots dealing small amounts of damage
  ********************************************************************************************/
-UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
+UCLASS(Blueprintable, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASCannonTower : public ASBaseTower
 {
 	GENERATED_BODY()

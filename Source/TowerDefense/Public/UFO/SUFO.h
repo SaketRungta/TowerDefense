@@ -11,7 +11,7 @@ class USplineComponent;
  * Base UFO class
  * UFO for the towers to shoot at
  ********************************************************************************************/
-UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = UFO)
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup = UFO)
 class TOWERDEFENSE_API ASUFO : public AActor
 {
 	GENERATED_BODY()

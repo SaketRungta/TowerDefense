@@ -15,7 +15,7 @@ struct FInputActionValue;
  * Main pawn class
  * Pawn class containing the camera and handles the input 
  ********************************************************************************************/
-UCLASS(BlueprintAble, BlueprintType, ClassGroup = Projectile)
+UCLASS(Blueprintable, BlueprintType, ClassGroup = Projectile)
 class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISPlayerPawnInterface
 {
 	GENERATED_BODY()
@@ -33,15 +33,20 @@ public:
 	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) override;
 
 protected:
-	/** Begin play override */
+	/**
+	 * Begin play override
+	 * Intializes the player controller
+	 * Set the input mode to game
+	 * Enables all the mouse bools like click and mouse over events
+	 */
 	virtual void BeginPlay() override;
 
 	/** Scene root component for this object */
-	UPROPERTY(EditAnywhere, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TObjectPtr<USceneComponent> SceneRoot;
 
 	/** Main camera for the pawn to render to viewport */
-	UPROPERTY(EditAnywhere, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> CameraComponent;
 
 private:
@@ -49,15 +54,22 @@ private:
 #pragma region Input
 
 	/** Default input mapping context for this pawn */
-	UPROPERTY(EditAnywhere, Category = "Input")
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
-	/** Input action for the any button press and release */
-	UPROPERTY(EditAnywhere, Category = "Input")
+	/** Input action for the right mouse button press and release */
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> RightMouseButtonAction;
+
+	/** Input action for the left mouse button press and release */
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> LeftMouseButtonAction;
 
 	/** Called when right mouse button is pressed or released */
 	void OnRightMouseButtonAction(const FInputActionValue& Value);
+
+	/** Called when right mouse button is pressed, checks if the left mouse button is not pressed on tower site if true then deactivates any active tower site */
+	void OnLeftMouseButtonAction(const FInputActionValue& Value);
 
 #pragma endregion Input
 

@@ -62,7 +62,7 @@ public:
  * Spawns waves of UFOs
  * Data can be set from the level itself as every level waves will be custom
  ********************************************************************************************/
-UCLASS(BlueprintType, BlueprintAble, Category = UFO)
+UCLASS(BlueprintType, Blueprintable, Category = UFO)
 class TOWERDEFENSE_API ASUFOWaveManager : public AActor
 {
 	GENERATED_BODY()

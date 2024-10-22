@@ -9,7 +9,7 @@
  * Archer tower
  * Fires fast and rapid shots dealing good damage but expensive to buy
  ********************************************************************************************/
-UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
+UCLASS(Blueprintable, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASArcherTower : public ASBaseTower
 {
 	GENERATED_BODY()

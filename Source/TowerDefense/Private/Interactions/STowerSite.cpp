@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Interface/SPlayerPawnInterface.h"
 #include "Components/WidgetComponent.h"
+#include "UI/STurretSelectionMenu.h"
 
 ASTowerSite::ASTowerSite()
 {
@@ -18,6 +19,9 @@ ASTowerSite::ASTowerSite()
 	WidgetComponent->SetupAttachment(SceneRoot);
 	WidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
 	WidgetComponent->SetDrawSize(FVector2D(375.f, 375.f));
+	WidgetComponent->SetHiddenInGame(true);
+
+	Tags.Add(FName(TEXT("TowerSite")));
 }
 
 void ASTowerSite::PostInitializeComponents()
@@ -29,6 +33,20 @@ void ASTowerSite::PostInitializeComponents()
 
 void ASTowerSite::DeactivateTowerSite()
 {
+	TurretSelectionMenu = TurretSelectionMenu.IsValid() == true ? TurretSelectionMenu : Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
+	if (TurretSelectionMenu.IsValid())
+	{
+		TurretSelectionMenu->PlayPopInAnimation(true);
+	}
+	FTimerHandle PopInAnimFinishTimer;
+	GetWorld()->GetTimerManager().SetTimer(
+		PopInAnimFinishTimer,
+		[this]() {
+			WidgetComponent->SetHiddenInGame(true);
+		},
+		WidgetPopInAnimPlayDuration,
+		false
+	);
 }
 
 void ASTowerSite::BeginPlay()
@@ -36,22 +54,24 @@ void ASTowerSite::BeginPlay()
 	Super::BeginPlay();
 	
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	WidgetComponent->GetWidget();
+	TurretSelectionMenu = Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
 }
 
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {	
-	UE_LOG(LogTemp, Warning, TEXT("ASTowerSite::OnTowerSiteMeshClicked"));
 	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	if (PlayerPawn.IsValid())
 	{
 		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
 		{
-			ISPlayerPawnInterface* PlayerPawnInterface = Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface)
-			{
-				PlayerPawnInterface->SetCurrentlyActiveTowerSite(this);
-			}
+			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
+			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlyActiveTowerSite(this);
 		}
+	}
+	WidgetComponent->SetHiddenInGame(false);
+	TurretSelectionMenu = TurretSelectionMenu.IsValid() == true ? TurretSelectionMenu : Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
+	if (TurretSelectionMenu.IsValid())
+	{
+		TurretSelectionMenu->PlayPopInAnimation();
 	}
 }

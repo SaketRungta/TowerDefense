@@ -10,7 +10,7 @@
  * Fires single shot dealing huge damage in area
  * Slow but powerful deals
  ********************************************************************************************/
-UCLASS(BlueprintAble, BlueprintType, ClassGroup = Tower)
+UCLASS(Blueprintable, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASCatapultTower : public ASBaseTower
 {
 	GENERATED_BODY()

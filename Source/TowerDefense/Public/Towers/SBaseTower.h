@@ -14,7 +14,7 @@ class ASProjectile;
  * Handles most of the functionality of tower
  * Firing is overloaded in child class
  ********************************************************************************************/
-UCLASS(Abstract, BlueprintAble, BlueprintType, ClassGroup = Tower)
+UCLASS(Abstract, Blueprintable, BlueprintType, ClassGroup = Tower)
 class TOWERDEFENSE_API ASBaseTower : public AActor
 {
 	GENERATED_BODY()
