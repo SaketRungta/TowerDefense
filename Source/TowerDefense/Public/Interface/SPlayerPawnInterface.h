@@ -18,5 +18,9 @@ class TOWERDEFENSE_API ISPlayerPawnInterface
 	GENERATED_BODY()
 
 public:
+	/** 
+	 * Sets the currenlty active tower site in player pawn class and deactivates the last active site if there was any 
+	 * Called from ASTowerSite::OnActorClicked
+	 */
 	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) = 0;
 };

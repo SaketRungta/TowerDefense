@@ -30,6 +30,7 @@ public:
 	/** Setups the input and related callbacks for each input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	/** Called from ASTowerSite::OnActorClicked to let this class know a new site has been activated */
 	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) override;
 
 protected:
@@ -41,6 +42,7 @@ protected:
 	 */
 	virtual void BeginPlay() override;
 
+private:
 	/** Scene root component for this object */
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TObjectPtr<USceneComponent> SceneRoot;
@@ -48,8 +50,6 @@ protected:
 	/** Main camera for the pawn to render to viewport */
 	UPROPERTY(EditDefaultsOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> CameraComponent;
-
-private:
 
 #pragma region Input
 
@@ -68,7 +68,7 @@ private:
 	/** Called when right mouse button is pressed or released */
 	void OnRightMouseButtonAction(const FInputActionValue& Value);
 
-	/** Called when right mouse button is pressed, checks if the left mouse button is not pressed on tower site if true then deactivates any active tower site */
+	/** Called when left mouse button is pressed, checks if the left mouse button is not pressed on tower site if true then deactivates any active tower site */
 	void OnLeftMouseButtonAction(const FInputActionValue& Value);
 
 #pragma endregion Input
@@ -93,5 +93,9 @@ private:
 
 #pragma endregion CameraPanning
 
+	/** 
+	 * Stores the tower which was active before a new one is activated nullptr if all sites were deactivated 
+	 * Helps to deactivate the last acitve site if any new site is clicked
+	 */
 	TWeakObjectPtr<ASTowerSite> LastActiveTowerSite;
 };

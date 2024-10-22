@@ -20,9 +20,9 @@ public:
 	/** Default constructor */
 	ASUFOSplinePath();
 
-protected:
+private:
 	/** Spline component for the UFO to follow */
-	UPROPERTY(EditAnywhere, category = Components)
+	UPROPERTY(EditDefaultsOnly, category = Components)
 	TObjectPtr<USplineComponent> Spline;
 
 public:

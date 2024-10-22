@@ -27,8 +27,9 @@ protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
+private:
 	/** Main mesh of the UFO also acts as root component */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Components)
+	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> UFOMesh = nullptr;
 
 public:

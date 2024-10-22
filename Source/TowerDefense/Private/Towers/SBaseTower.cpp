@@ -17,18 +17,18 @@ ASBaseTower::ASBaseTower()
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
 	TurretMesh->SetupAttachment(TowerMesh, FName("BaseAttachment"));
 
-	TurretRangeSphere = CreateDefaultSubobject<USphereComponent>(TEXT("TurretRangeSphere"));
-	TurretRangeSphere->SetupAttachment(SceneRoot);
-	TurretRangeSphere->SetSphereRadius(50.f);
-	TurretRangeSphere->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
+	TowerRangeSphere = CreateDefaultSubobject<USphereComponent>(TEXT("TowerRangeSphere"));
+	TowerRangeSphere->SetupAttachment(SceneRoot);
+	TowerRangeSphere->SetSphereRadius(50.f);
+	TowerRangeSphere->SetRelativeLocation(FVector(0.f, 0.f, 50.f));
 
-	TurretRangeIndicatorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretRangeIndicatorMesh"));
-	TurretRangeIndicatorMesh->SetupAttachment(TurretRangeSphere);
-	TurretRangeIndicatorMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	TowerRangeIndicatorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TowerRangeIndicatorMesh"));
+	TowerRangeIndicatorMesh->SetupAttachment(TowerRangeSphere);
+	TowerRangeIndicatorMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	{
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
-		TurretRangeIndicatorMesh->SetStaticMesh(asset.Object);
+		TowerRangeIndicatorMesh->SetStaticMesh(asset.Object);
 	}	
 }
 
@@ -43,8 +43,8 @@ void ASBaseTower::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	TurretRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTurretRangeSphereOverlap);
-	TurretRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTurretRangeSphereEndOverlap);
+	TowerRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereOverlap);
+	TowerRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereEndOverlap);
 }
 
 void ASBaseTower::BeginPlay()
@@ -61,7 +61,7 @@ void ASBaseTower::BeginPlay()
 	}
 }
 
-void ASBaseTower::OnTurretRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (InRangeEnemies.Contains(OtherActor)) return;
 	
@@ -74,7 +74,7 @@ void ASBaseTower::OnTurretRangeSphereOverlap(UPrimitiveComponent* OverlappedComp
 	}
 }
 
-void ASBaseTower::OnTurretRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (!InRangeEnemies.Contains(OtherActor)) return;
 
@@ -85,6 +85,7 @@ void ASBaseTower::OnTurretRangeSphereEndOverlap(UPrimitiveComponent* OverlappedC
 		GetWorldTimerManager().ClearTimer(FireCooldownTimer);
 	}
 }
+
 void ASBaseTower::SetTurretLookAtEnemy()
 {
 	FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());

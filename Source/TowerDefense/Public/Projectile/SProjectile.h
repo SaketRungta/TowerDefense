@@ -33,20 +33,19 @@ public:
 	 */
 	void ActivateThisObject(const FTransform& InFiringSocketTransform);
 
-protected:
+private:
 	/** Root component */
-	UPROPERTY(EditAnywhere, Category = Components)
+	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot;
 
 	/** Mesh of the projectile */
-	UPROPERTY(EditAnywhere, Category = Components)
+	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
 	/** Projectile movement component to handle the projectile physics */
-	UPROPERTY(EditAnywhere, Category = Components)
+	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;
 
-private:
 	/** Callback when the projectile mesh overlaps something */
 	UFUNCTION()
 	void OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

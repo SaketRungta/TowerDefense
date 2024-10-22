@@ -33,27 +33,7 @@ protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
-	/** Actor root component */
-	UPROPERTY(EditAnywhere, Category = Components)
-	TObjectPtr<USceneComponent> SceneRoot;
-
-	/** Base mesh of the tower */
-	UPROPERTY(EditAnywhere, Category = Components)
-	TObjectPtr<UStaticMeshComponent> TowerMesh;
-
-	/** Base mesh of the turret */
-	UPROPERTY(EditAnywhere, Category = Components)
-	TObjectPtr<UStaticMeshComponent> TurretMesh;
-
-	/** Sphere which enforces the range of the turret */
-	UPROPERTY(EditAnywhere, Category = Components)
-	TObjectPtr<USphereComponent> TurretRangeSphere;
-
-	/** A plane static mesh which has the material that marks the range of the turret */
-	UPROPERTY(EditAnywhere, Category = Components)
-	TObjectPtr<UStaticMeshComponent> TurretRangeIndicatorMesh;
-
-	/** Invoked from ASBaseTower::OnTurretRangeSphereOverlap when enemy is in range to fire the turret */
+	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual void FireTurret();
 
 	/** 
@@ -73,7 +53,7 @@ protected:
 	 */
 	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
 
-	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTurretRangeSphereEndOverlap when no of enemies are 0 */
+	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
 	FTimerHandle FireCooldownTimer;
 
 	/** The projectile that has to be spawned by this class */
@@ -95,13 +75,33 @@ protected:
 	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
 
 private:
-	/** Callback when any actor overlaps the TurretRangeSphere */
-	UFUNCTION()
-	void OnTurretRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	/** Actor root component */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<USceneComponent> SceneRoot;
 
-	/** Callback when any actor ends overlap with the TurretRangeSphere */
+	/** Base mesh of the tower */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> TowerMesh;
+
+	/** Base mesh of the turret */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> TurretMesh;
+
+	/** Sphere which enforces the range of the turret */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<USphereComponent> TowerRangeSphere;
+
+	/** A plane static mesh which has the material that marks the range of the turret */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> TowerRangeIndicatorMesh;
+
+	/** Callback when any actor overlaps the TowerRangeSphere */
 	UFUNCTION()
-	void OnTurretRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	void OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	/** Callback when any actor ends overlap with the TowerRangeSphere */
+	UFUNCTION()
+	void OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	/** Called from ASBaseTower::Tick, when any enemy is in range and turret need to point at that enemy */
 	void SetTurretLookAtEnemy();
@@ -118,4 +118,7 @@ public:
 	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const 
 	{ return TurretMesh; }
 
+	/** Getter for the TurretMesh */
+	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const
+	{ return TowerMesh; }
 };

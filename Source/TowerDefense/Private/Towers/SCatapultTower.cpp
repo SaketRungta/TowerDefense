@@ -7,7 +7,7 @@ ASCatapultTower::ASCatapultTower()
 	GetTurretMesh()->SetRelativeLocation(FVector(0.f, 0.f, 48.f));
 
 	TurretBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretBase"));
-	TurretBase->SetupAttachment(TowerMesh, FName("BaseAttachment"));
+	TurretBase->SetupAttachment(GetTowerMesh(), FName("BaseAttachment"));
 
 	CatapultProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CatapultProjectileMesh"));
 	CatapultProjectileMesh->SetupAttachment(GetTurretMesh(), FName("ProjectileFire"));
