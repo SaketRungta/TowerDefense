@@ -3,7 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Interface/SPlayerPawnInterface.h"
 #include "Components/WidgetComponent.h"
-#include "UI/STurretSelectionMenu.h"
+#include "UI/STowerSelectionMenu.h"
 
 ASTowerSite::ASTowerSite()
 {
@@ -33,10 +33,10 @@ void ASTowerSite::PostInitializeComponents()
 
 void ASTowerSite::DeactivateTowerSite()
 {
-	TurretSelectionMenu = TurretSelectionMenu.IsValid() == true ? TurretSelectionMenu : Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
-	if (TurretSelectionMenu.IsValid())
+	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
+	if (TowerSelectionMenu.IsValid())
 	{
-		TurretSelectionMenu->PlayPopInAnimation(true);
+		TowerSelectionMenu->PlayPopInAnimation(true);
 	}
 	FTimerHandle PopInAnimFinishTimer;
 	GetWorld()->GetTimerManager().SetTimer(
@@ -54,7 +54,7 @@ void ASTowerSite::BeginPlay()
 	Super::BeginPlay();
 	
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	TurretSelectionMenu = Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
+	TowerSelectionMenu = Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
 }
 
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
@@ -69,9 +69,9 @@ void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 		}
 	}
 	WidgetComponent->SetHiddenInGame(false);
-	TurretSelectionMenu = TurretSelectionMenu.IsValid() == true ? TurretSelectionMenu : Cast<USTurretSelectionMenu>(WidgetComponent->GetWidget());
-	if (TurretSelectionMenu.IsValid())
+	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
+	if (TowerSelectionMenu.IsValid())
 	{
-		TurretSelectionMenu->PlayPopInAnimation();
+		TowerSelectionMenu->PlayPopInAnimation();
 	}
 }

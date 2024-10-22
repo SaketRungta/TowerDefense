@@ -6,7 +6,7 @@
 #include "STowerSite.generated.h"
 
 class UWidgetComponent;
-class USTurretSelectionMenu;
+class USTowerSelectionMenu;
 class ISPlayerPawnInterface;
 
 /**
@@ -68,7 +68,7 @@ private:
 	TWeakObjectPtr<APawn> PlayerPawn;
 
 	/** Ref to the widget of the widget component for us to play the the pop in animation */
-	TWeakObjectPtr<USTurretSelectionMenu> TurretSelectionMenu;
+	TWeakObjectPtr<USTowerSelectionMenu> TowerSelectionMenu;
 
 	/** 
 	 * Interface ref of the player pawn class ASTowerDefensePawn
