@@ -84,8 +84,18 @@ private:
 	UPROPERTY(EditAnywhere, Category = Widget, meta = (AllowPrivateAccess = "true", ClampMin = "0.1", ClampMax = "1"))
 	float WidgetPopInAnimPlayDuration = 0.25f;
 
+	/**
+	 * True when the site is active
+	 * Helps to avoid end cursor overlap when widget is activated
+	 */
+	bool bIsSiteActive = false;
+
 public:
 	/** Getter for TowerSiteMesh */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UStaticMeshComponent* GetTowerSiteMesh() const { return TowerSiteMesh; }
+
+	/** Getter for bIsSiteActive */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool GetIsSiteActive() const { return bIsSiteActive; }
 };

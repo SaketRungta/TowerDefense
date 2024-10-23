@@ -34,10 +34,12 @@ void ASTowerSite::PostInitializeComponents()
 void ASTowerSite::DeactivateTowerSite()
 {
 	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
-	if (TowerSelectionMenu.IsValid())
-	{
-		TowerSelectionMenu->PlayPopInAnimation(true);
-	}
+	if (!TowerSelectionMenu.IsValid()) return;
+
+	TowerSelectionMenu->PlayPopInAnimation(true);
+	bIsSiteActive = false;
+	GetTowerSiteMesh()->SetScalarParameterValueOnMaterials(FName(TEXT("Emissivness")), 0.f);
+
 	FTimerHandle PopInAnimFinishTimer;
 	GetWorld()->GetTimerManager().SetTimer(
 		PopInAnimFinishTimer,
@@ -68,10 +70,12 @@ void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlyActiveTowerSite(this);
 		}
 	}
-	WidgetComponent->SetHiddenInGame(false);
+
 	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
-	if (TowerSelectionMenu.IsValid())
-	{
-		TowerSelectionMenu->PlayPopInAnimation();
-	}
+	if (!TowerSelectionMenu.IsValid()) return;
+
+	WidgetComponent->SetHiddenInGame(false);
+
+	TowerSelectionMenu->PlayPopInAnimation();
+	bIsSiteActive = true;
 }
