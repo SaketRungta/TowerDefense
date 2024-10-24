@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Interactions/BP_TowerSite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Interactions/BP_TowerSite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TurretSelectionMenu.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TurretSelectionMenu_Button.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Interactions/STowerSite.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Interactions/STowerSite.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2ntNr0ovc396acOQJnfn4T4AIhJ" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="" />
+      <created>1729788606638</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729788606638</updated>
+      <workItem from="1729788607714" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

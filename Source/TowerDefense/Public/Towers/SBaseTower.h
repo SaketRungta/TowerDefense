@@ -49,7 +49,7 @@ protected:
 	 * Notes
 	 * - TweakObjectPtr as we are dynamically deleting the enemies so it will automatically set it to nullptr
 	 * - Validity can be checked at any moment
-	 * - Becomes the part of unreal's garbage collection system
+	 * - Becomes the part of unreal garbage collection system
 	 */
 	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
 
@@ -70,7 +70,7 @@ protected:
 	 * Notes
 	 * - TObjectPtr will help in garbage collection as this in not associated with UPROPERTY()
 	 * - Efficient and safer alternative to raw pointers when dealing with UObjects
-	 * - TWeakObjectPtr is not used as we not planning to delete or destroy the projectiles
+	 * - TWeakObjectPtr is not used as we're not planning to delete or destroy the projectiles
 	 */
 	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
 

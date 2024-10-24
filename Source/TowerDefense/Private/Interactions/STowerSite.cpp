@@ -38,7 +38,7 @@ void ASTowerSite::DeactivateTowerSite()
 
 	TowerSelectionMenu->PlayPopInAnimation(true);
 	bIsSiteActive = false;
-	GetTowerSiteMesh()->SetScalarParameterValueOnMaterials(FName(TEXT("Emissivness")), 0.f);
+	GetTowerSiteMesh()->SetScalarParameterValueOnMaterials(FName(TEXT("Emissive")), 0.f);
 
 	FTimerHandle PopInAnimFinishTimer;
 	GetWorld()->GetTimerManager().SetTimer(
@@ -57,6 +57,7 @@ void ASTowerSite::BeginPlay()
 	
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	TowerSelectionMenu = Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
+	if (TowerSelectionMenu.IsValid()) TowerSelectionMenu->SetOwningTowerSite(this);
 }
 
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)

@@ -1,7 +1,6 @@
 
 #include "Projectile/SProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "Towers/SBaseTower.h"
 
 ASProjectile::ASProjectile()
 {
@@ -17,7 +16,6 @@ ASProjectile::ASProjectile()
 	ProjectileMovementComponent->MaxSpeed = 2800.f;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.f;
 
-	SetActorHiddenInGame(true);
 	SetActorEnableCollision(false);
 }
 
@@ -25,6 +23,7 @@ void ASProjectile::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
+	SetActorHiddenInGame(true);
 	ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ASProjectile::OnProjectileHit);
 }
 

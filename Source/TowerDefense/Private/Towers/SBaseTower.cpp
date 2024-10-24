@@ -63,7 +63,7 @@ void ASBaseTower::BeginPlay()
 
 void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (InRangeEnemies.Contains(OtherActor)) return;
+	if (InRangeEnemies.Contains(OtherActor) || !OtherActor->ActorHasTag(FName(TEXT("UFO")))) return;
 	
 	InRangeEnemies.Add(OtherActor);
 	if (InRangeEnemies.Num() == 1)

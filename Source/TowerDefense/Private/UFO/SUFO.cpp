@@ -7,6 +7,8 @@ ASUFO::ASUFO()
 
 	UFOMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UFOMesh"));
 	SetRootComponent(UFOMesh);
+
+	this->Tags.Add(FName(TEXT("UFO")));
 }
 
 void ASUFO::BeginPlay()

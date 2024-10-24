@@ -35,9 +35,9 @@ public:
 protected:
 	/** 
 	 * Begin play override
-	 * Intializes the player controller
+	 * Initializes the player controller
 	 * Set the input mode to game
-	 * Enables all the mouse bools like click and mouse over events
+	 * Enables all the mouse bool like click and mouse over events
 	 */
 	virtual void BeginPlay() override;
 
@@ -60,19 +60,19 @@ private:
 
 	/** 
 	 * Ref to the player pawn
-	 * Player pawn acts as the manager for the active tower site
-	 * If a tower site is active and user clicks on another tower then we need to deactive the last active tower
+	 * It acts as the manager for the active tower site
+	 * If a tower site is active and user clicks on another tower then we need to deactivate the last active tower
 	 * We also need to tell the pawn that we are now the active tower
 	 * We do it all using an interface to reduce calls so using APawn not ASTowerDefensePawn
 	 */
 	TWeakObjectPtr<APawn> PlayerPawn;
 
-	/** Ref to the widget of the widget component for us to play the the pop in animation */
+	/** Ref to the widget of the widget component for us to play the pop in animation */
 	TWeakObjectPtr<USTowerSelectionMenu> TowerSelectionMenu;
 
 	/** 
 	 * Interface ref of the player pawn class ASTowerDefensePawn
-	 * We will clicking multiple times on the same tower site
+	 * We will be clicking multiple times on the same tower site
 	 * To reduce casting everytime we click on the site we store it as a ref here
 	 */
 	ISPlayerPawnInterface* PlayerPawnInterface;

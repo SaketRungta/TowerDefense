@@ -101,14 +101,14 @@ void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 
 void ASTowerDefensePawn::CameraPanImplementation()
 {
-	FVector2D CurrentMousePostion;
+	FVector2D CurrentMousePosition;
 
 	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
-	if (PlayerController.IsValid()) PlayerController->GetMousePosition(CurrentMousePostion.X, CurrentMousePostion.Y);
+	if (PlayerController.IsValid()) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
 	
 	FVector DeltaLocation;
-	DeltaLocation.X = (InitialMousePosition.X - CurrentMousePostion.X) * CameraPanSpeed;
-	DeltaLocation.Y = (InitialMousePosition.Y - CurrentMousePostion.Y) * CameraPanSpeed;
+	DeltaLocation.X = (InitialMousePosition.X - CurrentMousePosition.X) * CameraPanSpeed;
+	DeltaLocation.Y = (InitialMousePosition.Y - CurrentMousePosition.Y) * CameraPanSpeed;
 
 	AddActorWorldOffset(DeltaLocation, true);
 }

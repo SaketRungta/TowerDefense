@@ -13,7 +13,7 @@ struct FInputActionValue;
 
 /**
  * Main pawn class
- * Pawn class containing the camera and handles the input 
+ * It contains the camera and handles the input 
  ********************************************************************************************/
 UCLASS(Blueprintable, BlueprintType, ClassGroup = Projectile)
 class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISPlayerPawnInterface
@@ -36,9 +36,9 @@ public:
 protected:
 	/**
 	 * Begin play override
-	 * Intializes the player controller
+	 * Initializes the player controller
 	 * Set the input mode to game
-	 * Enables all the mouse bools like click and mouse over events
+	 * Enables all the mouse bool like click and mouse over events
 	 */
 	virtual void BeginPlay() override;
 
@@ -73,7 +73,7 @@ private:
 
 #pragma endregion Input
 
-	/** Default player controller ref, used to setup the input mapping context and to get the mouse position when required */
+	/** Default player controller ref, used to set up the input mapping context and to get the mouse position when required */
 	TWeakObjectPtr<APlayerController> PlayerController;
 
 #pragma region CameraPanning
@@ -95,7 +95,7 @@ private:
 
 	/** 
 	 * Stores the tower which was active before a new one is activated nullptr if all sites were deactivated 
-	 * Helps to deactivate the last acitve site if any new site is clicked
+	 * Helps to deactivate the last active site if any new site is clicked
 	 */
 	TWeakObjectPtr<ASTowerSite> LastActiveTowerSite;
 };

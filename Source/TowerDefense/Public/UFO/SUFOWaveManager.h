@@ -38,12 +38,12 @@ public:
 };
 
 /**
- * Struct to cotain an array of wave spawn data
+ * Struct to contain an array of wave spawn data
  * 
  * @param WaveData: Array of waves that are needed to be spawned currently all in one go
  * 
  * Notes:
- * - We are reuired to spawn multiple waves in one go, so we needed an array of array
+ * - We are required to spawn multiple waves in one go, so we needed an array of array
  * - Unreal does not support such system so we have to make another struct
  ********************************************************************************************/
 USTRUCT(BlueprintType)
@@ -88,7 +88,7 @@ private:
 	void SpawnNextWave();
 
 	/** Checks if the given wave data is valid, if true then calls SpawnUFOs to spawn the actual wave */
-	void CheckAndSpawnTheWaveWithGivenData(FWaveSpawnData& InWaveSpawnData);
+	void CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& InWaveSpawnData);
 
 	/** Spawns the UFOs with the given data */
 	void SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned = 0);

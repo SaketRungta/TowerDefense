@@ -18,15 +18,15 @@ class TOWERDEFENSE_API ASProjectile : public AActor
 	GENERATED_BODY()
 	
 public:	
-	/** Default Contstructor */
+	/** Default Constructor */
 	ASProjectile();
 
 	/** Called when the components have been initialized */
 	virtual void PostInitializeComponents() override;
 
 	/** 
-	 * Called by the tower which has spwaned this projectile to activate it
-	 * This projectile will be a part of the towers object pool system meaning it will deactivated by default
+	 * Called by the tower which has spawned this projectile to activate it
+	 * This projectile will be a part of the towers object pool system meaning it will be deactivated by default
 	 * Therefore it will need to be activated by tower when required
 	 * 
 	 * @param InFiringSocketTransform socket transform of the turret projectile firing location
@@ -50,7 +50,7 @@ private:
 	UFUNCTION()
 	void OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	/** Called by ActivateThisObject via timer so that if the projectile is fired and it does not deactivates by htting a target it should still deactivate after sometime */
+	/** Called by ActivateThisObject via timer so that if the projectile is fired, and it does not deactivate by hitting a target it should still deactivate after sometime */
 	void DeactivateThisObject();
 
 	/** True when in use so that ASBaseTower::FindProjectileFromPool function can find the projectile which is not in use from the object pool */

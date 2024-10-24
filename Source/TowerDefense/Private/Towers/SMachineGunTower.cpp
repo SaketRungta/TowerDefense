@@ -19,7 +19,7 @@ void ASMachineGunTower::FireTurret()
 	if (FindProjectileFromPool(Projectile))
 	{
 		static uint32 TurretToFireFrom = 0;
-		FTransform ProjectileFireTransform = FTransform();
+		FTransform ProjectileFireTransform;
 
 		switch (TurretToFireFrom)
 		{
@@ -31,6 +31,10 @@ void ASMachineGunTower::FireTurret()
 			ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(FName("ProjectileFire_Right"));
 			TurretToFireFrom = 0;
 			break;
+		default:
+			ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(FName("ProjectileFire_Left"));
+			TurretToFireFrom = 1;
+			break;			
 		}
 
 		if (Projectile) Projectile->ActivateThisObject(ProjectileFireTransform);

@@ -42,7 +42,7 @@ void ASUFOWaveManager::SpawnNextWave()
 	}
 }
 
-void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(FWaveSpawnData& InWaveSpawnData)
+void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& InWaveSpawnData)
 {
 	if (InWaveSpawnData.SpawnCount <= 0 || !InWaveSpawnData.UFOToSpawn->IsValidLowLevel() || !InWaveSpawnData.SplinePath->IsValidLowLevel())
 	{

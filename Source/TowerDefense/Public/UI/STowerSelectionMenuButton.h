@@ -18,6 +18,19 @@ class TOWERDEFENSE_API USTowerSelectionMenuButton : public UUserWidget
 
 private:
 	/** Tower selection button */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Components, meta = (BindWidget, AllowPrivateAccess = "true"))
-	TObjectPtr<UButton> TurretButton;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Components, meta = (BindWidget, AllowPrivateAccess = "true"))
+	TObjectPtr<UButton> TowerButton;
+
+	/** Stores the price of the tower, set from WBP_TowerSelectionMenu */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Data, meta = (BindWidget, AllowPrivateAccess = "true", ClampMin = "100", ClampMax = "500"))
+	int32 TowerPrice = 100;
+
+public:
+	/** Getter for TurretButton */
+	FORCEINLINE UButton* GetTowerButton() const
+	{ return TowerButton; }
+
+	/** Getter for TowerPrice */
+	FORCEINLINE const int32 GetTowerPrice() const
+	{ return TowerPrice; }
 };
