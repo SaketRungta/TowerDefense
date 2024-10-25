@@ -74,6 +74,10 @@ protected:
 	 */
 	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
 
+	/** Sets the emissive value of materials when hovered/unhovered by the user */
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetTowerEmissiveValue(const float EmissiveValue = 0.f);
+	
 private:
 	/** Actor root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
@@ -95,6 +99,14 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> TowerRangeIndicatorMesh;
 
+	/** Callback when actor is hovered, range mesh is made visible and materials emissive value is increased */
+	UFUNCTION()
+	void OnActorBeginCursorOver(AActor* TouchedActor);
+
+	/** Callback when actor is unhovered, range mesh is hidden and materials emissive value is set to 0 */
+	UFUNCTION()
+	void OnActorEndCursorOver(AActor* TouchedActor);
+
 	/** Callback when any actor overlaps the TowerRangeSphere */
 	UFUNCTION()
 	void OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -115,10 +127,12 @@ private:
 
 public:
 	/** Getter for the TurretMesh */
-	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const 
-	{ return TurretMesh; }
-
-	/** Getter for the TurretMesh */
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const
 	{ return TowerMesh; }
+	
+	/** Getter for the TurretMesh */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const 
+	{ return TurretMesh; }
 };

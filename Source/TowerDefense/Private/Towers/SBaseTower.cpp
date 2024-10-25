@@ -25,6 +25,7 @@ ASBaseTower::ASBaseTower()
 	TowerRangeIndicatorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TowerRangeIndicatorMesh"));
 	TowerRangeIndicatorMesh->SetupAttachment(TowerRangeSphere);
 	TowerRangeIndicatorMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	TowerRangeIndicatorMesh->SetHiddenInGame(true);
 
 	{
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
@@ -45,6 +46,9 @@ void ASBaseTower::PostInitializeComponents()
 
 	TowerRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereOverlap);
 	TowerRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereEndOverlap);
+
+	OnBeginCursorOver.AddDynamic(this, &ASBaseTower::OnActorBeginCursorOver);
+	OnEndCursorOver.AddDynamic(this, &ASBaseTower::OnActorEndCursorOver);
 }
 
 void ASBaseTower::BeginPlay()
@@ -59,6 +63,18 @@ void ASBaseTower::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("ASBaseTower::BeginPlay ProjectileClass null"));
 		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASBaseTower::BeginPlay ProjectileClass null"));
 	}
+}
+
+void ASBaseTower::OnActorBeginCursorOver(AActor* TouchedActor)
+{
+	TowerRangeIndicatorMesh->SetHiddenInGame(false);
+	SetTowerEmissiveValue(0.5f);
+}
+
+void ASBaseTower::OnActorEndCursorOver(AActor* TouchedActor)
+{
+	TowerRangeIndicatorMesh->SetHiddenInGame(true);
+	SetTowerEmissiveValue(0.f);
 }
 
 void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

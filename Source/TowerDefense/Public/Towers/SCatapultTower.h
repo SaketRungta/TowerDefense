@@ -53,6 +53,11 @@ protected:
 public:
 	/** Getter for CatapultProjectileMesh */
 	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UStaticMeshComponent* GetTurretBase() const 
+	{ return TurretBase; }
+	
+	/** Getter for CatapultProjectileMesh */
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UStaticMeshComponent* GetCatapultProjectileMesh() const 
 	{ return CatapultProjectileMesh; }
 };

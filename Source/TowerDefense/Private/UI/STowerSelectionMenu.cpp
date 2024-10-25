@@ -34,6 +34,8 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 		SpawnTransform
 	);
 
+	OwningTowerSite->SetIsSiteDisabled(true);
+	
 	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : (UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	if (PlayerPawn.IsValid())
 	{

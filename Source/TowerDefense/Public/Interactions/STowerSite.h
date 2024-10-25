@@ -90,6 +90,9 @@ private:
 	 */
 	bool bIsSiteActive = false;
 
+	/**	True when site is disabled, when a tower is already placed on the site */
+	bool bIsSiteDisabled = false;
+	
 public:
 	/** Getter for TowerSiteMesh */
 	UFUNCTION(BlueprintCallable)
@@ -98,4 +101,11 @@ public:
 	/** Getter for bIsSiteActive */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE bool GetIsSiteActive() const { return bIsSiteActive; }
+	
+	/** Getter for bIsSiteDisabled */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE bool GetIsSiteDisabled() const { return bIsSiteDisabled; }
+	
+	/** Setter for bIsSiteDisabled */
+	FORCEINLINE void SetIsSiteDisabled(const bool Value) { bIsSiteDisabled = Value; }
 };

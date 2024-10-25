@@ -61,7 +61,9 @@ void ASTowerSite::BeginPlay()
 }
 
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
-{	
+{
+	if(bIsSiteDisabled) return;
+	
 	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	if (PlayerPawn.IsValid())
 	{
