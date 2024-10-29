@@ -66,7 +66,7 @@ void ASTowerDefensePawn::BeginPlay()
 	Super::BeginPlay();
 
 	SetActorTickEnabled(false);
-	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
 
 	if (PlayerController.IsValid())
 	{
@@ -87,7 +87,7 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 	{
 		SetCurrentlySelectedTowerSite(nullptr);
 		SetCurrentlySelectedTower(nullptr);
-		PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+		PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
 		if(PlayerController.IsValid()) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
 	}
 	SetActorTickEnabled(Value.Get<bool>());
@@ -95,7 +95,7 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 
 void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 {
-	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
 	if (PlayerController.IsValid())
 	{
 		FHitResult HitResult;
@@ -109,7 +109,7 @@ void ASTowerDefensePawn::CameraPanImplementation()
 {
 	FVector2D CurrentMousePosition;
 
-	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
+	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
 	if (PlayerController.IsValid()) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
 	
 	FVector DeltaLocation;

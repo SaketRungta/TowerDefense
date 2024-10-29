@@ -105,12 +105,14 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 	static APawn* PlayerPawn = nullptr;
 	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
 
-	if (!PlayerPawn || !PlayerPawn->IsValidLowLevel()) PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-
-	if (PlayerPawn && PlayerPawn->Implements<USPlayerPawnInterface>())
+	PlayerPawn = PlayerPawn->IsValidLowLevel() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn->IsValidLowLevel())
 	{
-		if (!PlayerPawnInterface) PlayerPawnInterface = Cast<ISPlayerPawnInterface>(PlayerPawn);
-		if (PlayerPawnInterface) PlayerPawnInterface->SetCurrentlySelectedTower(TempTower);
+		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
+		{
+			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
+			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTower(TempTower);
+		}
 	}
 	
 #pragma endregion InterfaceCall
