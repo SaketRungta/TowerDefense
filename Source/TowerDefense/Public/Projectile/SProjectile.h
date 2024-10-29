@@ -74,4 +74,5 @@ public:
 	/** Speed at which the projectile can be fired */
 	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "4500"))
 	float FiringSpeed = 1500.f;
+	
 };

@@ -3,6 +3,8 @@
 #include "Components/SphereComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Projectile/SProjectile.h"
+#include "Components/WidgetComponent.h"
+#include "Interface/SPlayerPawnInterface.h"
 
 ASBaseTower::ASBaseTower()
 {
@@ -27,10 +29,17 @@ ASBaseTower::ASBaseTower()
 	TowerRangeIndicatorMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	TowerRangeIndicatorMesh->SetHiddenInGame(true);
 
+	TowerSellingWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("TowerSellingWidget"));
+	TowerSellingWidget->SetupAttachment(SceneRoot);
+	TowerSellingWidget->SetRelativeLocation(FVector(0.f, 0.f, -100.f));
+	TowerSellingWidget->SetHiddenInGame(true);
+
 	{
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
 		TowerRangeIndicatorMesh->SetStaticMesh(asset.Object);
-	}	
+	}
+	
+	Tags.Add(FName("Tower"));
 }
 
 void ASBaseTower::Tick(float DeltaTime)
@@ -47,8 +56,16 @@ void ASBaseTower::PostInitializeComponents()
 	TowerRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereOverlap);
 	TowerRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereEndOverlap);
 
-	OnBeginCursorOver.AddDynamic(this, &ASBaseTower::OnActorBeginCursorOver);
-	OnEndCursorOver.AddDynamic(this, &ASBaseTower::OnActorEndCursorOver);
+	OnClicked.AddDynamic(this, &ASBaseTower::OnActorClicked);
+}
+
+void ASBaseTower::SetTowerToUnselected()
+{
+	TowerSellingWidget->SetHiddenInGame(true);
+	TowerRangeIndicatorMesh->SetHiddenInGame(true);
+	SetTowerEmissiveValue(0.f);
+
+	bIsTowerSelected = false;
 }
 
 void ASBaseTower::BeginPlay()
@@ -58,23 +75,46 @@ void ASBaseTower::BeginPlay()
 	SetActorTickEnabled(false);
 
 	if (ProjectileClass) SpawnProjectilePool();
+}
+
+void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
+{
+	ASBaseTower* TempTower;
+	
+	if(bIsTowerSelected)
+	{
+		TowerSellingWidget->SetHiddenInGame(true);
+		TowerRangeIndicatorMesh->SetHiddenInGame(true);
+		SetTowerEmissiveValue(0.f);
+
+		TempTower = nullptr;
+	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("ASBaseTower::BeginPlay ProjectileClass null"));
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString("ASBaseTower::BeginPlay ProjectileClass null"));
+		TowerSellingWidget->SetHiddenInGame(false);
+		TowerRangeIndicatorMesh->SetHiddenInGame(false);
+		SetTowerEmissiveValue(0.5f);
+
+		TempTower = this;
 	}
-}
+	
+	bIsTowerSelected = !bIsTowerSelected;
 
-void ASBaseTower::OnActorBeginCursorOver(AActor* TouchedActor)
-{
-	TowerRangeIndicatorMesh->SetHiddenInGame(false);
-	SetTowerEmissiveValue(0.5f);
-}
+#pragma region InterfaceCall
+	
+	static APawn* PlayerPawn = nullptr;
+	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
 
-void ASBaseTower::OnActorEndCursorOver(AActor* TouchedActor)
-{
-	TowerRangeIndicatorMesh->SetHiddenInGame(true);
-	SetTowerEmissiveValue(0.f);
+	if (!PlayerPawn || !PlayerPawn->IsValidLowLevel()) PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	if (PlayerPawn && PlayerPawn->Implements<USPlayerPawnInterface>())
+	{
+		if (!PlayerPawnInterface) PlayerPawnInterface = Cast<ISPlayerPawnInterface>(PlayerPawn);
+		if (PlayerPawnInterface) PlayerPawnInterface->SetCurrentlySelectedTower(TempTower);
+	}
+	
+#pragma endregion InterfaceCall
+	
 }
 
 void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

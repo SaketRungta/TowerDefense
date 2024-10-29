@@ -10,6 +10,7 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class ASBaseTower;
 
 /**
  * Main pawn class
@@ -30,9 +31,12 @@ public:
 	/** Setups the input and related callbacks for each input */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	/** Called from ASTowerSite::OnActorClicked to let this class know a new site has been activated */
-	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) override;
+	/** Called from ASTowerSite::OnActorClicked to set the currently selected tower site */
+	virtual void SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite) override;
 
+	/** Called from ASBaseTower::OnActorClicked to set the currently selected tower */
+	virtual void SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower) override;
+	
 protected:
 	/**
 	 * Begin play override
@@ -94,8 +98,16 @@ private:
 #pragma endregion CameraPanning
 
 	/** 
-	 * Stores the tower which was active before a new one is activated nullptr if all sites were deactivated 
-	 * Helps to deactivate the last active site if any new site is clicked
+	 * Stores the tower site which was selected by the user
+	 * When user selects a new tower site "SetCurrentlySelectedTowerSite" function sets the variable with newly selected tower site
+	 * If this tower site is unselected then it is set back to nullptr
 	 */
-	TWeakObjectPtr<ASTowerSite> LastActiveTowerSite;
+	TWeakObjectPtr<ASTowerSite> LastSelectedTowerSite;
+	
+	/** 
+	 * Stores the tower which was last selected by the user
+	 * When user selects a new tower "SetCurrentlySelectedTower" function sets the variable with newly selected tower
+	 * If this tower is unselected then it is set to nullptr
+	 */
+	TWeakObjectPtr<ASBaseTower> LastSelectedTower;
 };

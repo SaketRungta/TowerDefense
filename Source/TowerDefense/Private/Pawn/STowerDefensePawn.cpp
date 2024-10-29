@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Interactions/STowerSite.h"
+#include "Towers/SBaseTower.h"
 
 ASTowerDefensePawn::ASTowerDefensePawn()
 {
@@ -48,13 +49,16 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
-void ASTowerDefensePawn::SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite)
+void ASTowerDefensePawn::SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite)
 {
-	if (LastActiveTowerSite.IsValid())
-	{
-		LastActiveTowerSite->DeactivateTowerSite();
-	}
-	LastActiveTowerSite = CurrentlyActiveTowerSite;
+	if (LastSelectedTowerSite.IsValid()) LastSelectedTowerSite->SetTowerSiteToUnselected();
+	LastSelectedTowerSite = NewSelectedTowerSite;
+}
+
+void ASTowerDefensePawn::SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower)
+{
+	if (LastSelectedTower.IsValid()) LastSelectedTower->SetTowerToUnselected();
+	LastSelectedTower = NewSelectedTower;
 }
 
 void ASTowerDefensePawn::BeginPlay()
@@ -81,7 +85,8 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 	bIsPanning = Value.Get<bool>();
 	if (bIsPanning)
 	{
-		SetCurrentlyActiveTowerSite(nullptr);
+		SetCurrentlySelectedTowerSite(nullptr);
+		SetCurrentlySelectedTower(nullptr);
 		PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
 		if(PlayerController.IsValid()) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
 	}
@@ -95,7 +100,8 @@ void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 	{
 		FHitResult HitResult;
 		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
-		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite"))) SetCurrentlyActiveTowerSite(nullptr);
+		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite"))) SetCurrentlySelectedTowerSite(nullptr);
+		if(!HitResult.GetActor()->ActorHasTag(FName("Tower"))) SetCurrentlySelectedTower(nullptr);
 	}
 }
 

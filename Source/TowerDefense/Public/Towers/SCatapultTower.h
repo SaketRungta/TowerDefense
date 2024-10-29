@@ -60,4 +60,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UStaticMeshComponent* GetCatapultProjectileMesh() const 
 	{ return CatapultProjectileMesh; }
+	
 };

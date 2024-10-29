@@ -18,20 +18,8 @@ void ASUFOWaveManager::BeginPlay()
 
 void ASUFOWaveManager::SpawnNextWave()
 {
-	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex))
-	{
-		FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnNextWave WaveSpawningData is not valid index: %d"), CurrentWaveIndex);
-		UE_LOG(LogTemp, Error, TEXT("%s"), *Temp);
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Temp);
-		return;
-	}
+	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex)) return;
 	
-	/*
-	FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnNextWave Spawning new wave"));
-	UE_LOG(LogTemp, Log, TEXT("%s"), *Temp);
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Cyan, Temp);
-	*/
-
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
 	NumWavesToSpawn = CurrentWaveData.Num();
@@ -46,12 +34,7 @@ void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& I
 {
 	if (InWaveSpawnData.SpawnCount <= 0 || !InWaveSpawnData.UFOToSpawn->IsValidLowLevel() || !InWaveSpawnData.SplinePath->IsValidLowLevel())
 	{
-		FString Temp = FString::Printf(TEXT("ASUFOWaveManager::SpawnTheWaveWithGivenData UFOToSpawn/SplinePath is not valid or spawn count is zero"));
-		UE_LOG(LogTemp, Error, TEXT("%s"), *Temp);
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, Temp);
-
 		CheckAndSpawnNextWave();
-
 		return;
 	}
 

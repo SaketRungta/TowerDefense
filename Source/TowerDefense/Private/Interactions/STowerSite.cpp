@@ -1,6 +1,5 @@
 
 #include "Interactions/STowerSite.h"
-#include "Kismet/GameplayStatics.h"
 #include "Interface/SPlayerPawnInterface.h"
 #include "Components/WidgetComponent.h"
 #include "UI/STowerSelectionMenu.h"
@@ -31,7 +30,7 @@ void ASTowerSite::PostInitializeComponents()
 	this->OnClicked.AddDynamic(this, &ThisClass::OnActorClicked);
 }
 
-void ASTowerSite::DeactivateTowerSite()
+void ASTowerSite::SetTowerSiteToUnselected()
 {
 	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
 	if (!TowerSelectionMenu.IsValid()) return;
@@ -55,7 +54,6 @@ void ASTowerSite::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	TowerSelectionMenu = Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
 	if (TowerSelectionMenu.IsValid()) TowerSelectionMenu->SetOwningTowerSite(this);
 }
@@ -63,17 +61,22 @@ void ASTowerSite::BeginPlay()
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
 	if(bIsSiteDisabled) return;
+
+#pragma region InterfaceCall
 	
-	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
-	if (PlayerPawn.IsValid())
+	static APawn* PlayerPawn = nullptr;
+	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
+
+	if (!PlayerPawn || !PlayerPawn->IsValidLowLevel()) PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	if (PlayerPawn && PlayerPawn->Implements<USPlayerPawnInterface>())
 	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
-		{
-			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlyActiveTowerSite(this);
-		}
+		if (!PlayerPawnInterface) PlayerPawnInterface = Cast<ISPlayerPawnInterface>(PlayerPawn);
+		if (PlayerPawnInterface) PlayerPawnInterface->SetCurrentlySelectedTowerSite(this);
 	}
 
+#pragma endregion InterfaceCall
+	
 	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());
 	if (!TowerSelectionMenu.IsValid()) return;
 

@@ -34,6 +34,7 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 		SpawnTransform
 	);
 
+	/** A tower has been spawned on the site so we need to disable it otherwise it will respond to player clicks and hovers */
 	OwningTowerSite->SetIsSiteDisabled(true);
 	
 	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : (UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
@@ -42,7 +43,7 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
 		{
 			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlyActiveTowerSite(nullptr);
+			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTowerSite(nullptr);
 		}
 	}
 }

@@ -7,6 +7,7 @@
 
 class USphereComponent;
 class ASProjectile;
+class UWidgetComponent;
 
 /**
  * Base class for tower
@@ -29,6 +30,9 @@ public:
 	/** Called once all the components of the actor has been initialized */
 	virtual void PostInitializeComponents() override;
 
+	/** Called from Player Pawn when RMB/LMB is clicked to set tower to unselected */
+	void SetTowerToUnselected();
+	
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
@@ -99,14 +103,17 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> TowerRangeIndicatorMesh;
 
-	/** Callback when actor is hovered, range mesh is made visible and materials emissive value is increased */
-	UFUNCTION()
-	void OnActorBeginCursorOver(AActor* TouchedActor);
+	/** Widget to sell tower */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UWidgetComponent> TowerSellingWidget;
 
-	/** Callback when actor is unhovered, range mesh is hidden and materials emissive value is set to 0 */
+	/** Callback when tower is clicked, sets the range mesh and selling widget to visible */
 	UFUNCTION()
-	void OnActorEndCursorOver(AActor* TouchedActor);
+	void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
 
+	/** True when tower is selected */
+	bool bIsTowerSelected = false;
+	
 	/** Callback when any actor overlaps the TowerRangeSphere */
 	UFUNCTION()
 	void OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

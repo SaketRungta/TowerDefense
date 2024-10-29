@@ -6,6 +6,7 @@
 #include "SPlayerPawnInterface.generated.h"
 
 class ASTowerSite;
+class ASBaseTower;
 
 UINTERFACE(MinimalAPI)
 class USPlayerPawnInterface : public UInterface
@@ -19,8 +20,14 @@ class TOWERDEFENSE_API ISPlayerPawnInterface
 
 public:
 	/** 
-	 * Sets the currently active tower site in player pawn class and deactivates the last active site if there was any 
+	 * Sets the selected tower site in player pawn class and unselected the last active site if there was any 
 	 * Called from ASTowerSite::OnActorClicked
 	 */
-	virtual void SetCurrentlyActiveTowerSite(ASTowerSite* CurrentlyActiveTowerSite) = 0;
+	virtual void SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite) = 0;
+	
+	/** 
+	 * Sets the selected tower in player pawn class and unselected the last active tower if there was any 
+	 * Called from ASBaseTower::OnActorClicked
+	 */
+	virtual void SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower) = 0;
 };
