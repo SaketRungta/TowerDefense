@@ -16,7 +16,7 @@ class ASBaseTower;
  * Main pawn class
  * It contains the camera and handles the input 
  ********************************************************************************************/
-UCLASS(Blueprintable, BlueprintType, ClassGroup = Projectile)
+UCLASS(Blueprintable, BlueprintType, ClassGroup = Pawn)
 class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISPlayerPawnInterface
 {
 	GENERATED_BODY()

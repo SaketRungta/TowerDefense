@@ -9,14 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Interface/SPlayerPawnInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Interface/SPlayerPawnInterface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Pawn/STowerDefensePawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Pawn/STowerDefensePawn.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,10 +48,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="D:\UE_5.4\Engine\Binaries\Win64\UnrealEditor.exe" />
+        <option name="EXECUTABLE_PATH" value="E:\UE_5.4\Engine\Binaries\Win64\UnrealEditor.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\mails\Documents\GitHub\TowerDefense\TowerDefense.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="D:\UE_5.4" />
+        <option name="WORKING_DIRECTORY" value="E:\UE_5.4" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -67,10 +61,10 @@
         <option name="PLATFORM" value="Win64" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
-        <option name="EXECUTABLE_PATH" value="D:\UE_5.4\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
+        <option name="EXECUTABLE_PATH" value="E:\UE_5.4\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\mails\Documents\GitHub\TowerDefense\TowerDefense.uproject&quot;" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="D:\UE_5.4" />
+        <option name="WORKING_DIRECTORY" value="E:\UE_5.4" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -83,7 +77,7 @@
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense-Win64-DebugGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="D:\UE_5.4" />
+        <option name="WORKING_DIRECTORY" value="E:\UE_5.4" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -96,7 +90,7 @@
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="D:\UE_5.4" />
+        <option name="WORKING_DIRECTORY" value="E:\UE_5.4" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -109,7 +103,7 @@
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense-Win64-Shipping.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
         <option name="CUSTOM_PROGRAM_PARAMETERS" value="" />
-        <option name="WORKING_DIRECTORY" value="D:\UE_5.4" />
+        <option name="WORKING_DIRECTORY" value="E:\UE_5.4" />
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
@@ -133,6 +127,8 @@
       <workItem from="1729839114177" duration="34000" />
       <workItem from="1729852286421" duration="519000" />
       <workItem from="1730186995731" duration="1000" />
+      <workItem from="1730273051280" duration="788000" />
+      <workItem from="1730274501899" duration="5000" />
     </task>
     <servers />
   </component>
