@@ -2,6 +2,7 @@
 #include "UFO/SUFOWaveManager.h"
 #include "UFO/SUFO.h"
 #include "UFO/SUFOSplinePath.h"
+#include "GameMode/SBaseGameMode.h"
 
 ASUFOWaveManager::ASUFOWaveManager()
 {
@@ -12,13 +13,19 @@ ASUFOWaveManager::ASUFOWaveManager()
 void ASUFOWaveManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	BaseGameMode = Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
+
+	if(BaseGameMode.IsValid()) BaseGameMode->SetTotalNumWaves(WaveSpawningData.Num());
+
 	SpawnNextWave();
 }
 
 void ASUFOWaveManager::SpawnNextWave()
 {
 	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex)) return;
+	
+	if(BaseGameMode.IsValid()) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
 	
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
@@ -54,6 +61,16 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 		GetActorTransform()
 	);
 
+	if(SpawnedUFO)
+	{
+		BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
+		if(BaseGameMode.IsValid())
+		{
+			SpawnedUFO->OnUFODestroyed.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFODestroyedCallback);
+			SpawnedUFO->OnUFOReachedBase.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFOReachedBaseCallback);
+		}
+	}
+	
 	if (SpawnedUFO && InWaveSpawnData.SplinePath->IsValidLowLevel())
 	{
 		SpawnedUFO->MoveAlongSplinePath(InWaveSpawnData.SplinePath->GetSplinePath());
@@ -80,6 +97,7 @@ void ASUFOWaveManager::CheckAndSpawnNextWave()
 	if (NumWavesSpawned == NumWavesToSpawn)
 	{
 		CurrentWaveIndex += 1;
+		
 		NumWavesSpawned = 0;
 
 		FTimerHandle SpawnNextWaveTimer;

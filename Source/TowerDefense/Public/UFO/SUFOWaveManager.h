@@ -7,6 +7,7 @@
 
 class ASUFO;
 class ASUFOSplinePath;
+class ASBaseGameMode;
 
 /**
  * Struct to contain the data related the wave to spawn
@@ -20,8 +21,6 @@ USTRUCT(BlueprintType)
 struct FWaveSpawnData
 {
 	GENERATED_USTRUCT_BODY()
-
-public:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<ASUFO> UFOToSpawn;
@@ -50,8 +49,6 @@ USTRUCT(BlueprintType)
 struct FWaveDataArray
 {
 	GENERATED_USTRUCT_BODY()
-
-public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<FWaveSpawnData> WaveData;
@@ -105,4 +102,6 @@ private:
 	/** Number of sub waves that have been spawned from the current wave */
 	uint32 NumWavesSpawned = 0;
 
+	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
+	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 };

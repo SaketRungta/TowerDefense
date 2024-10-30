@@ -8,7 +8,7 @@
 class USplineComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFODestroyed, uint32, UFOValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFOReachedBase, uint32, LifeCount);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFOReachedBase, uint32, UFOLifeCount);
 
 /**
  * Base UFO class
@@ -26,7 +26,10 @@ public:
 	/** Called when all the actor components have been initialized */
 	virtual void PostInitializeComponents() override;
 
+	/** When UFO is destroyed the player this delegate will tell the game mode its value to add to coin stash */
 	FOnUFODestroyed OnUFODestroyed;
+	
+	/** When UFO reaches end this delegate will tell the game mode to deduct a life */
 	FOnUFOReachedBase OnUFOReachedBase;
 	
 protected:
