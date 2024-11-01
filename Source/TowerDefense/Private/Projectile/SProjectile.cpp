@@ -1,6 +1,7 @@
 
 #include "Projectile/SProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 ASProjectile::ASProjectile()
 {
@@ -29,6 +30,7 @@ void ASProjectile::PostInitializeComponents()
 
 void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	UGameplayStatics::ApplyDamage(OtherActor, static_cast<float>(BaseDamage), GetInstigatorController(), this, UDamageType::StaticClass());
 	DeactivateThisObject();
 }
 

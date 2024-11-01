@@ -62,9 +62,13 @@ private:
 	/** Timer handle which deactivates the turret once activation is called */
 	FTimerHandle DeactivateTimer;
 
+	/** Damage done to the Ufo when hit by this projectile */
+	UPROPERTY(EditDefaultsOnly, Category = Damage, meta = (AllowPrivateAccess = "true", ClampMin = "1.0", ClampMax = "100.0"))
+	uint32 BaseDamage = 1.f;
+
 public:
 	/** Getter for bIsInUse, true when projectile is in use or is active and cannot be used */
-	FORCEINLINE const bool IsProjectileInUse() const 
+	FORCEINLINE bool IsProjectileInUse() const 
 	{ return bIsInUse; }
 
 	/** Time taken by the projectile to deactivate once activated, if the projectile does not hit the target then it will deactivate after given time */

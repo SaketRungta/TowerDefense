@@ -15,11 +15,16 @@ void ASUFO::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	OnTakeAnyDamage.AddDynamic(this, &ThisClass::OnTakeAnyDamageCallback);
 }
 
-void ASUFO::PostInitializeComponents()
+void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
-	Super::PostInitializeComponents();
+	Health -= Damage;
 
+	if (Health <= 0)
+	{
+		
+	}
 }
 

@@ -23,9 +23,6 @@ public:
 	/** Default constructor */
 	ASUFO();
 
-	/** Called when all the actor components have been initialized */
-	virtual void PostInitializeComponents() override;
-
 	/** When UFO is destroyed the player this delegate will tell the game mode its value to add to coin stash */
 	FOnUFODestroyed OnUFODestroyed;
 	
@@ -40,6 +37,14 @@ private:
 	/** Main mesh of the UFO also acts as root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> UFOMesh = nullptr;
+
+	/** Stores the health of UFO */
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
+	int32 Health = 5;
+
+	/** Callback when projectile hit the ufo and applies damage */
+	UFUNCTION()
+	void OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
 
 public:
 	/** Implemented in BP makes the UFO move along the designated spline path */
