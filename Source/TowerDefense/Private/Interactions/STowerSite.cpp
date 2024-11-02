@@ -60,45 +60,23 @@ void ASTowerSite::BeginPlay()
 
 void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
-	if(bIsSiteDisabled) return;
+	if (bIsSiteDisabled) return;
 
 #pragma region InterfaceCall
 	
 	static APawn* PlayerPawn = nullptr;
 	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
 
-	// Check if PlayerPawn is valid, otherwise try to get it
-	if (!PlayerPawn || !PlayerPawn->IsValidLowLevel())
+	PlayerPawn = PlayerPawn->IsValidLowLevel() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn->IsValidLowLevel())
 	{
-		PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	}
-
-	if (PlayerPawn && PlayerPawn->IsValidLowLevel())
-	{
-		// Check if PlayerPawn implements the interface and set PlayerPawnInterface if it hasn't been set
 		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
 		{
-			if (!PlayerPawnInterface)
-			{
-				PlayerPawnInterface = Cast<ISPlayerPawnInterface>(PlayerPawn);
-			}
-
-			// Ensure PlayerPawnInterface is valid before calling the function
-			if (PlayerPawnInterface)
-			{
-				PlayerPawnInterface->SetCurrentlySelectedTowerSite(this);
-			}
-			else
-			{
-				UE_LOG(LogTemp, Warning, TEXT("PlayerPawnInterface is nullptr, cannot call SetCurrentlySelectedTowerSite."));
-			}
+			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
+			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTowerSite(this);
 		}
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("PlayerPawn is nullptr or invalid."));
-	}
-
+	
 #pragma endregion InterfaceCall
 	
 	TowerSelectionMenu = TowerSelectionMenu.IsValid() == true ? TowerSelectionMenu : Cast<USTowerSelectionMenu>(WidgetComponent->GetWidget());

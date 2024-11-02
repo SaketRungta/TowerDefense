@@ -30,7 +30,27 @@ void ASProjectile::PostInitializeComponents()
 
 void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UGameplayStatics::ApplyDamage(OtherActor, static_cast<float>(BaseDamage), GetInstigatorController(), this, UDamageType::StaticClass());
+	if (bIsCatapultProjectile)
+		UGameplayStatics::ApplyRadialDamageWithFalloff(
+			GetWorld(),
+			BaseDamage,
+			0,
+			GetActorLocation(),
+			DamageInnerRadius,
+			DamageOuterRadius,
+			DamageFalloff,
+			nullptr,
+			{}
+			);
+	else
+		UGameplayStatics::ApplyDamage(
+			OtherActor,
+			static_cast<float>(BaseDamage),
+			GetInstigatorController(),
+			this,
+			UDamageType::StaticClass()
+			);
+	
 	DeactivateThisObject();
 }
 
