@@ -54,6 +54,6 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 	if (CurrentHealth <= 0)
 	{
 		Destroy();
-		OnUFODestroyed.Broadcast(20);
+		OnUFODestroyed.Broadcast(UFOValue);
 	}
 }

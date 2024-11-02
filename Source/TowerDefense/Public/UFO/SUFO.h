@@ -64,11 +64,11 @@ private:
 	TObjectPtr<UWidgetComponent> HealthBarWidget = nullptr;
 
 	/** Stores the current health of UFO */
-	int32 CurrentHealth;
+	uint32 CurrentHealth;
 
 	/** Stores the max health of UFO */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
-	int32 MaxHealth = 10;
+	uint32 MaxHealth = 10;
 
 	/** Callback when projectile hit the ufo and applies damage */
 	UFUNCTION()
@@ -80,6 +80,10 @@ private:
 	/** Timer to hide the health bar widget once ufo has not been damaged for a long time */
 	FTimerHandle HealthBarWidgetVisibilityTimerHandle;
 	
+	/** Value of the ufo to add when player destroys it */
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
+	uint32 UFOValue = 10;
+
 public:
 	/** Implemented in BP makes the UFO move along the designated spline path */
 	UFUNCTION(BlueprintImplementableEvent)
@@ -88,4 +92,8 @@ public:
 	/** Bound to the health bar widget progress bar fill percent */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHealthPercentage() const { return HealthPercentage; }
+
+	/** Getter for UFOValue, used to spawn the coins addition widget actor */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE int32 GetUFOValue() const { return static_cast<int32>(UFOValue); }
 };
