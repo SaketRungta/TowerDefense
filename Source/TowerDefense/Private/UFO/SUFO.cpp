@@ -2,6 +2,8 @@
 #include "UFO/SUFO.h"
 #include "Components/WidgetComponent.h"
 
+// TODO: object pooling for ufo coin widget
+
 ASUFO::ASUFO()
 {
 	PrimaryActorTick.bCanEverTick = false;
