@@ -7,6 +7,7 @@
 
 class UWidgetComponent;
 class USTowerSelectionMenu;
+class APawn;
 class ISPlayerPawnInterface;
 
 /**
@@ -77,6 +78,10 @@ private:
 	/**	True when site is disabled, when a tower is already placed on the site */
 	bool bIsSiteDisabled = false;
 	
+	TWeakObjectPtr<APawn> PlayerPawn;
+	
+	ISPlayerPawnInterface* PlayerPawnInterface;
+
 public:
 	/** Getter for TowerSiteMesh */
 	UFUNCTION(BlueprintCallable)

@@ -8,6 +8,8 @@
 class USplineComponent;
 class UWidgetComponent;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHideHealthWidget);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResetIfAnimIsPlaying);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFODestroyed, uint32, UFOValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFOReachedBase, uint32, UFOLifeCount);
 
@@ -29,6 +31,20 @@ public:
 	
 	/** When UFO reaches end this delegate will tell the game mode to deduct a life */
 	FOnUFOReachedBase OnUFOReachedBase;
+
+	/**
+	 * Called once the timer for damage runs out and now health bar widget can be hidden
+	 * Bound by health bar widget in the bp to play the fading anim
+	 */
+	UPROPERTY(BlueprintAssignable, Category = UFOData)
+	FOnHideHealthWidget OnHideHealthWidget;
+
+	/**
+	 * Called when ufo takes any damage
+	 * Bound by the health bar widget in the bp to stop health bar anim from playing and setting its opacity back to full
+	 */
+	UPROPERTY(BlueprintAssignable, Category = UFOData)
+	FOnResetIfAnimIsPlaying OnResetIfAnimIsPlaying;
 	
 protected:
 	/** Begin play overloading */
@@ -60,6 +76,9 @@ private:
 
 	/** Percentage of health the ufo has 0 is lowest 1 highest */
 	float HealthPercentage = 1.f;
+
+	/** Timer to hide the health bar widget once ufo has not been damaged for a long time */
+	FTimerHandle HealthBarWidgetVisibilityTimerHandle;
 	
 public:
 	/** Implemented in BP makes the UFO move along the designated spline path */

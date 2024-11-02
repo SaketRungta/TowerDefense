@@ -64,15 +64,12 @@ void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 
 #pragma region InterfaceCall
 	
-	static APawn* PlayerPawn = nullptr;
-	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
-
-	PlayerPawn = PlayerPawn->IsValidLowLevel() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (PlayerPawn->IsValidLowLevel())
+	PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (PlayerPawn.IsValid())
 	{
 		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
 		{
-			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
+			PlayerPawnInterface = PlayerPawnInterface != nullptr ? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
 			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTowerSite(this);
 		}
 	}
