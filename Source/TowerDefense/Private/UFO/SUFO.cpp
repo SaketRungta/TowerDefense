@@ -33,6 +33,12 @@ void ASUFO::BeginPlay()
 	OnTakeAnyDamage.AddDynamic(this, &ThisClass::OnTakeAnyDamageCallback);
 }
 
+void ASUFO::OnUFOHasReachedBaseCallback()
+{
+	OnUFOReachedBase.Broadcast(UFOLifeCount);
+	Destroy();
+}
+
 void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
 	OnResetIfAnimIsPlaying.Broadcast();
@@ -55,7 +61,7 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 	
 	if (CurrentHealth <= 0)
 	{
-		Destroy();
 		OnUFODestroyed.Broadcast(UFOValue);
+		Destroy();
 	}
 }

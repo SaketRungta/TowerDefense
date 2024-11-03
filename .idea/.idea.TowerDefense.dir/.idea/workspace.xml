@@ -9,8 +9,13 @@
   <component name="ChangeListManager">
     <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Interface/SGameModeInterface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Interface/SGameModeInterface.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,6 +134,8 @@
       <workItem from="1730186995731" duration="1000" />
       <workItem from="1730273051280" duration="788000" />
       <workItem from="1730274501899" duration="5000" />
+      <workItem from="1730617865606" duration="300000" />
+      <workItem from="1730638408477" duration="336000" />
     </task>
     <servers />
   </component>

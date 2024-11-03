@@ -18,5 +18,5 @@ class TOWERDEFENSE_API ISGameModeInterface
 public:
 	virtual void AddCoins(const uint32 CoinsToAdd) = 0;
 	virtual void DeductLife() = 0;
-
+	
 };

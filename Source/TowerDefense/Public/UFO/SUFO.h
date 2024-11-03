@@ -10,7 +10,7 @@ class UWidgetComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHideHealthWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResetIfAnimIsPlaying);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFODestroyed, uint32, UFOValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFODestroyed, int32, UFOValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFOReachedBase, uint32, UFOLifeCount);
 
 /**
@@ -26,7 +26,8 @@ public:
 	/** Default constructor */
 	ASUFO();
 
-	/** When UFO is destroyed the player this delegate will tell the game mode its value to add to coin stash */
+	/** When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash */
+	UPROPERTY(BlueprintAssignable, Category = UFOData)
 	FOnUFODestroyed OnUFODestroyed;
 	
 	/** When UFO reaches end this delegate will tell the game mode to deduct a life */
@@ -50,6 +51,10 @@ protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
+	/** Called from the BP when UFO reaches the end of spline path */
+	UFUNCTION(BlueprintCallable, Category = UFOData)
+	void OnUFOHasReachedBaseCallback();
+	
 private:
 	/** Scene root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
@@ -83,6 +88,10 @@ private:
 	/** Value of the ufo to add when player destroys it */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
 	uint32 UFOValue = 10;
+
+	/** Value of life to deduct when ufo reaches the base */
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "10"))
+	uint32 UFOLifeCount = 1;
 
 public:
 	/** Implemented in BP makes the UFO move along the designated spline path */

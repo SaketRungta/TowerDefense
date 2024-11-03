@@ -22,7 +22,7 @@ public:
 	 * Wave manager class does the binding
 	 */
 	UFUNCTION()
-	void OnUFODestroyedCallback(uint32 InUFOValue)
+	void OnUFODestroyedCallback(int32 InUFOValue)
 	{ CoinCount += InUFOValue; }
 	
 	/**
