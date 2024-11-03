@@ -10,6 +10,7 @@ class ASTowerSite;
 class ASBaseTower;
 class ISPlayerPawnInterface;
 class APawn;
+class ASBaseGameMode;
 
 /**
  * Menu for the user to select tower from
@@ -62,23 +63,19 @@ private:
 
 	/** Callback when user clicks on the canon tower button */
 	UFUNCTION()
-	void OnCannonButtonClicked()
-	{ SpawnGivenTower(CanonTowerClass); }
+	void OnCannonButtonClicked();
 
 	/** Callback when user clicks on the machine gun tower button */
 	UFUNCTION()
-	void OnMachineGunButtonClicked()
-	{ SpawnGivenTower(MachineGunTowerClass); }
+	void OnMachineGunButtonClicked();
 
 	/** Callback when user clicks on the archer tower button */
 	UFUNCTION()
-	void OnArcherTowerButtonClicked()
-	{ SpawnGivenTower(ArcherTowerClass); }
+	void OnArcherTowerButtonClicked();
 
 	/** Callback when user clicks on the catapult tower button */
 	UFUNCTION()
-	void OnCatapultButtonClicked()
-	{ SpawnGivenTower(CatapultTowerClass); }
+	void OnCatapultButtonClicked();
 
 	/**
 	 * Called from the tower button callbacks
@@ -102,6 +99,12 @@ private:
 	 */
 	ISPlayerPawnInterface* PlayerPawnInterface;
 
+	/** Game mode ref to check if we have enough coins to spawn the given tower */
+	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
+
+	/** Returns true if player have enough coins to spawn the given tower and deducts them */
+	bool CheckAndDeductIfEnoughCoins(const uint32& InTowerPrice);
+	
 public:
 	/** Called from owning ASTowerSite to play the pop in anim in forward or reverse */
 	UFUNCTION(BlueprintImplementableEvent)

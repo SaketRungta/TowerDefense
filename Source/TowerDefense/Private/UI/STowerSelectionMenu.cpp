@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Interface/SPlayerPawnInterface.h"
 #include "GameFramework/Pawn.h"
+#include "GameMode/SBaseGameMode.h"
 
 bool USTowerSelectionMenu::Initialize()
 {
@@ -18,6 +19,30 @@ bool USTowerSelectionMenu::Initialize()
 	if (CatapultButton) CatapultButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnCatapultButtonClicked);
 
 	return true;
+}
+
+void USTowerSelectionMenu::OnCannonButtonClicked()
+{
+	if (!CheckAndDeductIfEnoughCoins(CannonButton->GetTowerPrice())) return;
+	SpawnGivenTower(CanonTowerClass);
+}
+
+void USTowerSelectionMenu::OnMachineGunButtonClicked()
+{
+	if (!CheckAndDeductIfEnoughCoins(MachineGunButton->GetTowerPrice())) return;
+	SpawnGivenTower(MachineGunTowerClass);
+}
+
+void USTowerSelectionMenu::OnArcherTowerButtonClicked()
+{
+	if (!CheckAndDeductIfEnoughCoins(ArcherTowerButton->GetTowerPrice())) return;
+	SpawnGivenTower(ArcherTowerClass);
+}
+
+void USTowerSelectionMenu::OnCatapultButtonClicked()
+{
+	if (!CheckAndDeductIfEnoughCoins(CatapultButton->GetTowerPrice())) return;
+	SpawnGivenTower(CatapultTowerClass);
 }
 
 void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& TowerToSpawn)
@@ -48,7 +73,16 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 	}
 }
 
+bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const uint32& InTowerPrice)
+{	
+	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
+	if (!BaseGameMode.IsValid()) return false;
+	if(BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
+	return false;
+}
+
 void USTowerSelectionMenu::SetOwningTowerSite(ASTowerSite* InOwningTowerSite)
 {
 	OwningTowerSite = InOwningTowerSite;
 }
+	

@@ -33,10 +33,24 @@ public:
 	 */
 	UFUNCTION()
 	void OnUFOReachedBaseCallback(uint32 InUFOLifeCount);
-		
+
+	/**
+	 * Returns true and deducts coins
+	 * Called from USTowerSelectionMenu::CheckAndDeductIfEnoughCoins to deduct coins when tower has been spawned
+	 */
+	bool DeductCoins(uint32 InCoins)
+	{
+		if(CoinCount >= InCoins)
+		{
+			CoinCount -= InCoins;
+			return true;
+		}
+		return false;
+	}
+	
 private:
 	/** Stores the current count of coins */
-	uint32 CoinCount = 91;
+	uint32 CoinCount = 9991;
 
 	/** Stores the current count of lives */
 	uint32 LifeCount = 9991;

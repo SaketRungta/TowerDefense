@@ -31,6 +31,6 @@ public:
 	{ return TowerButton; }
 
 	/** Getter for TowerPrice */
-	FORCEINLINE const int32 GetTowerPrice() const
+	FORCEINLINE int32 GetTowerPrice() const
 	{ return TowerPrice; }
 };
