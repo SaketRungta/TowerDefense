@@ -8,9 +8,11 @@
 class USTowerSelectionMenuButton;
 class ASTowerSite;
 class ASBaseTower;
-class ISPlayerPawnInterface;
+class ISGameInteractionInterface;
 class APawn;
 class ASBaseGameMode;
+class USErrorPopUpWidget;
+class AHUD;
 
 /**
  * Menu for the user to select tower from
@@ -96,15 +98,27 @@ private:
 	 * Interface ref of the player pawn class ASTowerDefensePawn
 	 * We will be clicking multiple times on the same tower site
 	 * To reduce casting everytime we click on the site we store it as a ref here
+	 * Separate as base hud does not implement SetCurrentlySelectedTowerSite
 	 */
-	ISPlayerPawnInterface* PlayerPawnInterface;
+	ISGameInteractionInterface* GameInteractionInterfaceToPlayerPawn;
 
 	/** Game mode ref to check if we have enough coins to spawn the given tower */
 	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Returns true if player have enough coins to spawn the given tower and deducts them */
 	bool CheckAndDeductIfEnoughCoins(const uint32& InTowerPrice);
+
+	/** Ref to the base HUD class to show error messages in viewport */
+	TWeakObjectPtr<AHUD> BaseHUD;
 	
+	/** 
+	 * Interface ref of the base HUD
+	 * We will be clicking multiple times on the same button
+	 * To reduce casting everytime we click on the button we store it as a ref here
+	 * Separate as player pawn does not implement ShowErrorMessage
+	 */
+	ISGameInteractionInterface* GameInteractionInterfaceToBaseHUD;
+
 public:
 	/** Called from owning ASTowerSite to play the pop in anim in forward or reverse */
 	UFUNCTION(BlueprintImplementableEvent)

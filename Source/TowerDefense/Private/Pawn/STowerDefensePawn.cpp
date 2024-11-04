@@ -51,12 +51,16 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void ASTowerDefensePawn::SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite)
 {
+	ISGameInteractionInterface::SetCurrentlySelectedTowerSite(NewSelectedTowerSite);
+	
 	if (LastSelectedTowerSite.IsValid()) LastSelectedTowerSite->SetTowerSiteToUnselected();
 	LastSelectedTowerSite = NewSelectedTowerSite;
 }
 
 void ASTowerDefensePawn::SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower)
 {
+	ISGameInteractionInterface::SetCurrentlySelectedTower(NewSelectedTower);
+	
 	if (LastSelectedTower.IsValid()) LastSelectedTower->SetTowerToUnselected();
 	LastSelectedTower = NewSelectedTower;
 }

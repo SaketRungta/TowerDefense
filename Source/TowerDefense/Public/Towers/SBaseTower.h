@@ -8,6 +8,7 @@
 class USphereComponent;
 class ASProjectile;
 class UWidgetComponent;
+class ISGameInteractionInterface;
 
 /**
  * Base class for tower
@@ -131,6 +132,12 @@ private:
 	/** Number of projectiles this pool can spawn */
 	UPROPERTY(EditAnywhere, Category = TowerBehaviour, meta = (ClampMin = "1", ClampMax = "15"))
 	uint32 ProjectilePoolSize = 5;
+
+	/** Ref to the player pawn so that we call set the last selected tower via interface */
+	TWeakObjectPtr<APawn> PlayerPawn;
+
+	/** Interface to the player pawn to set the last selected tower */
+	ISGameInteractionInterface* GameInteractionInterface;
 
 public:
 	/** Getter for the TurretMesh */

@@ -1,6 +1,6 @@
 
 #include "Interactions/STowerSite.h"
-#include "Interface/SPlayerPawnInterface.h"
+#include "Interface/SGameInteractionInterface.h"
 #include "Components/WidgetComponent.h"
 #include "UI/STowerSelectionMenu.h"
 
@@ -67,10 +67,10 @@ void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 	PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (PlayerPawn.IsValid())
 	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
+		if (PlayerPawn->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
 		{
-			PlayerPawnInterface = PlayerPawnInterface != nullptr ? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTowerSite(this);
+			GameInteractionInterface = GameInteractionInterface != nullptr ? GameInteractionInterface : Cast<ISGameInteractionInterface>(PlayerPawn);
+			if (GameInteractionInterface != nullptr) GameInteractionInterface->SetCurrentlySelectedTowerSite(this);
 		}
 	}
 	

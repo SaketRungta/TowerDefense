@@ -9,9 +9,8 @@ class UTextBlock;
 class ASBaseGameMode;
 
 /**
- * Base gaem mode class
- * Handles the life, coin count and wave count
- * When lives are over does the necessary functionality
+ * Main HUD of the game
+ * Displays all the necessary data required like coins, lives and waves count
  ********************************************************************************************/
 UCLASS(Blueprintable, BlueprintType, meta = (Category = "UI", DisableNativeTick))
 class TOWERDEFENSE_API USHUDWidget : public UUserWidget
@@ -54,4 +53,9 @@ private:
 	UFUNCTION()
 	FText BindWaveCount() const;
 
+public:
+	/** Called from base HUD to show error messages on the screen */
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowErrorMessage(const FString& InErrorMessage);
+	
 };

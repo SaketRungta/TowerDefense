@@ -8,7 +8,7 @@
 class UWidgetComponent;
 class USTowerSelectionMenu;
 class APawn;
-class ISPlayerPawnInterface;
+class ISGameInteractionInterface;
 
 /**
  * Tower spawning site class
@@ -78,9 +78,11 @@ private:
 	/**	True when site is disabled, when a tower is already placed on the site */
 	bool bIsSiteDisabled = false;
 	
+	/** Ref to the player pawn so that we call set the last selected tower site via interface */
 	TWeakObjectPtr<APawn> PlayerPawn;
 	
-	ISPlayerPawnInterface* PlayerPawnInterface;
+	/** Interface to the player pawn to set the last selected tower site */
+	ISGameInteractionInterface* GameInteractionInterface;
 
 public:
 	/** Getter for TowerSiteMesh */

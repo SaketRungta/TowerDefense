@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Interface/SPlayerPawnInterface.h"
+#include "Interface/SGameInteractionInterface.h"
 #include "STowerDefensePawn.generated.h"
 
 class UCameraComponent;
@@ -17,7 +17,7 @@ class ASBaseTower;
  * It contains the camera and handles the input 
  ********************************************************************************************/
 UCLASS(Blueprintable, BlueprintType, ClassGroup = Pawn)
-class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISPlayerPawnInterface
+class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISGameInteractionInterface
 {
 	GENERATED_BODY()
 

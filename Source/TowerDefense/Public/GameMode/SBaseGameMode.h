@@ -50,7 +50,7 @@ public:
 	
 private:
 	/** Stores the current count of coins */
-	uint32 CoinCount = 9991;
+	uint32 CoinCount = 91;
 
 	/** Stores the current count of lives */
 	uint32 LifeCount = 9991;

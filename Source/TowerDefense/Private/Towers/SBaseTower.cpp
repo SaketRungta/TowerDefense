@@ -4,7 +4,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Projectile/SProjectile.h"
 #include "Components/WidgetComponent.h"
-#include "Interface/SPlayerPawnInterface.h"
+#include "Interface/SGameInteractionInterface.h"
 
 ASBaseTower::ASBaseTower()
 {
@@ -102,16 +102,13 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 
 #pragma region InterfaceCall
 	
-	static APawn* PlayerPawn = nullptr;
-	static ISPlayerPawnInterface* PlayerPawnInterface = nullptr;
-
 	PlayerPawn = PlayerPawn->IsValidLowLevel() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (PlayerPawn->IsValidLowLevel())
 	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
+		if (PlayerPawn->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
 		{
-			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTower(TempTower);
+			GameInteractionInterface = GameInteractionInterface != nullptr? GameInteractionInterface : Cast<ISGameInteractionInterface>(PlayerPawn);
+			if (GameInteractionInterface != nullptr) GameInteractionInterface->SetCurrentlySelectedTower(TempTower);
 		}
 	}
 	

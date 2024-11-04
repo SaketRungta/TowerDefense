@@ -5,9 +5,10 @@
 #include "Towers/SBaseTower.h"
 #include "Interactions/STowerSite.h"
 #include "Kismet/GameplayStatics.h"
-#include "Interface/SPlayerPawnInterface.h"
+#include "Interface/SGameInteractionInterface.h"
 #include "GameFramework/Pawn.h"
 #include "GameMode/SBaseGameMode.h"
+#include "GameFramework/HUD.h"
 
 bool USTowerSelectionMenu::Initialize()
 {
@@ -65,19 +66,30 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : (UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	if (PlayerPawn.IsValid())
 	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USPlayerPawnInterface::StaticClass()))
+		if (PlayerPawn->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
 		{
-			PlayerPawnInterface = PlayerPawnInterface != nullptr? PlayerPawnInterface : Cast<ISPlayerPawnInterface>(PlayerPawn);
-			if (PlayerPawnInterface != nullptr) PlayerPawnInterface->SetCurrentlySelectedTowerSite(nullptr);
+			GameInteractionInterfaceToPlayerPawn = GameInteractionInterfaceToPlayerPawn != nullptr? GameInteractionInterfaceToPlayerPawn : Cast<ISGameInteractionInterface>(PlayerPawn);
+			if (GameInteractionInterfaceToPlayerPawn != nullptr) GameInteractionInterfaceToPlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
 		}
 	}
 }
 
 bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const uint32& InTowerPrice)
-{	
+{
 	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
 	if (!BaseGameMode.IsValid()) return false;
 	if(BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
+
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : GetWorld()->GetFirstPlayerController()->GetHUD();
+	if(BaseHUD.IsValid())
+	{
+		if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
+		{
+			GameInteractionInterfaceToBaseHUD = GameInteractionInterfaceToBaseHUD != nullptr ? GameInteractionInterfaceToBaseHUD : Cast<ISGameInteractionInterface>(BaseHUD);
+			if (GameInteractionInterfaceToBaseHUD != nullptr) GameInteractionInterfaceToBaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
+		}
+	}
+	
 	return false;
 }
 
