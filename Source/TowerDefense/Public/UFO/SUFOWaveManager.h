@@ -104,4 +104,5 @@ private:
 
 	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
 	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
+	
 };

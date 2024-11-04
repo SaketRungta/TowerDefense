@@ -98,7 +98,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void MoveAlongSplinePath(const USplineComponent* SplinePath);
 
-	/** Bound to the health bar widget progress bar fill percent */
+	/** Bound to the health bar widget progress bar fill percent, NOTE: Is used in BP */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHealthPercentage() const { return HealthPercentage; }
 

@@ -79,4 +79,5 @@ public:
 	
 	/** Setter for CurrentWaveNumber, called from ASUFOWaveManager::SpawnNextWave() */
 	FORCEINLINE void SetCurrentWaveNumber(const uint32 Value) { CurrentWaveNumber = Value; }
+	
 };

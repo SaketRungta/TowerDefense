@@ -110,4 +110,5 @@ private:
 	 * If this tower is unselected then it is set to nullptr
 	 */
 	TWeakObjectPtr<ASBaseTower> LastSelectedTower;
+	
 };

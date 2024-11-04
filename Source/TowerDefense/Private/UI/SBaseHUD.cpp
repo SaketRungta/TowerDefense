@@ -1,7 +1,5 @@
 
 #include "UI/SBaseHUD.h"
-
-#include "ShaderPrintParameters.h"
 #include "UI/SHUDWidget.h"
 
 void ASBaseHUD::ShowErrorMessage(const FString& InErrorMessage)
