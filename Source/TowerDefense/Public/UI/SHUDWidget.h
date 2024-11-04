@@ -27,16 +27,16 @@ protected:
 	
 private:
 	/** Text block to show the life count */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
-	TObjectPtr<UTextBlock> LifeCount;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> TB_LifeCount;
 
 	/** Text block to show the life count */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
-	TObjectPtr<UTextBlock> CoinCount;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> TB_CoinCount;
 
 	/** Text block to show the wave count */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
-	TObjectPtr<UTextBlock> WaveCount;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> TB_WaveCount;
 
 	/** Ref to the game mode as we will be binding all the data from game mode */
 	TWeakObjectPtr<ASBaseGameMode> GameMode;
@@ -61,4 +61,5 @@ public:
 	/** Called from base HUD to show the requested menu */
 	UFUNCTION(BlueprintImplementableEvent)
 	void ShowTheGivenMenu(EMenuToShow InMenuToShow);
+	
 };

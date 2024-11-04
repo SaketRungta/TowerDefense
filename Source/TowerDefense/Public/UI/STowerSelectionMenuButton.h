@@ -27,10 +27,8 @@ private:
 
 public:
 	/** Getter for TurretButton */
-	FORCEINLINE UButton* GetTowerButton() const
-	{ return TowerButton; }
+	FORCEINLINE UButton* GetTowerButton() const	{ return TowerButton; }
 
 	/** Getter for TowerPrice */
-	FORCEINLINE int32 GetTowerPrice() const
-	{ return TowerPrice; }
+	FORCEINLINE int32 GetTowerPrice() const	{ return TowerPrice; }
 };

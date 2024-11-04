@@ -72,7 +72,7 @@ private:
 	uint32 CurrentHealth;
 
 	/** Stores the max health of UFO */
-	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
 	uint32 MaxHealth = 10;
 
 	/** Callback when projectile hit the ufo and applies damage */
@@ -86,11 +86,11 @@ private:
 	FTimerHandle HealthBarWidgetVisibilityTimerHandle;
 	
 	/** Value of the ufo to add when player destroys it */
-	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "100"))
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
 	uint32 UFOValue = 10;
 
 	/** Value of life to deduct when ufo reaches the base */
-	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "10"))
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "10"))
 	uint32 UFOLifeCount = 1;
 
 public:
@@ -105,4 +105,5 @@ public:
 	/** Getter for UFOValue, used to spawn the coins addition widget actor */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetUFOValue() const { return static_cast<int32>(UFOValue); }
+	
 };

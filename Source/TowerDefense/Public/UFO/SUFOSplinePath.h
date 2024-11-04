@@ -22,7 +22,7 @@ public:
 
 private:
 	/** Spline component for the UFO to follow */
-	UPROPERTY(EditDefaultsOnly, category = Components)
+	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USplineComponent> Spline;
 
 public:

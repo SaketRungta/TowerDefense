@@ -29,38 +29,38 @@ public:
 
 private:
 	/** Canon tower selection button */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USTowerSelectionMenuButton> CannonButton;
 
 	/** Machine gun tower selection button */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USTowerSelectionMenuButton> MachineGunButton;
 
 	/** Archer tower selection button */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USTowerSelectionMenuButton> ArcherTowerButton;
 
 	/** Catapult tower selection button */
-	UPROPERTY(meta = (BindWidget, AllowPrivateAccess = "true"))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USTowerSelectionMenuButton> CatapultButton;
 
 	/** Ref to the tower site which owns this widget, for it to spawn the tower on that site */
 	TWeakObjectPtr<ASTowerSite> OwningTowerSite;
 
 	/** Canon tower to spawn, to be initialized from the blueprint */
-	UPROPERTY(EditDefaultsOnly, Category = TowerData, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TSubclassOf<ASBaseTower> CanonTowerClass;
 
 	/** Machine gun tower to spawn, to be initialized from the blueprint */
-	UPROPERTY(EditDefaultsOnly, Category = TowerData, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TSubclassOf<ASBaseTower> MachineGunTowerClass;
 
 	/** Archer tower to spawn, to be initialized from the blueprint */
-	UPROPERTY(EditDefaultsOnly, Category = TowerData, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TSubclassOf<ASBaseTower> ArcherTowerClass;
 
 	/** Catapult tower to spawn, to be initialized from the blueprint */
-	UPROPERTY(EditDefaultsOnly, Category = TowerData, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TSubclassOf<ASBaseTower> CatapultTowerClass;
 
 	/** Callback when user clicks on the canon tower button */
@@ -126,4 +126,5 @@ public:
 
 	/** Called from owning ASTowerSite to set a ref to itself so that we can get its location for tower to spawn */
 	void SetOwningTowerSite(ASTowerSite* InOwningTowerSite);
+	
 };

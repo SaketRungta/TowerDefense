@@ -79,20 +79,24 @@ void ASBaseTower::BeginPlay()
 
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
-	ASBaseTower* TempTower;
+	ASBaseTower* TempTower = nullptr;
 	
 	if(bIsTowerSelected)
 	{
-		TowerSellingWidget->SetHiddenInGame(true);
-		TowerRangeIndicatorMesh->SetHiddenInGame(true);
+		if (TowerSellingWidget && TowerRangeIndicatorMesh)
+		{
+			TowerSellingWidget->SetHiddenInGame(true);
+			TowerRangeIndicatorMesh->SetHiddenInGame(true);
+		}
 		SetTowerEmissiveValue(0.f);
-
-		TempTower = nullptr;
 	}
 	else
 	{
-		TowerSellingWidget->SetHiddenInGame(false);
-		TowerRangeIndicatorMesh->SetHiddenInGame(false);
+		if (TowerSellingWidget && TowerRangeIndicatorMesh)
+		{
+			TowerSellingWidget->SetHiddenInGame(false);
+			TowerRangeIndicatorMesh->SetHiddenInGame(false);
+		}
 		SetTowerEmissiveValue(0.5f);
 
 		TempTower = this;

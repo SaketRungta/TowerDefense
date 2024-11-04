@@ -8,9 +8,9 @@ bool USHUDWidget::Initialize()
 {
 	if (!Super::Initialize()) return false;
 
-	LifeCount->TextDelegate.BindUFunction(this, "BindLifeCount");
-	CoinCount->TextDelegate.BindUFunction(this, "BindCoinCount");
-	WaveCount->TextDelegate.BindUFunction(this, "BindWaveCount");
+	if (TB_LifeCount) TB_LifeCount->TextDelegate.BindUFunction(this, FName("BindLifeCount"));
+	if (TB_CoinCount) TB_CoinCount->TextDelegate.BindUFunction(this, FName("BindCoinCount"));
+	if (TB_WaveCount) TB_WaveCount->TextDelegate.BindUFunction(this, FName("BindWaveCount"));
 	
 	return true;
 }

@@ -66,7 +66,7 @@ private:
 	 * Duration it takes for the widget to play the pop in animation 
 	 * A timer fires once widget pop in anim is played in revered so that widget component can be set to hidden in game
 	 */
-	UPROPERTY(EditAnywhere, Category = Widget, meta = (AllowPrivateAccess = "true", ClampMin = "0.1", ClampMax = "1"))
+	UPROPERTY(EditAnywhere, Category = Widget, meta = (ClampMin = "0.1", ClampMax = "1"))
 	float WidgetPopInAnimPlayDuration = 0.25f;
 
 	/**

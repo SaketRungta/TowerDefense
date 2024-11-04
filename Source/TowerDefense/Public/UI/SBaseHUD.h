@@ -31,7 +31,7 @@ protected:
 
 private:
 	/** Main HUD widget class to be displayed on the viewport */
-	UPROPERTY(EditDefaultsOnly, Category = UI, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = UI)
 	TSubclassOf<USHUDWidget> HUDWidgetClass;
 
 	/** Ref to the main HUD widget */
