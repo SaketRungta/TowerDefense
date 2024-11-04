@@ -7,6 +7,9 @@
 #include "InputActionValue.h"
 #include "Interactions/STowerSite.h"
 #include "Towers/SBaseTower.h"
+#include "Kismet/GameplayStatics.h"
+#include "Interface/SGameInteractionInterface.h"
+#include "GameFramework/HUD.h"
 
 ASTowerDefensePawn::ASTowerDefensePawn()
 {
@@ -46,6 +49,8 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(RightMouseButtonAction, ETriggerEvent::Completed, this, &ThisClass::OnRightMouseButtonAction);
 
 		EnhancedInputComponent->BindAction(LeftMouseButtonAction, ETriggerEvent::Started, this, &ThisClass::OnLeftMouseButtonAction);
+
+		EnhancedInputComponent->BindAction(EscapeButtonAction, ETriggerEvent::Started, this, &ThisClass::OnEscapeButtonAction);
 	}
 }
 
@@ -73,9 +78,10 @@ void ASTowerDefensePawn::BeginPlay()
 	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
 
 	if (PlayerController.IsValid())
-	{
-		FInputModeGameOnly InputModeData;
-		InputModeData.SetConsumeCaptureMouseDown(false);
+	{		
+		FInputModeGameAndUI InputModeData;
+		InputModeData.SetHideCursorDuringCapture(false);
+		InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 		PlayerController->SetInputMode(InputModeData);
 
 		PlayerController->SetShowMouseCursor(true);
@@ -106,6 +112,29 @@ void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
 		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite"))) SetCurrentlySelectedTowerSite(nullptr);
 		if(!HitResult.GetActor()->ActorHasTag(FName("Tower"))) SetCurrentlySelectedTower(nullptr);
+	}
+}
+
+void ASTowerDefensePawn::OnEscapeButtonAction(const FInputActionValue& Value)
+{
+	if (!bCanPauseTheGame) return;
+	
+	bIsGamePaused = !bIsGamePaused;
+	UGameplayStatics::SetGamePaused(this, bIsGamePaused);
+
+	EMenuToShow MenuToShow;
+	
+	if (bIsGamePaused) MenuToShow = EMenuToShow::Pause;
+	else MenuToShow = EMenuToShow::HUD;
+	
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : GetWorld()->GetFirstPlayerController()->GetHUD();
+	if(BaseHUD.IsValid())
+	{
+		if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
+		{
+			GameInteractionInterfaceToBaseHUD = GameInteractionInterfaceToBaseHUD != nullptr ? GameInteractionInterfaceToBaseHUD : Cast<ISGameInteractionInterface>(BaseHUD);
+			if (GameInteractionInterfaceToBaseHUD != nullptr) GameInteractionInterfaceToBaseHUD->ShowTheGivenMenu(MenuToShow);
+		}
 	}
 }
 

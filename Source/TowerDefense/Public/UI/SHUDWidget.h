@@ -57,5 +57,8 @@ public:
 	/** Called from base HUD to show error messages on the screen */
 	UFUNCTION(BlueprintImplementableEvent)
 	void ShowErrorMessage(const FString& InErrorMessage);
-	
+
+	/** Called from base HUD to show the requested menu */
+	UFUNCTION(BlueprintImplementableEvent)
+	void ShowTheGivenMenu(EMenuToShow InMenuToShow);
 };

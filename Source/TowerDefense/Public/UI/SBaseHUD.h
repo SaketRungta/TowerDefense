@@ -22,6 +22,9 @@ public:
 	/** Interface override used to show error messages on screen */
 	virtual void ShowErrorMessage(const FString& InErrorMessage) override;
 	
+	/** Interface override used to show menu as per request */
+	virtual void ShowTheGivenMenu(EMenuToShow InMenuToShow) override;
+	
 protected:
 	/** Begin play override */
 	virtual void BeginPlay() override;

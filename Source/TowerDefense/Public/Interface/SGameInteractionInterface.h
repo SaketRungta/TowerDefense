@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
+#include "System/CommonTypes.h"
 #include "SGameInteractionInterface.generated.h"
 
 class ASTowerSite;
@@ -36,5 +37,18 @@ public:
 	 * Called from turret selection menu to show not enough coins error message
 	 */
 	virtual void ShowErrorMessage(const FString& InErrorMessage) { }
-	
+
+	/**
+	 * Called from player pawn to show the pause menu
+	 * Game mode to show the try again menu
+	 * Wave manager to show the level completed menu
+	 */
+	virtual void ShowTheGivenMenu(EMenuToShow InMenuToShow) { }
+
+	/**
+	 * Called from game mode and wave manager
+	 * Sets the bool value of bCanPauseTheGame in player pawn class
+	 * So once the game is over player cannot pause it
+	 */
+	virtual void SetCanPauseTheGame(const bool InCanPauseGame) { }
 };

@@ -50,9 +50,11 @@ public:
 	
 private:
 	/** Stores the current count of coins */
-	uint32 CoinCount = 91;
+	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (AllowPrivateAccess = "true", ClampMin = "99", ClampMax = "9999"))
+	uint32 CoinCount = 991;
 
 	/** Stores the current count of lives */
+	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (AllowPrivateAccess = "true", ClampMin = "1", ClampMax = "9999"))
 	uint32 LifeCount = 9991;
 
 	/** Stores the total number of waves for the current level */

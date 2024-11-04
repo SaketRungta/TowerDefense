@@ -11,6 +11,7 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class ASBaseTower;
+class AHUD;
 
 /**
  * Main pawn class
@@ -36,7 +37,11 @@ public:
 
 	/** Called from ASBaseTower::OnActorClicked to set the currently selected tower */
 	virtual void SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower) override;
-	
+
+	/** Called from ASBaseGameMode::OnUFOReachedBaseCallback, when all lives are over and player can no longer pause the game */
+	virtual void SetCanPauseTheGame(const bool InCanPauseGame) override
+	{ bCanPauseTheGame = InCanPauseGame; }
+
 protected:
 	/**
 	 * Begin play override
@@ -65,15 +70,22 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> RightMouseButtonAction;
 
-	/** Input action for the left mouse button press and release */
+	/** Input action for the left mouse button press */
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> LeftMouseButtonAction;
+
+	/** Input action for the escape button press */
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> EscapeButtonAction;
 
 	/** Called when right mouse button is pressed or released */
 	void OnRightMouseButtonAction(const FInputActionValue& Value);
 
 	/** Called when left mouse button is pressed, checks if the left mouse button is not pressed on tower site if true then deactivates any active tower site */
 	void OnLeftMouseButtonAction(const FInputActionValue& Value);
+
+	/** Called when escape button is pressed, pauses the game */
+	void OnEscapeButtonAction(const FInputActionValue& Value);
 
 #pragma endregion Input
 
@@ -110,5 +122,17 @@ private:
 	 * If this tower is unselected then it is set to nullptr
 	 */
 	TWeakObjectPtr<ASBaseTower> LastSelectedTower;
+
+	/** True when game is paused, helps to pause/unpause the game */
+	bool bIsGamePaused = false;
+	
+	/** Ref to the base HUD class to show the pause menu */
+	TWeakObjectPtr<AHUD> BaseHUD;
+	
+	/** Interface ref of the base HUD */
+	ISGameInteractionInterface* GameInteractionInterfaceToBaseHUD;
+
+	/** False when either the level is completed or failed, so that user cannot pause once game is over */
+	bool bCanPauseTheGame = true;
 	
 };
