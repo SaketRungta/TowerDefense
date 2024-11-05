@@ -40,8 +40,7 @@ void ASCatapultTower::FireProjectile()
 {
 	CatapultProjectileMesh->SetHiddenInGame(true);
 
-	ASProjectile* Projectile = nullptr;
-	if (FindProjectileFromPool(Projectile))
+	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
 		if (Projectile) Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
 	}

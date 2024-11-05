@@ -24,6 +24,9 @@ class TOWERDEFENSE_API USTowerSelectionMenu : public UUserWidget
 	GENERATED_BODY()
 
 public:
+	/** Default Constructor */
+	USTowerSelectionMenu(const FObjectInitializer& ObjectInitializer);
+	
 	/** Used to initialize widget components with bindings */
 	virtual bool Initialize() override;
 
@@ -45,7 +48,7 @@ private:
 	TObjectPtr<USTowerSelectionMenuButton> CatapultButton;
 
 	/** Ref to the tower site which owns this widget, for it to spawn the tower on that site */
-	TWeakObjectPtr<ASTowerSite> OwningTowerSite;
+	TObjectPtr<ASTowerSite> OwningTowerSite;
 
 	/** Canon tower to spawn, to be initialized from the blueprint */
 	UPROPERTY(EditDefaultsOnly, Category = TowerData)
@@ -100,13 +103,13 @@ private:
 	 * To reduce casting everytime we click on the site we store it as a ref here
 	 * Separate as base hud does not implement SetCurrentlySelectedTowerSite
 	 */
-	ISGameInteractionInterface* GameInteractionInterfaceToPlayerPawn;
+	ISGameInteractionInterface* GameInteractionInterfaceToPlayerPawn = nullptr;
 
 	/** Game mode ref to check if we have enough coins to spawn the given tower */
 	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Returns true if player have enough coins to spawn the given tower and deducts them */
-	bool CheckAndDeductIfEnoughCoins(const uint32& InTowerPrice);
+	bool CheckAndDeductIfEnoughCoins(const FName& InTowerName);
 
 	/** Ref to the base HUD class to show error messages in viewport */
 	TWeakObjectPtr<AHUD> BaseHUD;
@@ -117,8 +120,14 @@ private:
 	 * To reduce casting everytime we click on the button we store it as a ref here
 	 * Separate as player pawn does not implement ShowErrorMessage
 	 */
-	ISGameInteractionInterface* GameInteractionInterfaceToBaseHUD;
+	ISGameInteractionInterface* GameInteractionInterfaceToBaseHUD = nullptr;
 
+	/** Array containing all the towers name, making it easier to fetch data from table */
+	TArray<FName> TowerNames = { "CannonTower", "MachineGunTower", "ArcherTower", "CatapultTower" };
+
+	/** Map containing tower buying price against the tower name, set in constructor */
+	TMap<FName, uint32> TowerPriceMap;
+	
 public:
 	/** Called from owning ASTowerSite to play the pop in anim in forward or reverse */
 	UFUNCTION(BlueprintImplementableEvent)

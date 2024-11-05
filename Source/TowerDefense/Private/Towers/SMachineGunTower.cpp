@@ -11,8 +11,7 @@ void ASMachineGunTower::FireTurret()
 {
 	Super::FireTurret();
 
-	ASProjectile* Projectile = nullptr;
-	if (FindProjectileFromPool(Projectile))
+	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
 		static uint32 TurretToFireFrom = 0;
 		FTransform ProjectileFireTransform;

@@ -9,6 +9,7 @@ class USphereComponent;
 class ASProjectile;
 class UWidgetComponent;
 class ISGameInteractionInterface;
+class ASTowerSite;
 
 /**
  * Struct for the tower data table
@@ -56,6 +57,9 @@ class TOWERDEFENSE_API ASBaseTower : public AActor
 public:	
 	/** Default constructor */
 	ASBaseTower();
+
+	/** Begin destroy override */
+	virtual void Destroyed() override;
 
 	/** Tick event */
 	virtual void Tick(float DeltaTime) override;
@@ -159,6 +163,8 @@ private:
 	 */
 	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
 
+	TObjectPtr<ASTowerSite> TowerSite;
+	
 #pragma region TowerData;
 	
 	/** The projectile that has to be spawned by this class */
@@ -187,4 +193,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const	{ return TurretMesh; }
 
+	/** Setter for TowerSite, called from USTowerSelectionMenu::SpawnGivenTower */
+	FORCEINLINE void SetTowerSite(ASTowerSite* InTowerSite) { TowerSite = InTowerSite; }
 };

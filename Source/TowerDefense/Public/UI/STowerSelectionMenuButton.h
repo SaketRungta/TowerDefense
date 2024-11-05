@@ -22,13 +22,17 @@ private:
 	TObjectPtr<UButton> TowerButton;
 
 	/** Stores the price of the tower, set from WBP_TowerSelectionMenu */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Data, meta = (BindWidget, AllowPrivateAccess = "true", ClampMin = "100", ClampMax = "500"))
 	int32 TowerPrice = 100;
 
 public:
 	/** Getter for TurretButton */
 	FORCEINLINE UButton* GetTowerButton() const	{ return TowerButton; }
 
+	/** Setter for TowerPrice, set from tower selection menu */
+	FORCEINLINE void SetTowerPrice(int32 InTowerPrice) { TowerPrice = InTowerPrice; }
+	
 	/** Getter for TowerPrice */
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE int32 GetTowerPrice() const	{ return TowerPrice; }
+	
 };

@@ -1,10 +1,12 @@
 
 #include "Towers/SBaseTower.h"
+
 #include "Components/SphereComponent.h"
+#include "Components/WidgetComponent.h"
+#include "Interactions/STowerSite.h"
+#include "Interface/SGameInteractionInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Projectile/SProjectile.h"
-#include "Components/WidgetComponent.h"
-#include "Interface/SGameInteractionInterface.h"
 #include "UI/STowerSellingButton.h"
 
 ASBaseTower::ASBaseTower()
@@ -34,6 +36,8 @@ ASBaseTower::ASBaseTower()
 	TowerSellingWidget->SetupAttachment(SceneRoot);
 	TowerSellingWidget->SetRelativeLocation(FVector(0.f, 0.f, -100.f));
 	TowerSellingWidget->SetHiddenInGame(true);
+	TowerSellingWidget->SetWidgetSpace(EWidgetSpace::Screen);
+	TowerSellingWidget->SetDrawSize(FVector2D(84.f, 84.f));
 
 	{
 		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
@@ -42,6 +46,13 @@ ASBaseTower::ASBaseTower()
 	
 	Tags.Add(FName("Tower"));
 
+}
+
+void ASBaseTower::Destroyed()
+{
+	if (TowerSite) TowerSite->SetIsSiteDisabled(false);
+	
+	Super::Destroyed();
 }
 
 void ASBaseTower::Tick(float DeltaTime)
@@ -74,9 +85,7 @@ void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
 {
 	static ConstructorHelpers::FObjectFinder<UDataTable> Asset(TEXT("DataTable'/Game/TowerDefense/Blueprints/DataTable/DT_TowerData.DT_TowerData'"));
 	if (Asset.Succeeded())
-	{
 		if (const UDataTable* TowerDataTable = Asset.Object)
-		{
 			if (const FTowerDataTableRow* RowData = TowerDataTable->FindRow<FTowerDataTableRow>(InTowerName, TEXT("")))
 			{
 				this->ProjectileClass = RowData->ProjectileClass;
@@ -85,8 +94,6 @@ void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
 				this->TowerBuyingPrice = RowData->TowerBuyingPrice;
 				this->TowerSellingPrice = RowData->TowerSellingPrice;
 			}
-		}
-	}
 }
 
 void ASBaseTower::BeginPlay()
@@ -98,7 +105,10 @@ void ASBaseTower::BeginPlay()
 	if (ProjectileClass) SpawnProjectilePool();
 
 	if (USTowerSellingButton* TowerSellingButton = Cast<USTowerSellingButton>(TowerSellingWidget->GetWidget()))
+	{
 		TowerSellingButton->SetOwningTower(this);
+		TowerSellingButton->SetTowerSellingPrice(TowerSellingPrice);
+	}
 }
 
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
@@ -171,9 +181,9 @@ void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedCo
 
 void ASBaseTower::SetTurretLookAtEnemy()
 {
-	FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());
+	const FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());
 
-	FRotator TurretMeshCurrentRotation = TurretMesh->GetComponentRotation();
+	const FRotator TurretMeshCurrentRotation = TurretMesh->GetComponentRotation();
 	TurretMesh->SetWorldRotation(FRotator(TurretMeshCurrentRotation.Pitch, TurretLookAtEnemyRotation.Yaw, TurretMeshCurrentRotation.Roll));
 }
 

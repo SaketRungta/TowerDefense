@@ -38,7 +38,7 @@ public:
 	 * Returns true and deducts coins
 	 * Called from USTowerSelectionMenu::CheckAndDeductIfEnoughCoins to deduct coins when tower has been spawned
 	 */
-	bool DeductCoins(uint32 InCoins)
+	bool DeductCoins(const uint32& InCoins)
 	{
 		if(CoinCount >= InCoins)
 		{
@@ -48,6 +48,10 @@ public:
 		return false;
 	}
 
+	/** Adds to coins stash, called from USTowerSellingButton::OnSellButtonClicked to add coins when a tower is sold */
+	void AddCoins(const uint32& InCoins)
+	{ CoinCount += InCoins;	}
+	
 private:
 	/** Stores the current count of coins */
 	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (ClampMin = "99", ClampMax = "9999"))

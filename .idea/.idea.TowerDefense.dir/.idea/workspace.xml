@@ -9,21 +9,13 @@
   <component name="ChangeListManager">
     <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SArcherTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SArcherTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataTable/DT_TowerData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataTable/DT_TowerData.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCannonTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCannonTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SMachineGunTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SMachineGunTower.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SArcherTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SArcherTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCannonTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCannonTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SMachineGunTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SMachineGunTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,19 +29,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://3" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Unreal Projects/GripCode/Source/Grip/Public/System/CommonTypes.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/HUD.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/UMG/Public/Blueprint/UserWidget.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/UMG/Public/Components/Button.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -60,19 +44,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Uproject.TowerDefense.executor": "Run",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Uproject.TowerDefense.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TowerDefense" type="Uproject" factoryName="rider.uproject">
       <configuration_1>
@@ -172,7 +156,9 @@
       <workItem from="1730716739419" duration="1000" />
       <workItem from="1730730312392" duration="8196000" />
       <workItem from="1730791943554" duration="18000" />
-      <workItem from="1730791973112" duration="12450000" />
+      <workItem from="1730791973112" duration="13857000" />
+      <workItem from="1730828618335" duration="15000" />
+      <workItem from="1730829577452" duration="7000" />
     </task>
     <servers />
   </component>
