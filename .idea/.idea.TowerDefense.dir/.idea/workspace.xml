@@ -9,19 +9,21 @@
   <component name="ChangeListManager">
     <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SArcherTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SArcherTower.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCannonTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCannonTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SMachineGunTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SMachineGunTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOSplinePath.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOSplinePath.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SBaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SBaseHUD.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SArcherTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SArcherTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCannonTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCannonTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SMachineGunTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SMachineGunTower.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +63,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Uproject.TowerDefense.executor": "Debug",
+    "Uproject.TowerDefense.executor": "Run",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -169,6 +171,8 @@
       <workItem from="1730710750644" duration="3704000" />
       <workItem from="1730716739419" duration="1000" />
       <workItem from="1730730312392" duration="8196000" />
+      <workItem from="1730791943554" duration="18000" />
+      <workItem from="1730791973112" duration="12450000" />
     </task>
     <servers />
   </component>

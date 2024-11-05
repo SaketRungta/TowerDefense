@@ -14,6 +14,10 @@ class TOWERDEFENSE_API ASCannonTower : public ASBaseTower
 {
 	GENERATED_BODY()
 
+public:
+	/** Default Constructor */
+	ASCannonTower();
+	
 protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual void FireTurret() override;

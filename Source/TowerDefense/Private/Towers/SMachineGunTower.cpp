@@ -2,6 +2,11 @@
 #include "Towers/SMachineGunTower.h"
 #include "Projectile/SProjectile.h"
 
+ASMachineGunTower::ASMachineGunTower()
+{
+	UpdateTowerDataFromDataTable(FName("MachineGunTower"));
+}
+
 void ASMachineGunTower::FireTurret()
 {
 	Super::FireTurret();

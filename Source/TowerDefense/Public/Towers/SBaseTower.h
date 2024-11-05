@@ -11,6 +11,38 @@ class UWidgetComponent;
 class ISGameInteractionInterface;
 
 /**
+ * Struct for the tower data table
+ * Stores all the necessary data required by the tower
+ * 
+ * @param ProjectileClass: The projectile to be fired from this tower
+ * @param FireRate: Successive intervals in which tower fires
+ * @param ProjectilePoolSize: Count of the projectile that have been spawned for the tower projectile pool
+ * @param TowerBuyingPrice: Price of the tower required to buy it
+ * @param TowerSellingPrice: Selling price of the tower
+ ********************************************************************************************/
+USTRUCT(BlueprintType)
+struct FTowerDataTableRow : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<ASProjectile> ProjectileClass;
+	
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "0.1", ClampMax = "7"))
+	float FireRate = 3.f;
+	
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "1", ClampMax = "15"))
+	uint32 ProjectilePoolSize = 5;
+	
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
+	uint32 TowerBuyingPrice = 100;
+	
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
+	uint32 TowerSellingPrice = 100;
+	
+};
+
+/**
  * Base class for tower
  * Base class for the child towers to derive from
  * Handles most of the functionality of tower
@@ -33,6 +65,9 @@ public:
 
 	/** Called from Player Pawn when RMB/LMB is clicked to set tower to unselected */
 	void SetTowerToUnselected();
+
+	/** Called from child classes to initialize tower data from data table */
+	void UpdateTowerDataFromDataTable(const FName InTowerName);
 	
 protected:
 	/** Begin play overloading */
@@ -41,49 +76,20 @@ protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual void FireTurret();
 
-	/** 
-	 * Returns true if there is any projectile in the pool
-	 * 
-	 * @param InProjectileRef reference to the projectile variable that is passed along to be initialized by the first projectile that is not in use
-	 */
-	bool FindProjectileFromPool(ASProjectile*& InProjectileRef);
-
-	/** 
-	 * Contains all the enemies currently in range of the turret 
-	 * 
-	 * Notes
-	 * - TweakObjectPtr as we are dynamically deleting the enemies so it will automatically set it to nullptr
-	 * - Validity can be checked at any moment
-	 * - Becomes the part of unreal garbage collection system
-	 */
-	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
-
-	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
-	FTimerHandle FireCooldownTimer;
-
-	/** The projectile that has to be spawned by this class */
-	UPROPERTY(EditAnywhere, Category = Projectile)
-	TSubclassOf<ASProjectile> ProjectileClass;
-
-	/** Intervals of time in which this turret can fire */
-	UPROPERTY(EditAnywhere, Category = TowerBehaviour, meta = (ClampMin = "0.1", ClampMax = "7"))
-	float FireRate = 3.f;
-
-	/** 
-	 * Object pool that contains all the projectiles this turret has
-	 * 
-	 * Notes
-	 * - TObjectPtr will help in garbage collection as this in not associated with UPROPERTY()
-	 * - Efficient and safer alternative to raw pointers when dealing with UObjects
-	 * - TWeakObjectPtr is not used as we're not planning to delete or destroy the projectiles
-	 */
-	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
-
 	/** Sets the emissive value of materials when hovered/unhovered by the user */
 	UFUNCTION(BlueprintImplementableEvent)
 	void SetTowerEmissiveValue(const float EmissiveValue = 0.f);
 	
+	/** 
+	 * Returns true if there is any projectile in the pool, called from derived classes
+	 * @param InProjectileRef reference to the projectile variable that is passed along to be initialized by the first projectile that is not in use
+	 */
+	bool FindProjectileFromPool(ASProjectile*& InProjectileRef);
+
 private:
+
+#pragma region Components
+	
 	/** Actor root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot;
@@ -108,13 +114,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UWidgetComponent> TowerSellingWidget;
 
+#pragma endregion Components
+	
 	/** Callback when tower is clicked, sets the range mesh and selling widget to visible */
 	UFUNCTION()
 	void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
 
-	/** True when tower is selected */
-	bool bIsTowerSelected = false;
-	
 	/** Callback when any actor overlaps the TowerRangeSphere */
 	UFUNCTION()
 	void OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -129,24 +134,57 @@ private:
 	/** Called from ASBaseTower::BeginPlay to spawn the pool of projectiles for this turret */
 	void SpawnProjectilePool();
 
-	/** Number of projectiles this pool can spawn */
-	UPROPERTY(EditAnywhere, Category = TowerBehaviour, meta = (ClampMin = "1", ClampMax = "15"))
-	uint32 ProjectilePoolSize = 5;
-
+	/** True when tower is selected */
+	bool bIsTowerSelected = false;
+	
 	/** Ref to the player pawn so that we call set the last selected tower via interface */
 	TWeakObjectPtr<APawn> PlayerPawn;
 
 	/** Interface to the player pawn to set the last selected tower */
 	ISGameInteractionInterface* GameInteractionInterface;
 
+	/** Contains all the enemies currently in range of the turret */
+	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
+
+	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
+	FTimerHandle FireCooldownTimer;
+
+	/** 
+	 * Object pool that contains all the projectiles this turret has
+	 * 
+	 * Notes
+	 * - TObjectPtr will help in garbage collection as this in not associated with UPROPERTY()
+	 * - Efficient and safer alternative to raw pointers when dealing with UObjects
+	 * - TWeakObjectPtr is not used as we're not planning to delete or destroy the projectiles
+	 */
+	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
+
+#pragma region TowerData;
+	
+	/** The projectile that has to be spawned by this class */
+	TSubclassOf<ASProjectile> ProjectileClass;
+	
+	/** Intervals of time in which this turret can fire */
+	float FireRate = 3.f;
+
+	/** Number of projectiles this pool can spawn */
+	uint32 ProjectilePoolSize = 5;
+	
+	/** Buying price of the tower */
+	uint32 TowerBuyingPrice = 100;
+	
+	/** Selling price of the tower */
+	uint32 TowerSellingPrice = 100;
+	
+#pragma endregion TowerData;
+	
 public:
 	/** Getter for the TurretMesh */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const
-	{ return TowerMesh; }
+	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const { return TowerMesh; }
 	
 	/** Getter for the TurretMesh */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const 
-	{ return TurretMesh; }
+	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const	{ return TurretMesh; }
+
 };

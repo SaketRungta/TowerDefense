@@ -5,6 +5,7 @@
 #include "Projectile/SProjectile.h"
 #include "Components/WidgetComponent.h"
 #include "Interface/SGameInteractionInterface.h"
+#include "UI/STowerSellingButton.h"
 
 ASBaseTower::ASBaseTower()
 {
@@ -35,11 +36,12 @@ ASBaseTower::ASBaseTower()
 	TowerSellingWidget->SetHiddenInGame(true);
 
 	{
-		static ConstructorHelpers::FObjectFinder<UStaticMesh> asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
-		TowerRangeIndicatorMesh->SetStaticMesh(asset.Object);
+		static ConstructorHelpers::FObjectFinder<UStaticMesh> Asset(TEXT("StaticMesh'/Engine/BasicShapes/Plane.Plane'"));
+		if (Asset.Succeeded()) TowerRangeIndicatorMesh->SetStaticMesh(Asset.Object);
 	}
 	
 	Tags.Add(FName("Tower"));
+
 }
 
 void ASBaseTower::Tick(float DeltaTime)
@@ -68,6 +70,25 @@ void ASBaseTower::SetTowerToUnselected()
 	bIsTowerSelected = false;
 }
 
+void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
+{
+	static ConstructorHelpers::FObjectFinder<UDataTable> Asset(TEXT("DataTable'/Game/TowerDefense/Blueprints/DataTable/DT_TowerData.DT_TowerData'"));
+	if (Asset.Succeeded())
+	{
+		if (const UDataTable* TowerDataTable = Asset.Object)
+		{
+			if (const FTowerDataTableRow* RowData = TowerDataTable->FindRow<FTowerDataTableRow>(InTowerName, TEXT("")))
+			{
+				this->ProjectileClass = RowData->ProjectileClass;
+				this->FireRate = RowData->FireRate;
+				this->ProjectilePoolSize = RowData->ProjectilePoolSize;
+				this->TowerBuyingPrice = RowData->TowerBuyingPrice;
+				this->TowerSellingPrice = RowData->TowerSellingPrice;
+			}
+		}
+	}
+}
+
 void ASBaseTower::BeginPlay()
 {
 	Super::BeginPlay();
@@ -75,6 +96,9 @@ void ASBaseTower::BeginPlay()
 	SetActorTickEnabled(false);
 
 	if (ProjectileClass) SpawnProjectilePool();
+
+	if (USTowerSellingButton* TowerSellingButton = Cast<USTowerSellingButton>(TowerSellingWidget->GetWidget()))
+		TowerSellingButton->SetOwningTower(this);
 }
 
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)

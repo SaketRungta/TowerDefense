@@ -97,4 +97,3 @@ void USTowerSelectionMenu::SetOwningTowerSite(ASTowerSite* InOwningTowerSite)
 {
 	OwningTowerSite = InOwningTowerSite;
 }
-	

@@ -47,7 +47,7 @@ public:
 		}
 		return false;
 	}
-	
+
 private:
 	/** Stores the current count of coins */
 	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (ClampMin = "99", ClampMax = "9999"))
