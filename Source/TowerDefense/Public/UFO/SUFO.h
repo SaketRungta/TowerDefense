@@ -49,15 +49,17 @@ public:
 	 */
 	UPROPERTY(BlueprintAssignable, Category = UFOData)
 	FOnResetIfAnimIsPlaying OnResetIfAnimIsPlaying;
+
+	/**
+	 * Called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath when ufo reaches the end of its spline path
+	 * Broadcasts OnUFOReachedBase delegate to deduct life from game mode and destroys the ufo
+	 */
+	void OnUFOReachedBaseCall();
 	
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
-	/** Called from the BP when UFO reaches the end of spline path */
-	UFUNCTION(BlueprintCallable, Category = UFOData)
-	void OnUFOHasReachedBaseCallback();
-	
 private:
 	/** Scene root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
@@ -96,13 +98,34 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "10"))
 	uint32 UFOLifeCount = 1;
 
-public:
-	/** Implemented in BP makes the UFO move along the designated spline path */
-	UFUNCTION(BlueprintImplementableEvent)
-	void MoveAlongSplinePath(const USplineComponent* SplinePath);
+	/** Spline for the ufo to follow, set from ASUFOWaveManager::SpawnUFOs via setter */
+	TObjectPtr<USplineComponent> SplinePath;
 
-	/** Bound to the health bar widget progress bar fill percent, NOTE: Is used in BP */
+	/** Stores the distance ufo has travelled along its spline path */
+	float DistanceAlongSpline = 0.0f;
+
+	/** Speed at which ufo moves along the spline path */
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "0.1", ClampMax = "5000"))
+	float MovementSpeed = 300.f;
+	
+public:
+	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHealthPercentage() const { return HealthPercentage; }
 
+	/** Setter for SplinePath, called from ASUFOWaveManager::SpawnUFOs */
+	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath) { SplinePath = InSplinePath; }
+
+	/** Getter for SplinePath, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
+	FORCEINLINE const USplineComponent* GetSplinePath() const { return SplinePath; }
+
+	/** Getter for DistanceAlongSpline, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
+	FORCEINLINE float GetDistanceAlongSpline() const { return DistanceAlongSpline; }
+	
+	/** Setter for DistanceAlongSpline, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
+	FORCEINLINE void SetDistanceAlongSpline(const float& InDistance) { DistanceAlongSpline = InDistance; }
+	
+	/** Getter for MovementSpeed, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
+	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
+	
 };

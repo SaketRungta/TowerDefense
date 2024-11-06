@@ -9,13 +9,17 @@
   <component name="ChangeListManager">
     <list default="true" id="301dc0b4-668b-4b30-a55b-f7d4bb2d8b4a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_WaveManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_WaveManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_MachineGunProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_MachineGunProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataTable/DT_TowerData.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataTable/DT_TowerData.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenu.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/STowerSelectionMenuButton.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOSplinePath.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOSplinePath.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TowerDefense.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TowerDefense.uproject.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +163,8 @@
       <workItem from="1730791973112" duration="13857000" />
       <workItem from="1730828618335" duration="15000" />
       <workItem from="1730829577452" duration="7000" />
+      <workItem from="1730893380040" duration="3256000" />
+      <workItem from="1730915972224" duration="5091000" />
     </task>
     <servers />
   </component>

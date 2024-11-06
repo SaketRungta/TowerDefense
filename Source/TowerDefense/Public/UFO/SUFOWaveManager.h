@@ -68,6 +68,9 @@ public:
 	/** Default constructor */
 	ASUFOWaveManager();
 
+	/** Tick override, calls for the UFOs to move */
+	virtual void Tick(float DeltaSeconds) override;
+	
 protected:
 	/** Begin play override */
 	virtual void BeginPlay() override;
@@ -104,5 +107,11 @@ private:
 
 	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
 	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
-	
+
+	/** Moves all the UFOs currently in the level along the spline path */
+	void MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds);
+
+	/** Array to store all the UFOs that has to be moved along the spline */
+	TArray<TWeakObjectPtr<ASUFO>> UFOsToMove;
+
 };

@@ -2,8 +2,6 @@
 #include "UFO/SUFO.h"
 #include "Components/WidgetComponent.h"
 
-// TODO: object pooling for ufo coin widget
-
 ASUFO::ASUFO()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -33,7 +31,7 @@ void ASUFO::BeginPlay()
 	OnTakeAnyDamage.AddDynamic(this, &ThisClass::OnTakeAnyDamageCallback);
 }
 
-void ASUFO::OnUFOHasReachedBaseCallback()
+void ASUFO::OnUFOReachedBaseCall()
 {
 	OnUFOReachedBase.Broadcast(UFOLifeCount);
 	Destroy();
