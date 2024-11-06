@@ -22,11 +22,13 @@ void ASCatapultTower::Tick(float DeltaTime)
 	TurretBase->SetRelativeRotation(FRotator(0.f, GetTurretMesh()->GetComponentRotation().Yaw, 0.f));
 }
 
-void ASCatapultTower::FireTurret()
+bool ASCatapultTower::FireTurret()
 {
-	Super::FireTurret();
+	if (!Super::FireTurret()) return false;
 
 	FireCatapult();
+
+	return true;
 }
 
 void ASCatapultTower::SetTurretMeshPitch(const float& InPitch)

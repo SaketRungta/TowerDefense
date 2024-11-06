@@ -44,7 +44,7 @@ private:
 
 protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
-	virtual void FireTurret() override;
+	virtual bool FireTurret() override;
 
 	/** Implemented in BP this class fires a timeline which rotates the catapult and then retreats, it also calls when to release the projectile */
 	UFUNCTION(BlueprintImplementableEvent)

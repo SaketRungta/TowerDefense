@@ -18,6 +18,7 @@ class ASTowerSite;
  * @param ProjectileClass: The projectile to be fired from this tower
  * @param FireRate: Successive intervals in which tower fires
  * @param ProjectilePoolSize: Count of the projectile that have been spawned for the tower projectile pool
+ * @param ProjectileBaseDamage: Base damage dealt by the projectile of this tower
  * @param TowerBuyingPrice: Price of the tower required to buy it
  * @param TowerSellingPrice: Selling price of the tower
  * @param Icon: Icon of the tower to show in the tower selection menu 
@@ -35,6 +36,9 @@ struct FTowerDataTableRow : public FTableRowBase
 	
 	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "1", ClampMax = "15"))
 	uint32 ProjectilePoolSize = 5;
+	
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "1", ClampMax = "15"))
+	uint32 ProjectileBaseDamage = 1;
 	
 	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
 	uint32 TowerBuyingPrice = 100;
@@ -82,7 +86,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
-	virtual void FireTurret();
+	virtual bool FireTurret();
 
 	/** Sets the emissive value of materials when hovered/unhovered by the user */
 	UFUNCTION(BlueprintImplementableEvent)
@@ -142,6 +146,9 @@ private:
 	/** Called from ASBaseTower::BeginPlay to spawn the pool of projectiles for this turret */
 	void SpawnProjectilePool();
 
+	/** True when tower should fire, set from range sphere pverlap callbacks */
+	bool bShouldFire = false;
+	
 	/** True when tower is selected */
 	bool bIsTowerSelected = false;
 	
@@ -172,17 +179,25 @@ private:
 #pragma region TowerData;
 	
 	/** The projectile that has to be spawned by this class */
+	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	TSubclassOf<ASProjectile> ProjectileClass;
 	
 	/** Intervals of time in which this turret can fire */
+	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	float FireRate = 3.f;
 
 	/** Number of projectiles this pool can spawn */
+	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	uint32 ProjectilePoolSize = 5;
 	
-	/** Selling price of the tower */
-	uint32 TowerSellingPrice = 100;
+	/** Base damage dealt by the projectile of this tower */
+	UPROPERTY(VisibleAnywhere, Category = TowerData)
+	uint32 ProjectileBaseDamage = 1;
 	
+	/** Selling price of the tower */
+	UPROPERTY(VisibleAnywhere, Category = TowerData)
+	uint32 TowerSellingPrice = 100;
+
 #pragma endregion TowerData;
 	
 public:

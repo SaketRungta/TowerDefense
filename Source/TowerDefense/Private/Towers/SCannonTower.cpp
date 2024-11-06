@@ -7,12 +7,14 @@ ASCannonTower::ASCannonTower()
 	UpdateTowerDataFromDataTable(FName("CannonTower"));
 }
 
-void ASCannonTower::FireTurret()
+bool ASCannonTower::FireTurret()
 {
-	Super::FireTurret();
+	if (!Super::FireTurret()) return false;
 	
 	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
 		if (Projectile) Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
 	}
+
+	return true;
 }

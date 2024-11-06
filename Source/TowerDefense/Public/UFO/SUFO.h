@@ -26,7 +26,10 @@ public:
 	/** Default constructor */
 	ASUFO();
 
-	/** When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash */
+	/**
+	 * When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash
+	 * In the blueprints it spawns the coin reward widget actor passing the value of this ufo
+	 */
 	UPROPERTY(BlueprintAssignable, Category = UFOData)
 	FOnUFODestroyed OnUFODestroyed;
 	
@@ -102,8 +105,4 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetHealthPercentage() const { return HealthPercentage; }
 
-	/** Getter for UFOValue, used to spawn the coins addition widget actor */
-	UFUNCTION(BlueprintCallable)
-	FORCEINLINE int32 GetUFOValue() const { return static_cast<int32>(UFOValue); }
-	
 };

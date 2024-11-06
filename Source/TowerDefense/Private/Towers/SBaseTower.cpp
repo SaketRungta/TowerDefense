@@ -60,6 +60,7 @@ void ASBaseTower::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	SetTurretLookAtEnemy();
+	FireTurret();
 }
 
 void ASBaseTower::PostInitializeComponents()
@@ -91,6 +92,7 @@ void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
 				this->ProjectileClass = RowData->ProjectileClass;
 				this->FireRate = RowData->FireRate;
 				this->ProjectilePoolSize = RowData->ProjectilePoolSize;
+				this->ProjectileBaseDamage = RowData->ProjectileBaseDamage;
 				this->TowerSellingPrice = RowData->TowerSellingPrice;
 			}
 }
@@ -161,8 +163,7 @@ void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedCompo
 	if (InRangeEnemies.Num() == 1)
 	{
 		SetActorTickEnabled(true);
-		SetTurretLookAtEnemy();
-		FireTurret();
+		bShouldFire = true;
 	}
 }
 
@@ -174,7 +175,7 @@ void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedCo
 	if (InRangeEnemies.Num() == 0)
 	{
 		SetActorTickEnabled(false);
-		GetWorldTimerManager().ClearTimer(FireCooldownTimer);
+		bShouldFire = false;
 	}
 }
 
@@ -195,20 +196,31 @@ void ASBaseTower::SpawnProjectilePool()
 			TurretMesh->GetSocketTransform(FName("ProjectileFire"))
 		);
 		
-		if (SpawnedProjectile) ProjectilePool.Add(SpawnedProjectile);
+		if (SpawnedProjectile)
+		{
+			ProjectilePool.Add(SpawnedProjectile);
+			SpawnedProjectile->SetBaseDamage(ProjectileBaseDamage);
+		}
 	}
 }
 
-void ASBaseTower::FireTurret()
+bool ASBaseTower::FireTurret()
 {
-	GetWorldTimerManager().ClearTimer(FireCooldownTimer);
+	if (!bShouldFire || GetWorldTimerManager().GetTimerElapsed(FireCooldownTimer) > 0.f) return false;
+
+	bShouldFire = false;
 
 	GetWorldTimerManager().SetTimer(
 		FireCooldownTimer,
-		this,
-		&ASBaseTower::FireTurret,
-		FireRate
-	);
+[this]()
+		{
+			bShouldFire = true;
+		},
+		FireRate,
+false
+		);
+
+	return true;
 }
 
 bool ASBaseTower::FindProjectileFromPool(ASProjectile*& InProjectileRef)

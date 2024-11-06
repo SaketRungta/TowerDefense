@@ -7,9 +7,9 @@ ASMachineGunTower::ASMachineGunTower()
 	UpdateTowerDataFromDataTable(FName("MachineGunTower"));
 }
 
-void ASMachineGunTower::FireTurret()
+bool ASMachineGunTower::FireTurret()
 {
-	Super::FireTurret();
+	if (!Super::FireTurret()) return false;
 
 	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
@@ -34,4 +34,6 @@ void ASMachineGunTower::FireTurret()
 
 		if (Projectile) Projectile->ActivateThisObject(ProjectileFireTransform);
 	}
+
+	return true;
 }

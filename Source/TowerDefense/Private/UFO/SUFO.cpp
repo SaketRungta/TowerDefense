@@ -41,7 +41,14 @@ void ASUFO::OnUFOHasReachedBaseCallback()
 
 void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser)
 {
-	OnResetIfAnimIsPlaying.Broadcast();
+	if (Damage>= CurrentHealth)
+	{
+		OnUFODestroyed.Broadcast(UFOValue);
+		Destroy();
+		return;
+	}
+	
+	OnResetIfAnimIsPlaying.Broadcast();	
 	
 	HealthBarWidget->SetHiddenInGame(false);
 	
@@ -58,10 +65,4 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 		3,
 		false
 		);
-	
-	if (CurrentHealth <= 0)
-	{
-		OnUFODestroyed.Broadcast(UFOValue);
-		Destroy();
-	}
 }

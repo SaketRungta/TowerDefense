@@ -62,12 +62,21 @@ private:
 	/** Timer handle which deactivates the turret once activation is called */
 	FTimerHandle DeactivateTimer;
 
+#pragma region ProjectileProperties
+	
 	/** Damage done to the Ufo when hit by this projectile */
-	UPROPERTY(EditDefaultsOnly, Category = Damage, meta = (ClampMin = "1.0", ClampMax = "100.0"))
 	uint32 BaseDamage = 1.f;
 
+	/** Time taken by the projectile to deactivate once activated, if the projectile does not hit the target then it will deactivate after given time */
+	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "0.1", ClampMax = "15"))
+	float DeactivationTime = 5.f;
+
+	/** Speed at which the projectile can be fired */
+	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "4500"))
+	float FiringSpeed = 1500.f;
+	
 	/** True when the projectile is fired from a catapult */
-	UPROPERTY(EditDefaultsOnly, Category = ProjectileProperties, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, Category = ProjectileProperties)
 	bool bIsCatapultProjectile = false;
 
 	/** When fired from a catapult the inner radius in which ufo will receive full base damage */
@@ -81,18 +90,14 @@ private:
 	/** Falloff exponent of damage from DamageInnerRadius to DamageOuterRadius */
 	UPROPERTY(EditDefaultsOnly, Category = Damage, meta = (EditCondition = "bIsCatapultProjectile"))
 	float DamageFalloff = 0.3f;
-	
+
+#pragma endregion ProjectileProperties
+		
 public:
 	/** Getter for bIsInUse, true when projectile is in use or is active and cannot be used */
-	FORCEINLINE bool IsProjectileInUse() const 
-	{ return bIsInUse; }
+	FORCEINLINE bool IsProjectileInUse() const { return bIsInUse; }
 
-	/** Time taken by the projectile to deactivate once activated, if the projectile does not hit the target then it will deactivate after given time */
-	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "0.1", ClampMax = "15"))
-	float DeactivationTime = 5.f;
-
-	/** Speed at which the projectile can be fired */
-	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "4500"))
-	float FiringSpeed = 1500.f;
+	/** Setter for BaseDamage, called from ASBaseTower::SpawnProjectilePool */
+	FORCEINLINE void SetBaseDamage(const uint32& InBaseDamage) { BaseDamage = InBaseDamage; }
 	
 };

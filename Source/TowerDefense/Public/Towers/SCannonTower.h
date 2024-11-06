@@ -20,6 +20,6 @@ public:
 	
 protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
-	virtual void FireTurret() override;
+	virtual bool FireTurret() override;
 
 };
