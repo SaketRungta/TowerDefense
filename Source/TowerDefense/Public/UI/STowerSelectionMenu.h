@@ -127,6 +127,9 @@ private:
 
 	/** Map containing tower buying price against the tower name, set in constructor */
 	TMap<FName, uint32> TowerPriceMap;
+
+	/** Map containing tower icon against the tower name, set in constructor */
+	TMap<FName, FSlateBrush> TowerIconMap;
 	
 public:
 	/** Called from owning ASTowerSite to play the pop in anim in forward or reverse */

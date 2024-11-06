@@ -18,7 +18,10 @@ USTowerSelectionMenu::USTowerSelectionMenu(const FObjectInitializer& ObjectIniti
 		if (const UDataTable* TowerDataTable = Asset.Object)
 			for (const FName& RowName : TowerDataTable->GetRowNames())
 				if (const FTowerDataTableRow* RowData = TowerDataTable->FindRow<FTowerDataTableRow>(RowName, TEXT("")))
+				{
 					TowerPriceMap.Add(RowName, RowData->TowerBuyingPrice);
+					TowerIconMap.Add(RowName, RowData->Icon);
+				}
 }
 
 bool USTowerSelectionMenu::Initialize()
@@ -29,25 +32,37 @@ bool USTowerSelectionMenu::Initialize()
 	{
 		CannonButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnCannonButtonClicked);
 		if (TowerPriceMap.Contains(TowerNames[0]))
+		{
 			CannonButton->SetTowerPrice(TowerPriceMap[TowerNames[0]]);
+			CannonButton->SetTowerIcon(TowerIconMap[TowerNames[0]]);
+		}
 	}
 	if (MachineGunButton)
 	{
 		MachineGunButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnMachineGunButtonClicked);
 		if (TowerPriceMap.Contains(TowerNames[1]))
+		{
 			MachineGunButton->SetTowerPrice(TowerPriceMap[TowerNames[1]]);
+			MachineGunButton->SetTowerIcon(TowerIconMap[TowerNames[1]]);
+		}
 	}
 	if (ArcherTowerButton)
 	{
 		ArcherTowerButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnArcherTowerButtonClicked);
 		if (TowerPriceMap.Contains(TowerNames[2]))
+		{
 			ArcherTowerButton->SetTowerPrice(TowerPriceMap[TowerNames[2]]);
+			ArcherTowerButton->SetTowerIcon(TowerIconMap[TowerNames[2]]);
+		}
 	}
 	if (CatapultButton)
 	{
 		CatapultButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnCatapultButtonClicked);
 		if (TowerPriceMap.Contains(TowerNames[3]))
+		{
 			CatapultButton->SetTowerPrice(TowerPriceMap[TowerNames[3]]);
+			CatapultButton->SetTowerIcon(TowerIconMap[TowerNames[3]]);
+		}
 	}
 	
 	return true;
@@ -113,7 +128,6 @@ bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
 	if (TowerPriceMap.Contains(InTowerName)) InTowerPrice = TowerPriceMap[InTowerName];
 	
 	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
-	if (!BaseGameMode.IsValid()) return false;
 	if (BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
 
 	BaseHUD = BaseHUD.IsValid() ? BaseHUD : GetWorld()->GetFirstPlayerController()->GetHUD();

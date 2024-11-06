@@ -20,6 +20,7 @@ class ASTowerSite;
  * @param ProjectilePoolSize: Count of the projectile that have been spawned for the tower projectile pool
  * @param TowerBuyingPrice: Price of the tower required to buy it
  * @param TowerSellingPrice: Selling price of the tower
+ * @param Icon: Icon of the tower to show in the tower selection menu 
  ********************************************************************************************/
 USTRUCT(BlueprintType)
 struct FTowerDataTableRow : public FTableRowBase
@@ -40,6 +41,9 @@ struct FTowerDataTableRow : public FTableRowBase
 	
 	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
 	uint32 TowerSellingPrice = 100;
+
+	UPROPERTY(EditDefaultsOnly)
+	FSlateBrush Icon;
 	
 };
 
@@ -175,9 +179,6 @@ private:
 
 	/** Number of projectiles this pool can spawn */
 	uint32 ProjectilePoolSize = 5;
-	
-	/** Buying price of the tower */
-	uint32 TowerBuyingPrice = 100;
 	
 	/** Selling price of the tower */
 	uint32 TowerSellingPrice = 100;

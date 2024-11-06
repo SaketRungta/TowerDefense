@@ -5,7 +5,9 @@
 #include "Blueprint/UserWidget.h"
 #include "STowerSelectionMenuButton.generated.h"
 
+class UTextBlock;
 class UButton;
+class UImage;
 
 /**
  * Button for the tower selection menu
@@ -18,21 +20,25 @@ class TOWERDEFENSE_API USTowerSelectionMenuButton : public UUserWidget
 
 private:
 	/** Tower selection button */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Components, meta = (BindWidget, AllowPrivateAccess = "true"))
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> TowerButton;
 
-	/** Stores the price of the tower, set from WBP_TowerSelectionMenu */
-	int32 TowerPrice = 100;
+	/** Tower icon */
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UImage> TowerIcon;
+
+	/** Tower selling price text block */
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget, AllowPrivateAccess = "true"))
+	TObjectPtr<UTextBlock> T_TowerPrice;
 
 public:
 	/** Getter for TurretButton */
 	FORCEINLINE UButton* GetTowerButton() const	{ return TowerButton; }
 
-	/** Setter for TowerPrice, set from tower selection menu */
-	FORCEINLINE void SetTowerPrice(int32 InTowerPrice) { TowerPrice = InTowerPrice; }
-	
-	/** Getter for TowerPrice */
-	UFUNCTION(BlueprintCallable)
-	FORCEINLINE int32 GetTowerPrice() const	{ return TowerPrice; }
+	/** Called from USTowerSelectionMenu::Initialize to set the tower price */
+	void SetTowerPrice(const int32 InTowerPrice) const;
+
+	/** Called from USTowerSelectionMenu::Initialize to set the tower icon */
+	void SetTowerIcon(const FSlateBrush& InTowerIcon) const;
 	
 };

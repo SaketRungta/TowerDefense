@@ -91,7 +91,6 @@ void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
 				this->ProjectileClass = RowData->ProjectileClass;
 				this->FireRate = RowData->FireRate;
 				this->ProjectilePoolSize = RowData->ProjectilePoolSize;
-				this->TowerBuyingPrice = RowData->TowerBuyingPrice;
 				this->TowerSellingPrice = RowData->TowerSellingPrice;
 			}
 }
