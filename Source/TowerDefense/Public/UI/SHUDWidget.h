@@ -43,7 +43,7 @@ private:
 
 	/** Binds the life count text block to the game mode */
 	UFUNCTION()
-	FText BindLifeCount() const;
+	FText BindLifeCount();
 
 	/** Binds the coin count text block to the game mode */
 	UFUNCTION()
@@ -53,6 +53,12 @@ private:
 	UFUNCTION()
 	FText BindWaveCount() const;
 
+	/** Stores the initial life count as our bp will need it show the stars once level is completed */
+	uint32 InitialLifeCount = 0;
+	
+	/** Stores the current life count as our bp will need it show the stars once level is completed */
+	uint32 CurrentLifeCount = 0;
+
 public:
 	/** Called from base HUD to show error messages on the screen */
 	UFUNCTION(BlueprintImplementableEvent)
@@ -61,5 +67,13 @@ public:
 	/** Called from base HUD to show the requested menu */
 	UFUNCTION(BlueprintImplementableEvent)
 	void ShowTheGivenMenu(EMenuToShow InMenuToShow);
-	
+
+	/** Getter for InitialLifeCount, used to show the stars once level is completed */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE int32 GetInitialLifeCount() const { return static_cast<int32>(InitialLifeCount); }
+
+	/** Getter for CurrentLifeCount, used to show the stars once level is completed */
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE int32 GetCurrentLifeCount() const { return static_cast<int32>(CurrentLifeCount); }
+
 };

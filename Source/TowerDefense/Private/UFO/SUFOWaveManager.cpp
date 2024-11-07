@@ -5,6 +5,8 @@
 #include "GameMode/SBaseGameMode.h"
 #include "UFO/SUFO.h"
 #include "UFO/SUFOSplinePath.h"
+#include "GameFramework/HUD.h"
+#include "Interface/SGameInteractionInterface.h"
 
 ASUFOWaveManager::ASUFOWaveManager()
 {
@@ -17,6 +19,22 @@ void ASUFOWaveManager::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	if (UFOsToMove.Num() > 0) MoveAllUFOsAlongTheSplinePath(DeltaSeconds);
+	if (bAllTheUFOsHaveBeenSpawned && UFOsToMove.Num() == 0)
+	{
+		bAllTheUFOsHaveBeenSpawned = false;
+
+		AHUD* BaseHUD = GetWorld()->GetFirstPlayerController()->GetHUD();
+		if (IsValid(BaseHUD))
+		{
+			if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
+			{
+				ISGameInteractionInterface* GameInteractionInterface = Cast<ISGameInteractionInterface>(BaseHUD);
+				if (GameInteractionInterface != nullptr) GameInteractionInterface->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
+			}
+		}
+
+		SetActorTickEnabled(false);
+	}
 }
 
 void ASUFOWaveManager::BeginPlay()
@@ -31,7 +49,11 @@ void ASUFOWaveManager::BeginPlay()
 
 void ASUFOWaveManager::SpawnNextWave()
 {
-	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex)) return;
+	if (!WaveSpawningData.IsValidIndex(CurrentWaveIndex))
+	{
+		bAllTheUFOsHaveBeenSpawned = true;
+		return;
+	}
 	
 	if(BaseGameMode.IsValid()) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
 	
@@ -80,7 +102,10 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 	}
 	
 	if (SpawnedUFO && InWaveSpawnData.SplinePath->IsValidLowLevel())
+	{
 		SpawnedUFO->SetSplinePath(InWaveSpawnData.SplinePath->GetSpline());
+		SpawnedUFO->SetWaveManager(this);
+	}
 
 	UFOsToMove.Add(SpawnedUFO);
 	
@@ -120,14 +145,6 @@ void ASUFOWaveManager::CheckAndSpawnNextWave()
 
 void ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds)
 {
-	/**
-	 * We cannot delete the UFOs that have been destroyed from the main array while loop is running
-	 * It will cause an ensure check to fail currNum == initialNum
-	 * So we store all the UFOs that have to be destroyed in this array
-	 * Once we finish iterating over the movement loop we can now remove the destroyed UFOs from the UFOsToMove array
-	 */
-	TArray<TWeakObjectPtr<ASUFO>> UFOsToRemoveAfterIteration;
-
 	for (TWeakObjectPtr<ASUFO> CurrUFO : UFOsToMove)
 		if (CurrUFO.IsValid() && CurrUFO->GetSplinePath())
 		{
@@ -150,4 +167,11 @@ void ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds)
 
 	for (TWeakObjectPtr<ASUFO> UFOToRemove : UFOsToRemoveAfterIteration)
 		UFOsToMove.Remove(UFOToRemove);
+
+	UFOsToRemoveAfterIteration.Empty();
+}
+
+void ASUFOWaveManager::SpawnedUFODestroyedByPlayerCallback(ASUFO* DestroyedUFO)
+{
+	UFOsToRemoveAfterIteration.Add(DestroyedUFO);
 }

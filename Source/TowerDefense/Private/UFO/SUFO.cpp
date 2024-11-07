@@ -1,6 +1,7 @@
 
 #include "UFO/SUFO.h"
 #include "Components/WidgetComponent.h"
+#include "UFO/SUFOWaveManager.h"
 
 ASUFO::ASUFO()
 {
@@ -33,7 +34,7 @@ void ASUFO::BeginPlay()
 
 void ASUFO::OnUFOReachedBaseCall()
 {
-	OnUFOReachedBase.Broadcast(UFOLifeCount);
+	OnUFOReachedBase.Broadcast(UFOLifeDamageCount);
 	Destroy();
 }
 
@@ -41,7 +42,8 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 {
 	if (Damage>= CurrentHealth)
 	{
-		OnUFODestroyed.Broadcast(UFOValue);
+		OnUFODestroyed.Broadcast(UFOCoinValue);
+		if (IsValid(WaveManager)) WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
 		Destroy();
 		return;
 	}

@@ -114,4 +114,19 @@ private:
 	/** Array to store all the UFOs that has to be moved along the spline */
 	TArray<TWeakObjectPtr<ASUFO>> UFOsToMove;
 
+	/**
+	 * We cannot delete the UFOs that have been destroyed from the main array while loop is running
+	 * It will cause an ensure check to fail currNum == initialNum
+	 * So we store all the UFOs that have to be destroyed in this array
+	 * Once we finish iterating over the movement loop we can now remove the destroyed UFOs from the UFOsToMove array
+	 */
+	TArray<TWeakObjectPtr<ASUFO>> UFOsToRemoveAfterIteration;
+
+	/** True when all the UFOs have been spawned, set from ASUFOWaveManager::SpawnNextWave */
+	bool bAllTheUFOsHaveBeenSpawned = false;
+	
+public:
+	/** Removes the UFO destroyed by the player from the UFOsToMove array, called from ASUFO::OnTakeAnyDamageCallback */
+	void SpawnedUFODestroyedByPlayerCallback(ASUFO* DestroyedUFO);
+	
 };

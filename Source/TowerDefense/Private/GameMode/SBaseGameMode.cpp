@@ -1,7 +1,8 @@
 
 #include "GameMode/SBaseGameMode.h"
-#include "Interface/SGameInteractionInterface.h"
+
 #include "GameFramework/HUD.h"
+#include "Interface/SGameInteractionInterface.h"
 #include "Kismet/GameplayStatics.h"
 
 void ASBaseGameMode::OnUFOReachedBaseCallback(uint32 InUFOLifeCount)

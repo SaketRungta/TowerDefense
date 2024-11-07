@@ -7,6 +7,7 @@
 
 class USplineComponent;
 class UWidgetComponent;
+class ASUFOWaveManager;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHideHealthWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResetIfAnimIsPlaying);
@@ -26,6 +27,8 @@ public:
 	/** Default constructor */
 	ASUFO();
 
+#pragma region Delegates
+	
 	/**
 	 * When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash
 	 * In the blueprints it spawns the coin reward widget actor passing the value of this ufo
@@ -56,11 +59,16 @@ public:
 	 */
 	void OnUFOReachedBaseCall();
 	
+#pragma endregion Delegates
+	
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
 
 private:
+
+#pragma region Components
+	
 	/** Scene root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot = nullptr;
@@ -73,6 +81,17 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Components, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UWidgetComponent> HealthBarWidget = nullptr;
 
+#pragma endregion Components
+	
+	/** Callback when projectile hit the ufo and applies damage */
+	UFUNCTION()
+	void OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	/** Timer to hide the health bar widget once ufo has not been damaged for a long time */
+	FTimerHandle HealthBarWidgetVisibilityTimerHandle;
+
+#pragma region UFOData
+	
 	/** Stores the current health of UFO */
 	uint32 CurrentHealth;
 
@@ -80,24 +99,19 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
 	uint32 MaxHealth = 10;
 
-	/** Callback when projectile hit the ufo and applies damage */
-	UFUNCTION()
-	void OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
-
 	/** Percentage of health the ufo has 0 is lowest 1 highest */
 	float HealthPercentage = 1.f;
 
-	/** Timer to hide the health bar widget once ufo has not been damaged for a long time */
-	FTimerHandle HealthBarWidgetVisibilityTimerHandle;
-	
-	/** Value of the ufo to add when player destroys it */
+	/** Coin value of the ufo to add when player destroys it */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
-	uint32 UFOValue = 10;
+	uint32 UFOCoinValue = 10;
 
 	/** Value of life to deduct when ufo reaches the base */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "10"))
-	uint32 UFOLifeCount = 1;
+	uint32 UFOLifeDamageCount = 1;
 
+#pragma endregion UFOData
+	
 	/** Spline for the ufo to follow, set from ASUFOWaveManager::SpawnUFOs via setter */
 	TObjectPtr<USplineComponent> SplinePath;
 
@@ -107,6 +121,13 @@ private:
 	/** Speed at which ufo moves along the spline path */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "0.1", ClampMax = "5000"))
 	float MovementSpeed = 300.f;
+
+	/**
+	 * Ref to the wave manager class, set via the setter
+	 * When UFO is destroyed by the player then we need to tell the wave manager class
+	 * So that wave manager removes it from the list of UFOs to move
+	 */
+	TObjectPtr<ASUFOWaveManager> WaveManager;
 	
 public:
 	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */
@@ -127,5 +148,8 @@ public:
 	
 	/** Getter for MovementSpeed, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
 	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
+	
+	/** Setter for WaveManager, called from ASUFOWaveManager::SpawnUFOs */
+	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager) { WaveManager = InWaveManager; }
 	
 };

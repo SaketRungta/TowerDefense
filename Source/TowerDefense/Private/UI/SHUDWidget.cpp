@@ -20,11 +20,16 @@ void USHUDWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	GameMode = Cast<ASBaseGameMode>(UGameplayStatics::GetGameMode(this));
+	if (GameMode.IsValid()) InitialLifeCount = GameMode->GetLifeCount();
 }
 
-FText USHUDWidget::BindLifeCount() const
-{	
-	if(GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetLifeCount()));
+FText USHUDWidget::BindLifeCount()
+{
+	if(GameMode.IsValid())
+	{
+		CurrentLifeCount = GameMode->GetLifeCount();
+		return FText::FromString(FString::Printf(TEXT("%u"), CurrentLifeCount));
+	}
 	return FText::FromString(TEXT("Er"));
 }
 
