@@ -3,7 +3,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "Interface/SGameInteractionInterface.h"
+
+#include "System/CommonTypes.h"
+
 #include "SBaseHUD.generated.h"
 
 class USHUDWidget;
@@ -14,17 +16,10 @@ class USHUDWidget;
  * Handles UI interaction with other classes
  ********************************************************************************************/
 UCLASS(Blueprintable, BlueprintType, Category = UI)
-class TOWERDEFENSE_API ASBaseHUD : public AHUD, public ISGameInteractionInterface
+class TOWERDEFENSE_API ASBaseHUD : public AHUD
 {
 	GENERATED_BODY()
 
-public:
-	/** Interface override used to show error messages on screen */
-	virtual void ShowErrorMessage(const FString& InErrorMessage) override;
-	
-	/** Interface override used to show menu as per request */
-	virtual void ShowTheGivenMenu(EMenuToShow InMenuToShow) override;
-	
 protected:
 	/** Begin play override */
 	virtual void BeginPlay() override;
@@ -35,6 +30,13 @@ private:
 	TSubclassOf<USHUDWidget> HUDWidgetClass;
 
 	/** Ref to the main HUD widget */
-	TWeakObjectPtr<USHUDWidget> HUDWidget;
+	TObjectPtr<USHUDWidget> HUDWidget;
+	
+public:
+	/** Show's the in error messages on the viewport */
+	void ShowErrorMessage(const FString& InErrorMessage) const;
+	
+	/** Show's the menu as per request */
+	void ShowTheGivenMenu(const EMenuToShow InMenuToShow) const;
 	
 };

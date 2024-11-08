@@ -106,7 +106,7 @@ private:
 	uint32 NumWavesSpawned = 0;
 
 	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
-	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
+	TObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Moves all the UFOs currently in the level along the spline path */
 	void MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds);

@@ -2,11 +2,12 @@
 #include "UFO/SUFOWaveManager.h"
 
 #include "Components/SplineComponent.h"
+#include "GameFramework/HUD.h"
 #include "GameMode/SBaseGameMode.h"
+#include "System/CommonTypes.h"
 #include "UFO/SUFO.h"
 #include "UFO/SUFOSplinePath.h"
-#include "GameFramework/HUD.h"
-#include "Interface/SGameInteractionInterface.h"
+#include "UI/SBaseHUD.h"
 
 ASUFOWaveManager::ASUFOWaveManager()
 {
@@ -22,16 +23,9 @@ void ASUFOWaveManager::Tick(float DeltaSeconds)
 	if (bAllTheUFOsHaveBeenSpawned && UFOsToMove.Num() == 0)
 	{
 		bAllTheUFOsHaveBeenSpawned = false;
-
-		AHUD* BaseHUD = GetWorld()->GetFirstPlayerController()->GetHUD();
-		if (IsValid(BaseHUD))
-		{
-			if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
-			{
-				ISGameInteractionInterface* GameInteractionInterface = Cast<ISGameInteractionInterface>(BaseHUD);
-				if (GameInteractionInterface != nullptr) GameInteractionInterface->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
-			}
-		}
+		
+		if (const ASBaseHUD* BaseHUD = Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+			BaseHUD->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
 
 		SetActorTickEnabled(false);
 	}
@@ -42,7 +36,7 @@ void ASUFOWaveManager::BeginPlay()
 	Super::BeginPlay();
 
 	BaseGameMode = Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
-	if(BaseGameMode.IsValid()) BaseGameMode->SetTotalNumWaves(WaveSpawningData.Num());
+	if(IsValid(BaseGameMode)) BaseGameMode->SetTotalNumWaves(WaveSpawningData.Num());
 
 	SpawnNextWave();
 }
@@ -55,7 +49,7 @@ void ASUFOWaveManager::SpawnNextWave()
 		return;
 	}
 	
-	if(BaseGameMode.IsValid()) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
+	if(IsValid(BaseGameMode)) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
 	
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
@@ -93,8 +87,8 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 
 	if(SpawnedUFO)
 	{
-		BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
-		if(BaseGameMode.IsValid())
+		BaseGameMode = IsValid(BaseGameMode) ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
+		if(IsValid(BaseGameMode))
 		{
 			SpawnedUFO->OnUFODestroyed.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFODestroyedCallback);
 			SpawnedUFO->OnUFOReachedBase.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFOReachedBaseCallback);

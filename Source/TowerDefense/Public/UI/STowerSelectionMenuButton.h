@@ -33,7 +33,8 @@ private:
 
 public:
 	/** Getter for TurretButton */
-	FORCEINLINE UButton* GetTowerButton() const	{ return TowerButton; }
+	FORCEINLINE UButton* GetTowerButton() const
+	{ return TowerButton; }
 
 	/** Called from USTowerSelectionMenu::Initialize to set the tower price */
 	void SetTowerPrice(const int32 InTowerPrice) const;

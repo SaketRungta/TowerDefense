@@ -53,13 +53,13 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = UFOData)
 	FOnResetIfAnimIsPlaying OnResetIfAnimIsPlaying;
 
+#pragma endregion Delegates
+	
 	/**
 	 * Called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath when ufo reaches the end of its spline path
 	 * Broadcasts OnUFOReachedBase delegate to deduct life from game mode and destroys the ufo
 	 */
 	void OnUFOReachedBaseCall();
-	
-#pragma endregion Delegates
 	
 protected:
 	/** Begin play overloading */
@@ -132,24 +132,31 @@ private:
 public:
 	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE float GetHealthPercentage() const { return HealthPercentage; }
+	FORCEINLINE float GetHealthPercentage() const
+	{ return HealthPercentage; }
 
 	/** Setter for SplinePath, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath) { SplinePath = InSplinePath; }
+	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath)
+	{ SplinePath = InSplinePath; }
 
 	/** Getter for SplinePath, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
-	FORCEINLINE const USplineComponent* GetSplinePath() const { return SplinePath; }
+	FORCEINLINE const USplineComponent* GetSplinePath() const
+	{ return SplinePath; }
 
 	/** Getter for DistanceAlongSpline, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
-	FORCEINLINE float GetDistanceAlongSpline() const { return DistanceAlongSpline; }
+	FORCEINLINE float GetDistanceAlongSpline() const
+	{ return DistanceAlongSpline; }
 	
 	/** Setter for DistanceAlongSpline, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
-	FORCEINLINE void SetDistanceAlongSpline(const float& InDistance) { DistanceAlongSpline = InDistance; }
+	FORCEINLINE void SetDistanceAlongSpline(const float& InDistance)
+	{ DistanceAlongSpline = InDistance; }
 	
 	/** Getter for MovementSpeed, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
-	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
+	FORCEINLINE float GetMovementSpeed() const
+	{ return MovementSpeed; }
 	
 	/** Setter for WaveManager, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager) { WaveManager = InWaveManager; }
+	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager)
+	{ WaveManager = InWaveManager; }
 	
 };

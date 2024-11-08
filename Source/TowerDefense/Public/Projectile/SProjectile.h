@@ -34,6 +34,9 @@ public:
 	void ActivateThisObject(const FTransform& InFiringSocketTransform);
 
 private:
+
+#pragma region ComponentsAndCallbacks
+	
 	/** Root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot;
@@ -50,6 +53,8 @@ private:
 	UFUNCTION()
 	void OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+#pragma endregion ComponentsAndCallbacks
+	
 	/** Called by ActivateThisObject via timer so that if the projectile is fired, and it does not deactivate by hitting a target it should still deactivate after sometime */
 	void DeactivateThisObject();
 
@@ -95,9 +100,11 @@ private:
 		
 public:
 	/** Getter for bIsInUse, true when projectile is in use or is active and cannot be used */
-	FORCEINLINE bool IsProjectileInUse() const { return bIsInUse; }
+	FORCEINLINE bool IsProjectileInUse() const
+	{ return bIsInUse; }
 
 	/** Setter for BaseDamage, called from ASBaseTower::SpawnProjectilePool */
-	FORCEINLINE void SetBaseDamage(const uint32& InBaseDamage) { BaseDamage = InBaseDamage; }
+	FORCEINLINE void SetBaseDamage(const uint32& InBaseDamage)
+	{ BaseDamage = InBaseDamage; }
 	
 };

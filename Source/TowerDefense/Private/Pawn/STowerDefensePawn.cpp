@@ -1,15 +1,16 @@
 
 #include "Pawn/STowerDefensePawn.h"
-#include "Camera/CameraComponent.h"
-#include "GameFramework/Controller.h"
+
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/Controller.h"
 #include "Interactions/STowerSite.h"
-#include "Towers/SBaseTower.h"
 #include "Kismet/GameplayStatics.h"
-#include "Interface/SGameInteractionInterface.h"
-#include "GameFramework/HUD.h"
+#include "System/CommonTypes.h"
+#include "Towers/SBaseTower.h"
+#include "UI/SBaseHUD.h"
 
 ASTowerDefensePawn::ASTowerDefensePawn()
 {
@@ -34,8 +35,8 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerController = PlayerController.IsValid() == true ? PlayerController : Cast<APlayerController>(GetController());
-	if (PlayerController.IsValid())
+	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (IsValid(PlayerController))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
@@ -56,16 +57,12 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void ASTowerDefensePawn::SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite)
 {
-	ISGameInteractionInterface::SetCurrentlySelectedTowerSite(NewSelectedTowerSite);
-	
-	if (LastSelectedTowerSite.IsValid()) LastSelectedTowerSite->SetTowerSiteToUnselected();
+	if (IsValid(LastSelectedTowerSite)) LastSelectedTowerSite->SetTowerSiteToUnselected();
 	LastSelectedTowerSite = NewSelectedTowerSite;
 }
 
 void ASTowerDefensePawn::SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower)
 {
-	ISGameInteractionInterface::SetCurrentlySelectedTower(NewSelectedTower);
-	
 	if (LastSelectedTower.IsValid()) LastSelectedTower->SetTowerToUnselected();
 	LastSelectedTower = NewSelectedTower;
 }
@@ -75,9 +72,9 @@ void ASTowerDefensePawn::BeginPlay()
 	Super::BeginPlay();
 
 	SetActorTickEnabled(false);
-	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
-
-	if (PlayerController.IsValid())
+	
+	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (IsValid(PlayerController))
 	{		
 		FInputModeGameAndUI InputModeData;
 		InputModeData.SetHideCursorDuringCapture(false);
@@ -97,16 +94,17 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 	{
 		SetCurrentlySelectedTowerSite(nullptr);
 		SetCurrentlySelectedTower(nullptr);
-		PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
-		if(PlayerController.IsValid()) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
+		
+		PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+		if (IsValid(PlayerController)) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
 	}
 	SetActorTickEnabled(Value.Get<bool>());
 }
 
 void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 {
-	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
-	if (PlayerController.IsValid())
+	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (IsValid(PlayerController))
 	{
 		FHitResult HitResult;
 		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
@@ -127,23 +125,16 @@ void ASTowerDefensePawn::OnEscapeButtonAction(const FInputActionValue& Value)
 	if (bIsGamePaused) MenuToShow = EMenuToShow::Pause;
 	else MenuToShow = EMenuToShow::HUD;
 	
-	BaseHUD = BaseHUD.IsValid() ? BaseHUD : GetWorld()->GetFirstPlayerController()->GetHUD();
-	if(BaseHUD.IsValid())
-	{
-		if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
-		{
-			GameInteractionInterfaceToBaseHUD = GameInteractionInterfaceToBaseHUD != nullptr ? GameInteractionInterfaceToBaseHUD : Cast<ISGameInteractionInterface>(BaseHUD);
-			if (GameInteractionInterfaceToBaseHUD != nullptr) GameInteractionInterfaceToBaseHUD->ShowTheGivenMenu(MenuToShow);
-		}
-	}
+	BaseHUD = IsValid(BaseHUD) ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
+	if(IsValid(BaseHUD)) BaseHUD->ShowTheGivenMenu(MenuToShow);
 }
 
 void ASTowerDefensePawn::CameraPanImplementation()
 {
 	FVector2D CurrentMousePosition;
 
-	PlayerController = PlayerController.IsValid() ? PlayerController : Cast<APlayerController>(GetController());
-	if (PlayerController.IsValid()) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
+	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (IsValid(PlayerController)) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
 	
 	FVector DeltaLocation;
 	DeltaLocation.X = (InitialMousePosition.X - CurrentMousePosition.X) * CameraPanSpeed;

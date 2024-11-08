@@ -1,24 +1,24 @@
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Interface/SGameInteractionInterface.h"
 #include "STowerDefensePawn.generated.h"
 
+class UInputComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class ASBaseTower;
-class AHUD;
+class ASBaseHUD;
+class ASTowerSite;
 
 /**
  * Main pawn class
  * It contains the camera and handles the input 
  ********************************************************************************************/
 UCLASS(Blueprintable, BlueprintType, ClassGroup = Pawn)
-class TOWERDEFENSE_API ASTowerDefensePawn : public APawn, public ISGameInteractionInterface
+class TOWERDEFENSE_API ASTowerDefensePawn : public APawn
 {
 	GENERATED_BODY()
 
@@ -30,16 +30,16 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	/** Setups the input and related callbacks for each input */
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 	/** Called from ASTowerSite::OnActorClicked to set the currently selected tower site */
-	virtual void SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite) override;
+	void SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite);
 
 	/** Called from ASBaseTower::OnActorClicked to set the currently selected tower */
-	virtual void SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower) override;
+	void SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower);
 
 	/** Called from ASBaseGameMode::OnUFOReachedBaseCallback, when all lives are over and player can no longer pause the game */
-	virtual void SetCanPauseTheGame(const bool InCanPauseGame) override
+	void SetCanPauseTheGame(const bool InCanPauseGame)
 	{ bCanPauseTheGame = InCanPauseGame; }
 
 protected:
@@ -90,7 +90,7 @@ private:
 #pragma endregion Input
 
 	/** Default player controller ref, used to set up the input mapping context and to get the mouse position when required */
-	TWeakObjectPtr<APlayerController> PlayerController;
+	TObjectPtr<APlayerController> PlayerController;
 
 #pragma region CameraPanning
 
@@ -101,7 +101,7 @@ private:
 	void CameraPanImplementation();
 
 	/** Stores the mouse position when player presses the right mouse button to start camera panning */
-	FVector2d InitialMousePosition{ 0.f, 0.f };
+	FVector2d InitialMousePosition{0.f, 0.f};
 
 	/** Speed at which camera should pan */
 	UPROPERTY(EditAnywhere, Category = Camera, meta = (ClampMin = "0.001", ClampMax = "1"))
@@ -114,8 +114,8 @@ private:
 	 * When user selects a new tower site "SetCurrentlySelectedTowerSite" function sets the variable with newly selected tower site
 	 * If this tower site is unselected then it is set back to nullptr
 	 */
-	TWeakObjectPtr<ASTowerSite> LastSelectedTowerSite;
-	
+	TObjectPtr<ASTowerSite> LastSelectedTowerSite;
+
 	/** 
 	 * Stores the tower which was last selected by the user
 	 * When user selects a new tower "SetCurrentlySelectedTower" function sets the variable with newly selected tower
@@ -125,12 +125,9 @@ private:
 
 	/** True when game is paused, helps to pause/unpause the game */
 	bool bIsGamePaused = false;
-	
+
 	/** Ref to the base HUD class to show the pause menu */
-	TWeakObjectPtr<AHUD> BaseHUD;
-	
-	/** Interface ref of the base HUD */
-	ISGameInteractionInterface* GameInteractionInterfaceToBaseHUD;
+	TObjectPtr<ASBaseHUD> BaseHUD;
 
 	/** False when either the level is completed or failed, so that user cannot pause once game is over */
 	bool bCanPauseTheGame = true;

@@ -1,5 +1,6 @@
 
 #include "UI/SHUDWidget.h"
+
 #include "Components/TextBlock.h"
 #include "GameMode/SBaseGameMode.h"
 #include "Kismet/GameplayStatics.h"
@@ -20,12 +21,12 @@ void USHUDWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	GameMode = Cast<ASBaseGameMode>(UGameplayStatics::GetGameMode(this));
-	if (GameMode.IsValid()) InitialLifeCount = GameMode->GetLifeCount();
+	if (IsValid(GameMode)) InitialLifeCount = GameMode->GetLifeCount();
 }
 
 FText USHUDWidget::BindLifeCount()
 {
-	if(GameMode.IsValid())
+	if (IsValid(GameMode))
 	{
 		CurrentLifeCount = GameMode->GetLifeCount();
 		return FText::FromString(FString::Printf(TEXT("%u"), CurrentLifeCount));
@@ -35,12 +36,12 @@ FText USHUDWidget::BindLifeCount()
 
 FText USHUDWidget::BindCoinCount() const
 {
-	if(GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetCoinCount()));
+	if (IsValid(GameMode)) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetCoinCount()));
 	return FText::FromString(TEXT("Er"));
 }
 
 FText USHUDWidget::BindWaveCount() const
 {
-	if(GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u/%u"), GameMode->GetCurrentWaveNumber(), GameMode->GetTotalNumWaves()));
+	if (IsValid(GameMode)) return FText::FromString(FString::Printf(TEXT("%u/%u"), GameMode->GetCurrentWaveNumber(), GameMode->GetTotalNumWaves()));
 	return FText::FromString(TEXT("Er"));
 }

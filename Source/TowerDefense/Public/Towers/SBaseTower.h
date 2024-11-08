@@ -8,8 +8,8 @@
 class USphereComponent;
 class ASProjectile;
 class UWidgetComponent;
-class ISGameInteractionInterface;
 class ASTowerSite;
+class ASTowerDefensePawn;
 
 /**
  * Struct for the tower data table
@@ -100,7 +100,7 @@ protected:
 
 private:
 
-#pragma region Components
+#pragma region ComponentsAndCallback
 	
 	/** Actor root component */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
@@ -126,8 +126,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UWidgetComponent> TowerSellingWidget;
 
-#pragma endregion Components
-	
 	/** Callback when tower is clicked, sets the range mesh and selling widget to visible */
 	UFUNCTION()
 	void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
@@ -140,42 +138,14 @@ private:
 	UFUNCTION()
 	void OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+#pragma endregion ComponentsAndCallback
+	
 	/** Called from ASBaseTower::Tick, when any enemy is in range and turret need to point at that enemy */
 	void SetTurretLookAtEnemy();
 
 	/** Called from ASBaseTower::BeginPlay to spawn the pool of projectiles for this turret */
 	void SpawnProjectilePool();
 
-	/** True when tower should fire, set from range sphere pverlap callbacks */
-	bool bShouldFire = false;
-	
-	/** True when tower is selected */
-	bool bIsTowerSelected = false;
-	
-	/** Ref to the player pawn so that we call set the last selected tower via interface */
-	TWeakObjectPtr<APawn> PlayerPawn;
-
-	/** Interface to the player pawn to set the last selected tower */
-	ISGameInteractionInterface* GameInteractionInterface;
-
-	/** Contains all the enemies currently in range of the turret */
-	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
-
-	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
-	FTimerHandle FireCooldownTimer;
-
-	/** 
-	 * Object pool that contains all the projectiles this turret has
-	 * 
-	 * Notes
-	 * - TObjectPtr will help in garbage collection as this in not associated with UPROPERTY()
-	 * - Efficient and safer alternative to raw pointers when dealing with UObjects
-	 * - TWeakObjectPtr is not used as we're not planning to delete or destroy the projectiles
-	 */
-	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
-
-	TObjectPtr<ASTowerSite> TowerSite;
-	
 #pragma region TowerData;
 	
 	/** The projectile that has to be spawned by this class */
@@ -200,15 +170,43 @@ private:
 
 #pragma endregion TowerData;
 	
+	/** True when tower should fire, set from range sphere pverlap callbacks */
+	bool bShouldFire = false;
+	
+	/** True when tower is selected */
+	bool bIsTowerSelected = false;
+	
+	/** Ref to the player pawn so that we call set the last selected tower via interface */
+	TObjectPtr<ASTowerDefensePawn> PlayerPawn;
+
+	/** Contains all the enemies currently in range of the turret */
+	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
+
+	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
+	FTimerHandle FireCooldownTimer;
+
+	/** Object pool that contains all the projectiles this turret has */
+	TArray<TObjectPtr<ASProjectile>> ProjectilePool;
+
+	/**
+	 * Ref to the tower site on which this tower sits
+	 * When this tower is sold by the user we need to enable the tower
+	 */
+	TObjectPtr<ASTowerSite> TowerSite;
+	
 public:
 	/** Getter for the TurretMesh */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const { return TowerMesh; }
+	FORCEINLINE UStaticMeshComponent* GetTowerMesh() const
+	{ return TowerMesh; }
 	
 	/** Getter for the TurretMesh */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const	{ return TurretMesh; }
+	FORCEINLINE UStaticMeshComponent* GetTurretMesh() const
+	{ return TurretMesh; }
 
 	/** Setter for TowerSite, called from USTowerSelectionMenu::SpawnGivenTower */
-	FORCEINLINE void SetTowerSite(ASTowerSite* InTowerSite) { TowerSite = InTowerSite; }
+	FORCEINLINE void SetTowerSite(ASTowerSite* InTowerSite)
+	{ TowerSite = InTowerSite; }
+	
 };

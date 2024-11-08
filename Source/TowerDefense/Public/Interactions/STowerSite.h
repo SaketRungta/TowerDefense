@@ -7,8 +7,7 @@
 
 class UWidgetComponent;
 class USTowerSelectionMenu;
-class APawn;
-class ISGameInteractionInterface;
+class ASTowerDefensePawn;
 
 /**
  * Tower spawning site class
@@ -43,6 +42,9 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+
+#pragma region ComponentsAndCallbacks
+	
 	/** Root component for this class */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<USceneComponent> SceneRoot;
@@ -53,21 +55,19 @@ private:
 
 	/** Widget component for the tower selection menu */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
-	TObjectPtr<UWidgetComponent> WidgetComponent;
+	TObjectPtr<UWidgetComponent> TowerSelectionMenuWidgetComponent;
 
 	/** Callback when this actor is clicked by the user */
 	UFUNCTION()
 	void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
 
+#pragma endregion ComponentsAndCallbacks
+	
+	/** Ref to the player pawn so that we call set the last selected tower site via interface */
+	TObjectPtr<ASTowerDefensePawn> PlayerPawn;
+	
 	/** Ref to the widget of the widget component for us to play the pop in animation */
-	TWeakObjectPtr<USTowerSelectionMenu> TowerSelectionMenu;
-
-	/** 
-	 * Duration it takes for the widget to play the pop in animation 
-	 * A timer fires once widget pop in anim is played in revered so that widget component can be set to hidden in game
-	 */
-	UPROPERTY(EditAnywhere, Category = Widget, meta = (ClampMin = "0.1", ClampMax = "1"))
-	float WidgetPopInAnimPlayDuration = 0.25f;
+	TObjectPtr<USTowerSelectionMenu> TowerSelectionMenuWidget;
 
 	/**
 	 * True when the site is active
@@ -78,26 +78,26 @@ private:
 	/**	True when site is disabled, when a tower is already placed on the site */
 	bool bIsSiteDisabled = false;
 	
-	/** Ref to the player pawn so that we call set the last selected tower site via interface */
-	TWeakObjectPtr<APawn> PlayerPawn;
-	
-	/** Interface to the player pawn to set the last selected tower site */
-	ISGameInteractionInterface* GameInteractionInterface;
-
 public:
+	void HideTowerSelectionMenuWidgetComponent() const;
+	
 	/** Getter for TowerSiteMesh */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UStaticMeshComponent* GetTowerSiteMesh() const { return TowerSiteMesh; }
+	FORCEINLINE UStaticMeshComponent* GetTowerSiteMesh() const
+	{ return TowerSiteMesh; }
 
 	/** Getter for bIsSiteActive */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE bool GetIsSiteActive() const { return bIsSiteActive; }
+	FORCEINLINE bool GetIsSiteActive() const
+	{ return bIsSiteActive; }
 	
 	/** Getter for bIsSiteDisabled */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE bool GetIsSiteDisabled() const { return bIsSiteDisabled; }
+	FORCEINLINE bool GetIsSiteDisabled() const
+	{ return bIsSiteDisabled; }
 	
 	/** Setter for bIsSiteDisabled */
-	FORCEINLINE void SetIsSiteDisabled(const bool Value) { bIsSiteDisabled = Value; }
+	FORCEINLINE void SetIsSiteDisabled(const bool Value)
+	{ bIsSiteDisabled = Value; }
 	
 };

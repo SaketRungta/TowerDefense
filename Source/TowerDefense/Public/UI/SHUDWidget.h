@@ -26,6 +26,9 @@ protected:
 	virtual void NativeConstruct() override;
 	
 private:
+
+#pragma	region ComponentsAndCallbacks
+	
 	/** Text block to show the life count */
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> TB_LifeCount;
@@ -38,9 +41,6 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> TB_WaveCount;
 
-	/** Ref to the game mode as we will be binding all the data from game mode */
-	TWeakObjectPtr<ASBaseGameMode> GameMode;
-
 	/** Binds the life count text block to the game mode */
 	UFUNCTION()
 	FText BindLifeCount();
@@ -52,6 +52,11 @@ private:
 	/** Binds the wave count text block to the game mode */
 	UFUNCTION()
 	FText BindWaveCount() const;
+
+#pragma	endregion ComponentsAndCallbacks
+	
+	/** Ref to the game mode as we will be binding all the data from game mode */
+	TObjectPtr<ASBaseGameMode> GameMode;
 
 	/** Stores the initial life count as our bp will need it show the stars once level is completed */
 	uint32 InitialLifeCount = 0;
@@ -70,10 +75,12 @@ public:
 
 	/** Getter for InitialLifeCount, used to show the stars once level is completed */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE int32 GetInitialLifeCount() const { return static_cast<int32>(InitialLifeCount); }
+	FORCEINLINE int32 GetInitialLifeCount() const
+	{ return static_cast<int32>(InitialLifeCount); }
 
 	/** Getter for CurrentLifeCount, used to show the stars once level is completed */
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE int32 GetCurrentLifeCount() const { return static_cast<int32>(CurrentLifeCount); }
+	FORCEINLINE int32 GetCurrentLifeCount() const
+	{ return static_cast<int32>(CurrentLifeCount); }
 
 };

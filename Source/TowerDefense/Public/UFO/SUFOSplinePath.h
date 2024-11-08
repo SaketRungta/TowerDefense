@@ -27,6 +27,7 @@ private:
 
 public:
 	/** Getter for Spline, called by ASUFOWaveManager::SpawnUFOs, to assign the spawned ufo its spline */
-	FORCEINLINE USplineComponent* GetSpline() const	{ return Spline; }
+	FORCEINLINE USplineComponent* GetSpline() const
+	{ return Spline; }
 	
 };

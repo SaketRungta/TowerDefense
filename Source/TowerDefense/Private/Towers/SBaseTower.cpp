@@ -4,8 +4,8 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Interactions/STowerSite.h"
-#include "Interface/SGameInteractionInterface.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Pawn/STowerDefensePawn.h"
 #include "Projectile/SProjectile.h"
 #include "UI/STowerSellingButton.h"
 
@@ -139,19 +139,8 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 	
 	bIsTowerSelected = !bIsTowerSelected;
 
-#pragma region InterfaceCall
-	
-	PlayerPawn = PlayerPawn->IsValidLowLevel() ? PlayerPawn : GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (PlayerPawn->IsValidLowLevel())
-	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
-		{
-			GameInteractionInterface = GameInteractionInterface != nullptr? GameInteractionInterface : Cast<ISGameInteractionInterface>(PlayerPawn);
-			if (GameInteractionInterface != nullptr) GameInteractionInterface->SetCurrentlySelectedTower(TempTower);
-		}
-	}
-	
-#pragma endregion InterfaceCall
+	PlayerPawn = IsValid(PlayerPawn) ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+	if (IsValid(PlayerPawn)) PlayerPawn->SetCurrentlySelectedTower(TempTower);
 	
 }
 

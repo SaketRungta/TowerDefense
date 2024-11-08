@@ -1,14 +1,15 @@
 
 #include "UI/STowerSelectionMenu.h"
-#include "UI/STowerSelectionMenuButton.h"
+
 #include "Components/Button.h"
-#include "Towers/SBaseTower.h"
-#include "Interactions/STowerSite.h"
-#include "Kismet/GameplayStatics.h"
-#include "Interface/SGameInteractionInterface.h"
 #include "GameFramework/Pawn.h"
 #include "GameMode/SBaseGameMode.h"
-#include "GameFramework/HUD.h"
+#include "Interactions/STowerSite.h"
+#include "Kismet/GameplayStatics.h"
+#include "Pawn/STowerDefensePawn.h"
+#include "Towers/SBaseTower.h"
+#include "UI/SBaseHUD.h"
+#include "UI/STowerSelectionMenuButton.h"
 
 USTowerSelectionMenu::USTowerSelectionMenu(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -37,6 +38,7 @@ bool USTowerSelectionMenu::Initialize()
 			CannonButton->SetTowerIcon(TowerIconMap[TowerNames[0]]);
 		}
 	}
+	
 	if (MachineGunButton)
 	{
 		MachineGunButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnMachineGunButtonClicked);
@@ -46,6 +48,7 @@ bool USTowerSelectionMenu::Initialize()
 			MachineGunButton->SetTowerIcon(TowerIconMap[TowerNames[1]]);
 		}
 	}
+	
 	if (ArcherTowerButton)
 	{
 		ArcherTowerButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnArcherTowerButtonClicked);
@@ -55,6 +58,7 @@ bool USTowerSelectionMenu::Initialize()
 			ArcherTowerButton->SetTowerIcon(TowerIconMap[TowerNames[2]]);
 		}
 	}
+	
 	if (CatapultButton)
 	{
 		CatapultButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnCatapultButtonClicked);
@@ -66,6 +70,11 @@ bool USTowerSelectionMenu::Initialize()
 	}
 	
 	return true;
+}
+
+void USTowerSelectionMenu::FinishedPlayingPopInAnim() const
+{
+	if (OwningTowerSite) OwningTowerSite->HideTowerSelectionMenuWidgetComponent();
 }
 
 void USTowerSelectionMenu::OnCannonButtonClicked()
@@ -111,15 +120,8 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 	/** A tower has been spawned on the site so we need to disable it otherwise it will respond to player clicks and hovers */
 	OwningTowerSite->SetIsSiteDisabled(true);
 	
-	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : (UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
-	if (PlayerPawn.IsValid())
-	{
-		if (PlayerPawn->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
-		{
-			GameInteractionInterfaceToPlayerPawn = GameInteractionInterfaceToPlayerPawn != nullptr? GameInteractionInterfaceToPlayerPawn : Cast<ISGameInteractionInterface>(PlayerPawn);
-			if (GameInteractionInterfaceToPlayerPawn != nullptr) GameInteractionInterfaceToPlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
-		}
-	}
+	PlayerPawn = IsValid(PlayerPawn) == true ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0)));
+	if (IsValid(PlayerPawn)) PlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
 }
 
 bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
@@ -127,20 +129,30 @@ bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
 	uint32 InTowerPrice = 999;	
 	if (TowerPriceMap.Contains(InTowerName)) InTowerPrice = TowerPriceMap[InTowerName];
 	
-	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
-	if (BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
-
-	BaseHUD = BaseHUD.IsValid() ? BaseHUD : GetWorld()->GetFirstPlayerController()->GetHUD();
-	if(BaseHUD.IsValid())
-	{
-		if (BaseHUD->GetClass()->ImplementsInterface(USGameInteractionInterface::StaticClass()))
-		{
-			GameInteractionInterfaceToBaseHUD = GameInteractionInterfaceToBaseHUD != nullptr ? GameInteractionInterfaceToBaseHUD : Cast<ISGameInteractionInterface>(BaseHUD);
-			if (GameInteractionInterfaceToBaseHUD != nullptr) GameInteractionInterfaceToBaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
-		}
-	}
+	BaseGameMode = IsValid(BaseGameMode) ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
+	if (IsValid(BaseGameMode) && BaseGameMode->DeductCoins(InTowerPrice)) return true;
+	
+	BaseHUD = IsValid(BaseHUD) ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
+	if(IsValid(BaseHUD)) BaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
 	
 	return false;
+}
+
+void USTowerSelectionMenu::PlayPopInAnimation(bool bIsReversed, const float& PlaybackSpeed)
+{
+	if (!PopInAnimation) return;
+
+	UnbindAllFromAnimationFinished(PopInAnimation);
+
+	FWidgetAnimationDynamicEvent WidgetAnimationDynamicEvent;
+	WidgetAnimationDynamicEvent.BindUFunction(this, FName("FinishedPlayingPopInAnim"));
+	
+	if (bIsReversed)
+	{
+		PlayAnimationReverse(PopInAnimation, PlaybackSpeed);
+		BindToAnimationFinished(PopInAnimation, WidgetAnimationDynamicEvent);
+	}
+	else PlayAnimationForward(PopInAnimation, PlaybackSpeed);
 }
 
 void USTowerSelectionMenu::SetOwningTowerSite(ASTowerSite* InOwningTowerSite)
