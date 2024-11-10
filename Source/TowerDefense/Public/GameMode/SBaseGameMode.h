@@ -65,7 +65,7 @@ private:
 	uint32 TotalNumWaves = 91;
 
 	/** Stores the currently active wave number */
-	uint32 CurrentWaveNumber = 91;
+	uint32 CurrentWaveNumber = 1;
 	
 public:
 	/** Getter for CoinsCount, used in USHUDWidget::BindCoinCount() */

@@ -42,6 +42,9 @@ public:
 	void SetCanPauseTheGame(const bool InCanPauseGame)
 	{ bCanPauseTheGame = InCanPauseGame; }
 
+	UFUNCTION(BlueprintCallable)
+	void UnPauseTheGame();
+	
 protected:
 	/**
 	 * Begin play override

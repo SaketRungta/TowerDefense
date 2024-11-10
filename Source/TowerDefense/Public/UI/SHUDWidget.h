@@ -27,6 +27,9 @@ protected:
 	/** Native Constructor override */
 	virtual void NativeConstruct() override;
 	
+	UFUNCTION(BlueprintImplementableEvent)
+	void SaveLevelStarsData(const int32& LevelIndex, const int32& StarsCount);
+	
 private:
 
 #pragma	region ComponentsAndCallbacks
@@ -139,6 +142,8 @@ private:
 
 #pragma endregion WidgetAnimations
 	
+	void SetLevelStarsData();
+
 	/** Ref to the game mode as we will be binding all the data from game mode */
 	TObjectPtr<ASBaseGameMode> GameMode;
 

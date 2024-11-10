@@ -75,6 +75,9 @@ protected:
 	/** Begin play override */
 	virtual void BeginPlay() override;
 
+	/** Overridable function called whenever this actor is being removed from a level */
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	
 	/** Array containing the wave spawning data, to be set in BP */
 	UPROPERTY(EditAnywhere, Category = WaveData)
 	TArray<FWaveDataArray> WaveSpawningData;
@@ -125,8 +128,17 @@ private:
 	/** True when all the UFOs have been spawned, set from ASUFOWaveManager::SpawnNextWave */
 	bool bAllTheUFOsHaveBeenSpawned = false;
 	
+	FTimerHandle StartSpawningWaveTimer;
+	
+	FTimerHandle SpawnTimer;
+	
+	FTimerHandle SpawnNextWaveTimer;
+	
 public:
 	/** Removes the UFO destroyed by the player from the UFOsToMove array, called from ASUFO::OnTakeAnyDamageCallback */
 	void SpawnedUFODestroyedByPlayerCallback(ASUFO* DestroyedUFO);
+
+	UFUNCTION(BlueprintCallable)
+	void OnDestruction();
 	
 };

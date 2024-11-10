@@ -67,6 +67,12 @@ void ASTowerDefensePawn::SetCurrentlySelectedTower(ASBaseTower* NewSelectedTower
 	LastSelectedTower = NewSelectedTower;
 }
 
+void ASTowerDefensePawn::UnPauseTheGame()
+{
+	const FInputActionValue Value;
+	OnEscapeButtonAction(Value);
+}
+
 void ASTowerDefensePawn::BeginPlay()
 {
 	Super::BeginPlay();

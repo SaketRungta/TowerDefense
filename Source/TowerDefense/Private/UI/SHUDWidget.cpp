@@ -79,14 +79,18 @@ void USHUDWidget::ShowTheRequestedMenu()
 	OnLastPlayedAnimFinishedPlaying.BindUFunction(this, FName("PlayStarsAnim"));
 	
 	if (LastPlayedAnim == ShowLevelCompletedMenuAnim)
+	{
+		if (InitialLifeCount == CurrentLifeCount) StarsAwarded = 3;
+		else if (CurrentLifeCount > InitialLifeCount / 2 ) StarsAwarded = 2;
+
+		SetLevelStarsData();
+
 		BindToAnimationFinished(LastPlayedAnim.Get(), OnLastPlayedAnimFinishedPlaying);
+	}
 }
 
 void USHUDWidget::PlayStarsAnim()
 {
-	if (InitialLifeCount == CurrentLifeCount) StarsAwarded = 3;
-	else if (CurrentLifeCount > InitialLifeCount / 2 ) StarsAwarded = 2;
-
 	if (StarPopInAnimPlayedCount == StarsAwarded) return;
 
 	switch (StarPopInAnimPlayedCount)
@@ -127,6 +131,21 @@ void USHUDWidget::PlayStarsAnim()
 	}
 	
 	++StarPopInAnimPlayedCount;
+}
+
+void USHUDWidget::SetLevelStarsData()
+{
+	const FString CurrLevelName = UGameplayStatics::GetCurrentLevelName(GetWorld());
+	if (CurrLevelName == "lv_01") SaveLevelStarsData(0, StarsAwarded);
+	else if (CurrLevelName == "lv_02") SaveLevelStarsData(1, StarsAwarded);
+	else if (CurrLevelName == "lv_03") SaveLevelStarsData(2, StarsAwarded);
+	else if (CurrLevelName == "lv_04") SaveLevelStarsData(3, StarsAwarded);
+	else if (CurrLevelName == "lv_05") SaveLevelStarsData(4, StarsAwarded);
+	else if (CurrLevelName == "lv_06") SaveLevelStarsData(5, StarsAwarded);
+	else if (CurrLevelName == "lv_07") SaveLevelStarsData(6, StarsAwarded);
+	else if (CurrLevelName == "lv_08") SaveLevelStarsData(7, StarsAwarded);
+	else if (CurrLevelName == "lv_09") SaveLevelStarsData(8, StarsAwarded);
+	else if (CurrLevelName == "lv_10") SaveLevelStarsData(9, StarsAwarded);
 }
 
 void USHUDWidget::PopInHUD()
