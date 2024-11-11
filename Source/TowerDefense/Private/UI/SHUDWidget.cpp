@@ -23,12 +23,19 @@ void USHUDWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	GameMode = Cast<ASBaseGameMode>(UGameplayStatics::GetGameMode(this));
-	if (IsValid(GameMode)) InitialLifeCount = GameMode->GetLifeCount();
+	if (GameMode.IsValid()) InitialLifeCount = GameMode->GetLifeCount();
+}
+
+void USHUDWidget::NativeDestruct()
+{
+	FinishedPlayingStarAnim.Unbind();
+	
+	Super::NativeDestruct();
 }
 
 FText USHUDWidget::BindLifeCount()
 {
-	if (IsValid(GameMode))
+	if (GameMode.IsValid())
 	{
 		CurrentLifeCount = GameMode->GetLifeCount();
 		return FText::FromString(FString::Printf(TEXT("%u"), CurrentLifeCount));
@@ -38,13 +45,13 @@ FText USHUDWidget::BindLifeCount()
 
 FText USHUDWidget::BindCoinCount() const
 {
-	if (IsValid(GameMode)) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetCoinCount()));
+	if (GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetCoinCount()));
 	return FText::FromString(TEXT("Er"));
 }
 
 FText USHUDWidget::BindWaveCount() const
 {
-	if (IsValid(GameMode)) return FText::FromString(FString::Printf(TEXT("%u/%u"), GameMode->GetCurrentWaveNumber(), GameMode->GetTotalNumWaves()));
+	if (GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u/%u"), GameMode->GetCurrentWaveNumber(), GameMode->GetTotalNumWaves()));
 	return FText::FromString(TEXT("Er"));
 }
 
@@ -91,42 +98,29 @@ void USHUDWidget::ShowTheRequestedMenu()
 
 void USHUDWidget::PlayStarsAnim()
 {
+	if (!IsValid(this)) return;
+	
+	FinishedPlayingStarAnim.Unbind();
+	FinishedPlayingStarAnim.BindUFunction(this, FName("PlayStarsAnim"));
+	
 	if (StarPopInAnimPlayedCount == StarsAwarded) return;
 
 	switch (StarPopInAnimPlayedCount)
 	{
 	case 0:
-		{
-			PlayAnimationForward(PopFirstStarAnim);
-		
-			FWidgetAnimationDynamicEvent FinishedPlayingStarAnim;
-			FinishedPlayingStarAnim.BindUFunction(this, FName("PlayStarsAnim"));
-	
-			BindToAnimationFinished(PopFirstStarAnim, FinishedPlayingStarAnim);
-		}
+		PlayAnimationForward(PopFirstStarAnim);
+		BindToAnimationFinished(PopFirstStarAnim, FinishedPlayingStarAnim);
 		break;
 	case 1:
-		{			
-			PlayAnimationForward(PopSecondStarAnim);
-		
-			FWidgetAnimationDynamicEvent FinishedPlayingStarAnim;
-			FinishedPlayingStarAnim.BindUFunction(this, FName("PlayStarsAnim"));
-	
-			BindToAnimationFinished(PopSecondStarAnim, FinishedPlayingStarAnim);
-		}
+		PlayAnimationForward(PopSecondStarAnim);
+		BindToAnimationFinished(PopSecondStarAnim, FinishedPlayingStarAnim);
 		break;
 	case 2:
 		PlayAnimationForward(PopThirdStarAnim);
 		break;
 	default:
-		{			
-			PlayAnimationForward(PopFirstStarAnim);
-		
-			FWidgetAnimationDynamicEvent FinishedPlayingStarAnim;
-			FinishedPlayingStarAnim.BindUFunction(this, FName("PlayStarsAnim"));
-	
-			BindToAnimationFinished(PopFirstStarAnim, FinishedPlayingStarAnim);
-		}
+		PlayAnimationForward(PopFirstStarAnim);
+		BindToAnimationFinished(PopFirstStarAnim, FinishedPlayingStarAnim);
 		break;
 	}
 	

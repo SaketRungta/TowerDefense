@@ -80,6 +80,13 @@ void ASProjectile::ActivateThisObject(const FTransform& InFiringSocketTransform)
 		);
 }
 
+void ASProjectile::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	GetWorldTimerManager().ClearTimer(DeactivateTimer);
+	
+	Super::EndPlay(EndPlayReason);
+}
+
 void ASProjectile::DeactivateThisObject()
 {
 	ProjectileMovementComponent->Velocity = FVector(0.f);

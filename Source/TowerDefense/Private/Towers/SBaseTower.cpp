@@ -212,6 +212,12 @@ false
 	return true;
 }
 
+void ASBaseTower::SetTowerEmissiveValue_Implementation(const float EmissiveValue)
+{
+	GetTowerMesh()->SetScalarParameterValueOnMaterials(FName("Emissive"), EmissiveValue);
+	GetTurretMesh()->SetScalarParameterValueOnMaterials(FName("Emissive"), EmissiveValue);
+}
+
 bool ASBaseTower::FindProjectileFromPool(ASProjectile*& InProjectileRef)
 {
 	for (ASProjectile* CurrProjectile : ProjectilePool)

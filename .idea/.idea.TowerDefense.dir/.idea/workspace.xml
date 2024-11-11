@@ -9,23 +9,42 @@
   <component name="ChangeListManager">
     <list default="true" id="2ef947fe-a721-4422-8f2d-f8e1210fead4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Interactions/BP_TowerSite.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Interactions/BP_TowerSite.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_UFOCoinsRewardActor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_UFOCoinsRewardActor.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_WaveManager.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_WaveManager.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CannonProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CannonProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Enums/E_MenuToOpen.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Interfaces/BPI_WidgetInteractionInterface.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Interfaces/BPI_WidgetInteractionInterface.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/SaveGame/BP_SaveGame.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/SaveGame/BP_SaveGame.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HealthBarWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HealthBarWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_LevelSelectionButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_LevelSelectionButton.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_Slider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_Slider.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Projectile/SProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Projectile/SProjectile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOSplinePath.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOSplinePath.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Interactions/STowerSite.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Pawn/STowerDefensePawn.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Pawn/STowerDefensePawn.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/System/CommonTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/System/CommonTypes.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TowerDefense.sln.DotSettings.user" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TowerDefense.uproject.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/TowerDefense.uproject.DotSettings.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,35 +104,16 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Core/Public/Misc/Exec.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Core/Public/Misc/MTAccessDetector.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Core/Public/UObject/ScriptDelegates.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/CoreUObject/Public/UObject/FastReferenceCollector.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/CoreUObject/Public/UObject/ObjectPtr.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/Engine/GameInstance.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/Engine/World.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/Actor.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/UMG/Private/UserWidget.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/UMG/Public/Blueprint/UserWidget.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -124,19 +124,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Uproject.TowerDefense.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Uproject.TowerDefense.executor": "Debug",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TowerDefense" type="Uproject" factoryName="rider.uproject">
       <configuration_1>
@@ -223,6 +223,7 @@
       <workItem from="1731221177113" duration="2445000" />
       <workItem from="1731230065912" duration="3603000" />
       <workItem from="1731247987738" duration="3361000" />
+      <workItem from="1731353464375" duration="3593000" />
     </task>
     <servers />
   </component>

@@ -33,6 +33,10 @@ public:
 	 */
 	void ActivateThisObject(const FTransform& InFiringSocketTransform);
 
+protected:
+	/** Called whenever this actor is being removed from a level, clears all timers to avoid possible crash */
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	
 private:
 
 #pragma region ComponentsAndCallbacks

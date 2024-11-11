@@ -51,11 +51,11 @@ void ASUFOWaveManager::BeginPlay()
 
 void ASUFOWaveManager::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	Super::EndPlay(EndPlayReason);
-	
-	GetWorldTimerManager().ClearTimer(SpawnTimer);
+	GetWorldTimerManager().ClearTimer(UFOSpawnTimer);
 	GetWorldTimerManager().ClearTimer(SpawnNextWaveTimer);
-	GetWorldTimerManager().ClearTimer(StartSpawningWaveTimer);	
+	GetWorldTimerManager().ClearTimer(StartSpawningWaveTimer);
+	
+	Super::EndPlay(EndPlayReason);	
 }
 
 void ASUFOWaveManager::SpawnNextWave()
@@ -122,9 +122,9 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 	
 	InNumUFOSpawned += 1;
 	
-	GetWorldTimerManager().ClearTimer(SpawnTimer);
+	GetWorldTimerManager().ClearTimer(UFOSpawnTimer);
 	GetWorldTimerManager().SetTimer(
-		SpawnTimer,
+		UFOSpawnTimer,
 		[this, InWaveSpawnData, InNumUFOSpawned]()
 		{
 			SpawnUFOs(InWaveSpawnData, InNumUFOSpawned);
@@ -185,9 +185,4 @@ void ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds)
 void ASUFOWaveManager::SpawnedUFODestroyedByPlayerCallback(ASUFO* DestroyedUFO)
 {
 	UFOsToRemoveAfterIteration.Add(DestroyedUFO);
-}
-
-void ASUFOWaveManager::OnDestruction()
-{
-	GetWorldTimerManager().ClearTimer(SpawnTimer);
 }

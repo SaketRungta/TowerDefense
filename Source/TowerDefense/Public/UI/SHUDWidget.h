@@ -27,6 +27,10 @@ protected:
 	/** Native Constructor override */
 	virtual void NativeConstruct() override;
 	
+	/** Native Destructor override */
+	virtual void NativeDestruct() override;
+
+	/** Calls to save the star data for the level */
 	UFUNCTION(BlueprintImplementableEvent)
 	void SaveLevelStarsData(const int32& LevelIndex, const int32& StarsCount);
 	
@@ -140,12 +144,16 @@ private:
 	/** Stores the count of stars popping anim that have been played so that we do not play more than required */
 	int32 StarPopInAnimPlayedCount = 0;
 
-#pragma endregion WidgetAnimations
+	/** Delegate to call USHUDWidget::PlayStarsAnim once a star anim finishes playing */
+	FWidgetAnimationDynamicEvent FinishedPlayingStarAnim;
 	
+#pragma endregion WidgetAnimations
+
+	/** Checks the level name and calls to save the game data for the level */
 	void SetLevelStarsData();
 
 	/** Ref to the game mode as we will be binding all the data from game mode */
-	TObjectPtr<ASBaseGameMode> GameMode;
+	TWeakObjectPtr<ASBaseGameMode> GameMode;
 
 	/** Stores the initial life count as our bp will need it show the stars once level is completed */
 	uint32 InitialLifeCount = 0;

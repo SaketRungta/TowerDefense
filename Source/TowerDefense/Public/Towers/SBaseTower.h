@@ -89,7 +89,7 @@ protected:
 	virtual bool FireTurret();
 
 	/** Sets the emissive value of materials when hovered/unhovered by the user */
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintNativeEvent)
 	void SetTowerEmissiveValue(const float EmissiveValue = 0.f);
 	
 	/** 

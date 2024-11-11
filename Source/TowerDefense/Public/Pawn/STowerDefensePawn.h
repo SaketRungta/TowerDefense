@@ -42,6 +42,7 @@ public:
 	void SetCanPauseTheGame(const bool InCanPauseGame)
 	{ bCanPauseTheGame = InCanPauseGame; }
 
+	/** Called from the main HUD when paused to unpause the game */
 	UFUNCTION(BlueprintCallable)
 	void UnPauseTheGame();
 	

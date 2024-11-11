@@ -79,6 +79,10 @@ private:
 	bool bIsSiteDisabled = false;
 	
 public:
+	/** 
+	 * Called from USTowerSelectionMenu::FinishedPlayingPopInAnim() to hide the widget component
+	 * When the pop in animation of the tower selection menu finishes playing
+	 */
 	void HideTowerSelectionMenuWidgetComponent() const;
 	
 	/** Getter for TowerSiteMesh */

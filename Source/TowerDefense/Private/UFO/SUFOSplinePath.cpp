@@ -6,6 +6,6 @@ ASUFOSplinePath::ASUFOSplinePath()
 {
  	PrimaryActorTick.bCanEverTick = false;
 
-    Spline = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));
+    Spline = CreateDefaultSubobject<USplineComponent>(TEXT("SplinePath"));
     SetRootComponent(Spline);
 }
