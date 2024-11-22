@@ -29,6 +29,17 @@ void ASProjectile::PostInitializeComponents()
 	ProjectileMesh->OnComponentBeginOverlap.AddDynamic(this, &ASProjectile::OnProjectileHit);
 }
 
+void ASProjectile::BeginDestroy()
+{
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearAllTimersForObject(this);
+	}
+
+	Super::BeginDestroy();
+}
+
 void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (bIsCatapultProjectile)
@@ -82,7 +93,12 @@ void ASProjectile::ActivateThisObject(const FTransform& InFiringSocketTransform)
 
 void ASProjectile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	GetWorldTimerManager().ClearTimer(DeactivateTimer);
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearTimer(DeactivateTimer);
+		TimerManager.ClearAllTimersForObject(this);
+	}
 	
 	Super::EndPlay(EndPlayReason);
 }

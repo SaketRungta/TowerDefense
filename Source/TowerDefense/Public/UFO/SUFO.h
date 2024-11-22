@@ -27,18 +27,11 @@ public:
 	/** Default constructor */
 	ASUFO();
 
+	/** Begin destroy override, clears all the timers and delegates */
+	virtual void BeginDestroy() override;
+	
 #pragma region Delegates
 	
-	/**
-	 * When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash
-	 * In the blueprints it spawns the coin reward widget actor passing the value of this ufo
-	 */
-	UPROPERTY(BlueprintAssignable, Category = UFOData)
-	FOnUFODestroyed OnUFODestroyed;
-	
-	/** When UFO reaches end this delegate will tell the game mode to deduct a life */
-	FOnUFOReachedBase OnUFOReachedBase;
-
 	/**
 	 * Called once the timer for damage runs out and now health bar widget can be hidden
 	 * Bound by health bar widget in the bp to play the fading anim
@@ -53,6 +46,16 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = UFOData)
 	FOnResetIfAnimIsPlaying OnResetIfAnimIsPlaying;
 
+	/**
+	 * When UFO is destroyed by the player this delegate will tell the game mode its value to add to coin stash
+	 * In the blueprints it spawns the coin reward widget actor passing the value of this ufo
+	 */
+	UPROPERTY(BlueprintAssignable, Category = UFOData)
+	FOnUFODestroyed OnUFODestroyed;
+	
+	/** When UFO reaches end this delegate will tell the game mode to deduct a life */
+	FOnUFOReachedBase OnUFOReachedBase;
+
 #pragma endregion Delegates
 	
 	/**
@@ -64,6 +67,9 @@ public:
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
+
+	/** Overridable function called whenever this actor is being removed from a level */
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
 
@@ -113,7 +119,7 @@ private:
 #pragma endregion UFOData
 	
 	/** Spline for the ufo to follow, set from ASUFOWaveManager::SpawnUFOs via setter */
-	TObjectPtr<USplineComponent> SplinePath;
+	TWeakObjectPtr<USplineComponent> SplinePath;
 
 	/** Stores the distance ufo has travelled along its spline path */
 	float DistanceAlongSpline = 0.0f;
@@ -127,7 +133,7 @@ private:
 	 * When UFO is destroyed by the player then we need to tell the wave manager class
 	 * So that wave manager removes it from the list of UFOs to move
 	 */
-	TObjectPtr<ASUFOWaveManager> WaveManager;
+	TWeakObjectPtr<ASUFOWaveManager> WaveManager;
 	
 public:
 	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */
@@ -136,12 +142,11 @@ public:
 	{ return HealthPercentage; }
 
 	/** Setter for SplinePath, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath)
-	{ SplinePath = InSplinePath; }
+	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath);
 
 	/** Getter for SplinePath, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
 	FORCEINLINE const USplineComponent* GetSplinePath() const
-	{ return SplinePath; }
+	{ return SplinePath.Get(); }
 
 	/** Getter for DistanceAlongSpline, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
 	FORCEINLINE float GetDistanceAlongSpline() const
@@ -156,7 +161,6 @@ public:
 	{ return MovementSpeed; }
 	
 	/** Setter for WaveManager, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager)
-	{ WaveManager = InWaveManager; }
+	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager);
 	
 };

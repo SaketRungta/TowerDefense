@@ -24,6 +24,9 @@ public:
 	/** Called when the components have been initialized */
 	virtual void PostInitializeComponents() override;
 
+	/** Begin destroy override, clears all the timers and delegates */
+	virtual void BeginDestroy() override;
+
 	/** 
 	 * Called by the tower which has spawned this projectile to activate it
 	 * This projectile will be a part of the towers object pool system meaning it will be deactivated by default

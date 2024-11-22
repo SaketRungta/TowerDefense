@@ -65,9 +65,12 @@ class TOWERDEFENSE_API ASBaseTower : public AActor
 public:	
 	/** Default constructor */
 	ASBaseTower();
-
-	/** Begin destroy override */
+	
+	/** Called when this actor is explicitly being destroyed during gameplay or in the editor, not called during level streaming or gameplay ending */
 	virtual void Destroyed() override;
+
+	/** Begin destroy override, clears all the timers and delegates */
+	virtual void BeginDestroy() override;
 
 	/** Tick event */
 	virtual void Tick(float DeltaTime) override;
@@ -84,6 +87,9 @@ public:
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
+
+	/** Called whenever this actor is being removed from a level, clears all timers to avoid possible crash */
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual bool FireTurret();
@@ -177,7 +183,7 @@ private:
 	bool bIsTowerSelected = false;
 	
 	/** Ref to the player pawn so that we call set the last selected tower via interface */
-	TObjectPtr<ASTowerDefensePawn> PlayerPawn;
+	TWeakObjectPtr<ASTowerDefensePawn> PlayerPawn;
 
 	/** Contains all the enemies currently in range of the turret */
 	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
@@ -192,7 +198,7 @@ private:
 	 * Ref to the tower site on which this tower sits
 	 * When this tower is sold by the user we need to enable the tower
 	 */
-	TObjectPtr<ASTowerSite> TowerSite;
+	TWeakObjectPtr<ASTowerSite> TowerSite;
 	
 public:
 	/** Getter for the TurretMesh */

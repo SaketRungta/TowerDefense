@@ -1,5 +1,7 @@
 
 #include "UFO/SUFO.h"
+
+#include "Components/SplineComponent.h"
 #include "Components/WidgetComponent.h"
 #include "UFO/SUFOWaveManager.h"
 
@@ -25,11 +27,54 @@ ASUFO::ASUFO()
 	this->Tags.Add(FName(TEXT("UFO")));
 }
 
+void ASUFO::BeginDestroy()
+{
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearAllTimersForObject(this);
+	}
+	
+	OnHideHealthWidget.Clear();
+	OnResetIfAnimIsPlaying.Clear();
+	OnUFODestroyed.Clear();
+	OnUFOReachedBase.Clear();
+	
+	OnHideHealthWidget.RemoveAll(this);
+	OnResetIfAnimIsPlaying.RemoveAll(this);
+	OnUFODestroyed.RemoveAll(this);
+	OnUFOReachedBase.RemoveAll(this);
+	
+	Super::BeginDestroy();
+}
+
 void ASUFO::BeginPlay()
 {
 	Super::BeginPlay();
 	
 	OnTakeAnyDamage.AddDynamic(this, &ThisClass::OnTakeAnyDamageCallback);
+}
+
+void ASUFO::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearTimer(HealthBarWidgetVisibilityTimerHandle);
+		TimerManager.ClearAllTimersForObject(this);
+	}
+
+	OnHideHealthWidget.Clear();
+	OnResetIfAnimIsPlaying.Clear();
+	OnUFODestroyed.Clear();
+	OnUFOReachedBase.Clear();
+	
+	OnHideHealthWidget.RemoveAll(this);
+	OnResetIfAnimIsPlaying.RemoveAll(this);
+	OnUFODestroyed.RemoveAll(this);
+	OnUFOReachedBase.RemoveAll(this);
+	
+	Super::EndPlay(EndPlayReason);
 }
 
 void ASUFO::OnUFOReachedBaseCall()
@@ -43,7 +88,7 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 	if (Damage>= CurrentHealth)
 	{
 		OnUFODestroyed.Broadcast(UFOCoinValue);
-		if (IsValid(WaveManager)) WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
+		if (WaveManager.IsValid()) WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
 		Destroy();
 		return;
 	}
@@ -65,4 +110,14 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 		3,
 		false
 		);
+}
+
+void ASUFO::SetSplinePath(USplineComponent* InSplinePath)
+{
+	SplinePath = InSplinePath;
+}
+
+void ASUFO::SetWaveManager(ASUFOWaveManager* InWaveManager)
+{
+	WaveManager = InWaveManager;
 }

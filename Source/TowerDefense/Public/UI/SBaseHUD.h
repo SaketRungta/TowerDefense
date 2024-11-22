@@ -30,7 +30,7 @@ private:
 	TSubclassOf<USHUDWidget> HUDWidgetClass;
 
 	/** Ref to the main HUD widget */
-	TObjectPtr<USHUDWidget> HUDWidget;
+	TWeakObjectPtr<USHUDWidget> HUDWidget;
 	
 public:
 	/** Show's the in error messages on the viewport */

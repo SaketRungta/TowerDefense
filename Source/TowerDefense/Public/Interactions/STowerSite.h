@@ -64,10 +64,10 @@ private:
 #pragma endregion ComponentsAndCallbacks
 	
 	/** Ref to the player pawn so that we call set the last selected tower site via interface */
-	TObjectPtr<ASTowerDefensePawn> PlayerPawn;
+	TWeakObjectPtr<ASTowerDefensePawn> PlayerPawn;
 	
 	/** Ref to the widget of the widget component for us to play the pop in animation */
-	TObjectPtr<USTowerSelectionMenu> TowerSelectionMenuWidget;
+	TWeakObjectPtr<USTowerSelectionMenu> TowerSelectionMenuWidget;
 
 	/**
 	 * True when the site is active

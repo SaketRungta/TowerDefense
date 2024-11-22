@@ -72,9 +72,20 @@ bool USTowerSelectionMenu::Initialize()
 	return true;
 }
 
+void USTowerSelectionMenu::NativeDestruct()
+{
+	if (PopInAnimation)
+	{
+		StopAnimation(PopInAnimation);
+		UnbindAllFromAnimationFinished(PopInAnimation);
+	}
+	
+	Super::NativeDestruct();
+}
+
 void USTowerSelectionMenu::FinishedPlayingPopInAnim() const
 {
-	if (OwningTowerSite) OwningTowerSite->HideTowerSelectionMenuWidgetComponent();
+	if (OwningTowerSite.IsValid()) OwningTowerSite->HideTowerSelectionMenuWidgetComponent();
 }
 
 void USTowerSelectionMenu::OnCannonButtonClicked()
@@ -103,7 +114,7 @@ void USTowerSelectionMenu::OnCatapultButtonClicked()
 
 void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& TowerToSpawn)
 {
-	if (!IsValid(OwningTowerSite) || !TowerToSpawn->IsValidLowLevel()) return;
+	if (!OwningTowerSite.IsValid() || !TowerToSpawn->IsValidLowLevel()) return;
 
 	FTransform SpawnTransform = OwningTowerSite->GetActorTransform();
 	FVector SpawnLocation = SpawnTransform.GetLocation();
@@ -115,13 +126,13 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 		SpawnTransform
 	);
 
-	SpawnedTower->SetTowerSite(OwningTowerSite);
+	SpawnedTower->SetTowerSite(OwningTowerSite.Get());
 	
 	/** A tower has been spawned on the site so we need to disable it otherwise it will respond to player clicks and hovers */
 	OwningTowerSite->SetIsSiteDisabled(true);
 	
-	PlayerPawn = IsValid(PlayerPawn) == true ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0)));
-	if (IsValid(PlayerPawn)) PlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
+	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0)));
+	if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
 }
 
 bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
@@ -129,11 +140,11 @@ bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
 	uint32 InTowerPrice = 999;	
 	if (TowerPriceMap.Contains(InTowerName)) InTowerPrice = TowerPriceMap[InTowerName];
 	
-	BaseGameMode = IsValid(BaseGameMode) ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
-	if (IsValid(BaseGameMode) && BaseGameMode->DeductCoins(InTowerPrice)) return true;
+	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
+	if (BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
 	
-	BaseHUD = IsValid(BaseHUD) ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
-	if(IsValid(BaseHUD)) BaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
+	if(BaseHUD.IsValid()) BaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
 	
 	return false;
 }

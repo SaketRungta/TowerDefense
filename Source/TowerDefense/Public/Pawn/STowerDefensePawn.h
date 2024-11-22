@@ -93,9 +93,6 @@ private:
 
 #pragma endregion Input
 
-	/** Default player controller ref, used to set up the input mapping context and to get the mouse position when required */
-	TObjectPtr<APlayerController> PlayerController;
-
 #pragma region CameraPanning
 
 	/** True when right mouse button is pressed for camera panning action */
@@ -113,12 +110,15 @@ private:
 
 #pragma endregion CameraPanning
 
+	/** Default player controller ref, used to set up the input mapping context and to get the mouse position when required */
+	TWeakObjectPtr<APlayerController> PlayerController;
+
 	/** 
 	 * Stores the tower site which was selected by the user
 	 * When user selects a new tower site "SetCurrentlySelectedTowerSite" function sets the variable with newly selected tower site
 	 * If this tower site is unselected then it is set back to nullptr
 	 */
-	TObjectPtr<ASTowerSite> LastSelectedTowerSite;
+	TWeakObjectPtr<ASTowerSite> LastSelectedTowerSite;
 
 	/** 
 	 * Stores the tower which was last selected by the user
@@ -131,7 +131,7 @@ private:
 	bool bIsGamePaused = false;
 
 	/** Ref to the base HUD class to show the pause menu */
-	TObjectPtr<ASBaseHUD> BaseHUD;
+	TWeakObjectPtr<ASBaseHUD> BaseHUD;
 
 	/** False when either the level is completed or failed, so that user cannot pause once game is over */
 	bool bCanPauseTheGame = true;

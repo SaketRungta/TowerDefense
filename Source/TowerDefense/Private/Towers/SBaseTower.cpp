@@ -50,9 +50,24 @@ ASBaseTower::ASBaseTower()
 
 void ASBaseTower::Destroyed()
 {
-	if (TowerSite) TowerSite->SetIsSiteDisabled(false);
-	
+	if (TowerSite.IsValid()) TowerSite->SetIsSiteDisabled(false);
+
+	for (auto& CurrProjectile : ProjectilePool)
+		if (IsValid(CurrProjectile)) CurrProjectile->Destroy();
+
 	Super::Destroyed();
+}
+
+void ASBaseTower::BeginDestroy()
+{
+
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearAllTimersForObject(this);
+	}
+
+	Super::BeginDestroy();
 }
 
 void ASBaseTower::Tick(float DeltaTime)
@@ -112,6 +127,19 @@ void ASBaseTower::BeginPlay()
 	}
 }
 
+void ASBaseTower::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearTimer(FireCooldownTimer);
+		TimerManager.ClearAllTimersForObject(this);
+	}
+
+	Super::EndPlay(EndPlayReason);
+}
+
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
 	ASBaseTower* TempTower = nullptr;
@@ -139,8 +167,8 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 	
 	bIsTowerSelected = !bIsTowerSelected;
 
-	PlayerPawn = IsValid(PlayerPawn) ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
-	if (IsValid(PlayerPawn)) PlayerPawn->SetCurrentlySelectedTower(TempTower);
+	PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+	if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTower(TempTower);
 	
 }
 

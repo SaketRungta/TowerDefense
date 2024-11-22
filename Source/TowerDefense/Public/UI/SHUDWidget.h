@@ -153,7 +153,7 @@ private:
 	void SetLevelStarsData();
 
 	/** Ref to the game mode as we will be binding all the data from game mode */
-	TWeakObjectPtr<ASBaseGameMode> GameMode;
+	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Stores the initial life count as our bp will need it show the stars once level is completed */
 	uint32 InitialLifeCount = 0;

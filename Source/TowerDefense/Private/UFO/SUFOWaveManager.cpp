@@ -31,12 +31,23 @@ void ASUFOWaveManager::Tick(float DeltaSeconds)
 	}
 }
 
+void ASUFOWaveManager::BeginDestroy()
+{
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearAllTimersForObject(this);
+	}
+	
+	Super::BeginDestroy();
+}
+
 void ASUFOWaveManager::BeginPlay()
 {
 	Super::BeginPlay();
 
 	BaseGameMode = Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
-	if(IsValid(BaseGameMode)) BaseGameMode->SetTotalNumWaves(WaveSpawningData.Num());
+	if(BaseGameMode.IsValid()) BaseGameMode->SetTotalNumWaves(WaveSpawningData.Num());
 
 	GetWorldTimerManager().SetTimer(
 		StartSpawningWaveTimer,
@@ -51,10 +62,15 @@ void ASUFOWaveManager::BeginPlay()
 
 void ASUFOWaveManager::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	GetWorldTimerManager().ClearTimer(UFOSpawnTimer);
-	GetWorldTimerManager().ClearTimer(SpawnNextWaveTimer);
-	GetWorldTimerManager().ClearTimer(StartSpawningWaveTimer);
-	
+	if (const UWorld* World = GetWorld())
+	{
+		FTimerManager& TimerManager = World->GetTimerManager();
+		TimerManager.ClearTimer(UFOSpawnTimer);
+		TimerManager.ClearTimer(SpawnNextWaveTimer);
+		TimerManager.ClearTimer(StartSpawningWaveTimer);
+		TimerManager.ClearAllTimersForObject(this);
+	}
+
 	Super::EndPlay(EndPlayReason);	
 }
 
@@ -66,7 +82,7 @@ void ASUFOWaveManager::SpawnNextWave()
 		return;
 	}
 	
-	if(IsValid(BaseGameMode)) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
+	if(BaseGameMode.IsValid()) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
 	
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
@@ -104,8 +120,8 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 
 	if(SpawnedUFO)
 	{
-		BaseGameMode = IsValid(BaseGameMode) ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
-		if(IsValid(BaseGameMode))
+		BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
+		if(BaseGameMode.IsValid())
 		{
 			SpawnedUFO->OnUFODestroyed.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFODestroyedCallback);
 			SpawnedUFO->OnUFOReachedBase.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFOReachedBaseCallback);

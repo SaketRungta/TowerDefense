@@ -22,22 +22,58 @@ void USHUDWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	GameMode = Cast<ASBaseGameMode>(UGameplayStatics::GetGameMode(this));
-	if (GameMode.IsValid()) InitialLifeCount = GameMode->GetLifeCount();
+	BaseGameMode = Cast<ASBaseGameMode>(UGameplayStatics::GetGameMode(this));
+	if (BaseGameMode.IsValid()) InitialLifeCount = BaseGameMode->GetLifeCount();
 }
 
 void USHUDWidget::NativeDestruct()
 {
-	FinishedPlayingStarAnim.Unbind();
+	if (HUDPopOutAnim)
+	{
+		StopAnimation(HUDPopOutAnim);
+		UnbindAllFromAnimationFinished(HUDPopOutAnim);
+	}
+	if (ShowLevelCompletedMenuAnim)
+	{
+		StopAnimation(ShowLevelCompletedMenuAnim);
+		UnbindAllFromAnimationFinished(ShowLevelCompletedMenuAnim);
+	}
+	if (ShowTryAgainMenuAnim)
+	{
+		StopAnimation(ShowTryAgainMenuAnim);
+		UnbindAllFromAnimationFinished(ShowTryAgainMenuAnim);
+	}
+	if (ShowPausedMenuAnim)
+	{
+		StopAnimation(ShowPausedMenuAnim);
+		UnbindAllFromAnimationFinished(ShowPausedMenuAnim);
+	}
+	if (PopFirstStarAnim)
+	{
+		StopAnimation(PopFirstStarAnim);
+		UnbindAllFromAnimationFinished(PopFirstStarAnim);
+	}
+	if (PopSecondStarAnim)
+	{
+		StopAnimation(PopSecondStarAnim);
+		UnbindAllFromAnimationFinished(PopSecondStarAnim);
+	}
+	if (PopThirdStarAnim)
+	{
+		StopAnimation(PopThirdStarAnim);
+		UnbindAllFromAnimationFinished(PopThirdStarAnim);
+	}
 	
+	FinishedPlayingStarAnim.Unbind();
+
 	Super::NativeDestruct();
 }
 
 FText USHUDWidget::BindLifeCount()
 {
-	if (GameMode.IsValid())
+	if (BaseGameMode.IsValid())
 	{
-		CurrentLifeCount = GameMode->GetLifeCount();
+		CurrentLifeCount = BaseGameMode->GetLifeCount();
 		return FText::FromString(FString::Printf(TEXT("%u"), CurrentLifeCount));
 	}
 	return FText::FromString(TEXT("Er"));
@@ -45,13 +81,13 @@ FText USHUDWidget::BindLifeCount()
 
 FText USHUDWidget::BindCoinCount() const
 {
-	if (GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u"), GameMode->GetCoinCount()));
+	if (BaseGameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u"), BaseGameMode->GetCoinCount()));
 	return FText::FromString(TEXT("Er"));
 }
 
 FText USHUDWidget::BindWaveCount() const
 {
-	if (GameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u/%u"), GameMode->GetCurrentWaveNumber(), GameMode->GetTotalNumWaves()));
+	if (BaseGameMode.IsValid()) return FText::FromString(FString::Printf(TEXT("%u/%u"), BaseGameMode->GetCurrentWaveNumber(), BaseGameMode->GetTotalNumWaves()));
 	return FText::FromString(TEXT("Er"));
 }
 

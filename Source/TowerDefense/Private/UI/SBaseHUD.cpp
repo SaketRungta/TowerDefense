@@ -16,10 +16,10 @@ void ASBaseHUD::BeginPlay()
 
 void ASBaseHUD::ShowErrorMessage(const FString& InErrorMessage) const
 {
-	if (IsValid(HUDWidget)) HUDWidget->ShowErrorMessage(InErrorMessage);
+	if (HUDWidget.IsValid()) HUDWidget->ShowErrorMessage(InErrorMessage);
 }
 
 void ASBaseHUD::ShowTheGivenMenu(const EMenuToShow InMenuToShow) const
 {
-	if (IsValid(HUDWidget)) HUDWidget->ShowTheGivenMenu(InMenuToShow);
+	if (HUDWidget.IsValid()) HUDWidget->ShowTheGivenMenu(InMenuToShow);
 }

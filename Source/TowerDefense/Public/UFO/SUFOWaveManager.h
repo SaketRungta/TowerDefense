@@ -29,7 +29,7 @@ struct FWaveSpawnData
 	uint32 SpawnCount = 1;
 
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<ASUFOSplinePath> SplinePath;
+	TWeakObjectPtr<ASUFOSplinePath> SplinePath;
 
 	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "10"))
 	float SpawningRate = 3.f;
@@ -70,6 +70,9 @@ public:
 
 	/** Tick override, calls for the UFOs to move */
 	virtual void Tick(float DeltaSeconds) override;
+
+	/** Begin destroy override, clears all the timers and delegates */
+	virtual void BeginDestroy() override;
 	
 protected:
 	/** Begin play override */
@@ -109,7 +112,7 @@ private:
 	uint32 NumWavesSpawned = 0;
 
 	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
-	TObjectPtr<ASBaseGameMode> BaseGameMode;
+	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Moves all the UFOs currently in the level along the spline path */
 	void MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds);

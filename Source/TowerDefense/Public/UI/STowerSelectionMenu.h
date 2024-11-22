@@ -8,10 +8,8 @@
 class USTowerSelectionMenuButton;
 class ASTowerSite;
 class ASBaseTower;
-class ISGameInteractionInterface;
 class ASTowerDefensePawn;
 class ASBaseGameMode;
-class USErrorPopUpWidget;
 class ASBaseHUD;
 
 /**
@@ -30,6 +28,10 @@ public:
 	/** Used to initialize widget components with bindings */
 	virtual bool Initialize() override;
 
+protected:
+	/** Native destruct override */
+	virtual void NativeDestruct() override;
+	
 private:
 
 #pragma region UIMethodsAndCallbacks
@@ -72,9 +74,6 @@ private:
 
 #pragma endregion UIMethodsAndCallbacks
 	
-	/** Ref to the tower site which owns this widget, for it to spawn the tower on that site */
-	TObjectPtr<ASTowerSite> OwningTowerSite;
-
 #pragma region TowerData
 	
 	/** Canon tower to spawn, to be initialized from the blueprint */
@@ -95,6 +94,9 @@ private:
 
 #pragma endregion TowerData
 	
+	/** Ref to the tower site which owns this widget, for it to spawn the tower on that site */
+	TWeakObjectPtr<ASTowerSite> OwningTowerSite;
+
 	/**
 	 * Called from the tower button callbacks
 	 * Spawns the passed tower class
@@ -108,16 +110,16 @@ private:
 	 * Through the player pawn we make the call to deactivate the current tower site
 	 * As we have spawned the tower
 	 */
-	TObjectPtr<ASTowerDefensePawn> PlayerPawn;
+	TWeakObjectPtr<ASTowerDefensePawn> PlayerPawn;
 
 	/** Game mode ref to check if we have enough coins to spawn the given tower */
-	TObjectPtr<ASBaseGameMode> BaseGameMode;
+	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
 	/** Returns true if player have enough coins to spawn the given tower and deducts them */
 	bool CheckAndDeductIfEnoughCoins(const FName& InTowerName);
 
 	/** Ref to the base HUD class to show error messages in viewport */
-	TObjectPtr<ASBaseHUD> BaseHUD;
+	TWeakObjectPtr<ASBaseHUD> BaseHUD;
 	
 	/** Array containing all the towers name, making it easier to fetch data from table */
 	TArray<FName> TowerNames = { "CannonTower", "MachineGunTower", "ArcherTower", "CatapultTower" };

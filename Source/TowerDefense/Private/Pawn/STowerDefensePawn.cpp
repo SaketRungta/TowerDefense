@@ -35,8 +35,8 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
-	if (IsValid(PlayerController))
+	PlayerController = PlayerController.IsValid() ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (PlayerController.IsValid())
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
@@ -57,7 +57,7 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 void ASTowerDefensePawn::SetCurrentlySelectedTowerSite(ASTowerSite* NewSelectedTowerSite)
 {
-	if (IsValid(LastSelectedTowerSite)) LastSelectedTowerSite->SetTowerSiteToUnselected();
+	if (LastSelectedTowerSite.IsValid()) LastSelectedTowerSite->SetTowerSiteToUnselected();
 	LastSelectedTowerSite = NewSelectedTowerSite;
 }
 
@@ -79,8 +79,8 @@ void ASTowerDefensePawn::BeginPlay()
 
 	SetActorTickEnabled(false);
 	
-	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
-	if (IsValid(PlayerController))
+	PlayerController = PlayerController.IsValid() ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (PlayerController.IsValid())
 	{		
 		FInputModeGameAndUI InputModeData;
 		InputModeData.SetHideCursorDuringCapture(false);
@@ -101,16 +101,16 @@ void ASTowerDefensePawn::OnRightMouseButtonAction(const FInputActionValue& Value
 		SetCurrentlySelectedTowerSite(nullptr);
 		SetCurrentlySelectedTower(nullptr);
 		
-		PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
-		if (IsValid(PlayerController)) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
+		PlayerController = PlayerController.IsValid() ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+		if (PlayerController.IsValid()) PlayerController->GetMousePosition(InitialMousePosition.X, InitialMousePosition.Y);
 	}
 	SetActorTickEnabled(Value.Get<bool>());
 }
 
 void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 {
-	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
-	if (IsValid(PlayerController))
+	PlayerController = PlayerController.IsValid() ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (PlayerController.IsValid())
 	{
 		FHitResult HitResult;
 		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
@@ -131,16 +131,16 @@ void ASTowerDefensePawn::OnEscapeButtonAction(const FInputActionValue& Value)
 	if (bIsGamePaused) MenuToShow = EMenuToShow::Pause;
 	else MenuToShow = EMenuToShow::HUD;
 	
-	BaseHUD = IsValid(BaseHUD) ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
-	if(IsValid(BaseHUD)) BaseHUD->ShowTheGivenMenu(MenuToShow);
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
+	if(BaseHUD.IsValid()) BaseHUD->ShowTheGivenMenu(MenuToShow);
 }
 
 void ASTowerDefensePawn::CameraPanImplementation()
 {
 	FVector2D CurrentMousePosition;
 
-	PlayerController = IsValid(PlayerController) ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
-	if (IsValid(PlayerController)) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
+	PlayerController = PlayerController.IsValid() ? PlayerController : TObjectPtr<APlayerController>(Cast<APlayerController>(GetController()));
+	if (PlayerController.IsValid()) PlayerController->GetMousePosition(CurrentMousePosition.X, CurrentMousePosition.Y);
 	
 	FVector DeltaLocation;
 	DeltaLocation.X = (InitialMousePosition.X - CurrentMousePosition.X) * CameraPanSpeed;
