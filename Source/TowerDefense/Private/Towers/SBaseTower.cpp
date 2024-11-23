@@ -221,6 +221,11 @@ void ASBaseTower::SpawnProjectilePool()
 	}
 }
 
+void ASBaseTower::SetTowerSite(ASTowerSite* InTowerSite)
+{
+	TowerSite = InTowerSite;
+}
+
 bool ASBaseTower::FireTurret()
 {
 	if (!bShouldFire || GetWorldTimerManager().GetTimerElapsed(FireCooldownTimer) > 0.f) return false;

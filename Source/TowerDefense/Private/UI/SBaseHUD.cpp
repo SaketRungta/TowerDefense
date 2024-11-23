@@ -14,9 +14,9 @@ void ASBaseHUD::BeginPlay()
 	}
 }
 
-void ASBaseHUD::ShowErrorMessage(const FString& InErrorMessage) const
+void ASBaseHUD::ShowMessageInHUD(const FString& InMessage, EMessageTypeToDisplay InMessageType) const
 {
-	if (HUDWidget.IsValid()) HUDWidget->ShowErrorMessage(InErrorMessage);
+	if (HUDWidget.IsValid()) HUDWidget->ShowMessageInHUD(InMessage, InMessageType);
 }
 
 void ASBaseHUD::ShowTheGivenMenu(const EMenuToShow InMenuToShow) const

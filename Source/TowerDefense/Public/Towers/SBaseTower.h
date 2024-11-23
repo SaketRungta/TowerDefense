@@ -212,7 +212,6 @@ public:
 	{ return TurretMesh; }
 
 	/** Setter for TowerSite, called from USTowerSelectionMenu::SpawnGivenTower */
-	FORCEINLINE void SetTowerSite(ASTowerSite* InTowerSite)
-	{ TowerSite = InTowerSite; }
+	FORCEINLINE void SetTowerSite(ASTowerSite* InTowerSite);
 	
 };

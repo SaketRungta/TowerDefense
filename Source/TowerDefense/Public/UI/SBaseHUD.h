@@ -34,7 +34,7 @@ private:
 	
 public:
 	/** Show's the in error messages on the viewport */
-	void ShowErrorMessage(const FString& InErrorMessage) const;
+	void ShowMessageInHUD(const FString& InMessage, EMessageTypeToDisplay InMessageType) const;
 	
 	/** Show's the menu as per request */
 	void ShowTheGivenMenu(const EMenuToShow InMenuToShow) const;

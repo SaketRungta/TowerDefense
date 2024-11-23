@@ -17,3 +17,15 @@ enum class EMenuToShow : uint8
 	Pause,
 	HUD
 };
+
+/**
+ * Enum for the types of messages to display in HUD
+ * Used to set the message type 
+ ********************************************************************************************/
+UENUM(BlueprintType)
+enum class EMessageTypeToDisplay : uint8
+{
+	Normal,
+	Warning,
+	Error
+};

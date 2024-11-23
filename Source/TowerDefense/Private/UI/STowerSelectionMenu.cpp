@@ -131,7 +131,7 @@ void USTowerSelectionMenu::SpawnGivenTower(const TSubclassOf<ASBaseTower>& Tower
 	/** A tower has been spawned on the site so we need to disable it otherwise it will respond to player clicks and hovers */
 	OwningTowerSite->SetIsSiteDisabled(true);
 	
-	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0)));
+	PlayerPawn = PlayerPawn.IsValid() == true ? PlayerPawn : Cast<ASTowerDefensePawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
 }
 
@@ -140,11 +140,11 @@ bool USTowerSelectionMenu::CheckAndDeductIfEnoughCoins(const FName& InTowerName)
 	uint32 InTowerPrice = 999;	
 	if (TowerPriceMap.Contains(InTowerName)) InTowerPrice = TowerPriceMap[InTowerName];
 	
-	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
+	BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode());
 	if (BaseGameMode.IsValid() && BaseGameMode->DeductCoins(InTowerPrice)) return true;
 	
-	BaseHUD = BaseHUD.IsValid() ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
-	if(BaseHUD.IsValid()) BaseHUD->ShowErrorMessage(FString("Not Enough Coins"));
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	if(BaseHUD.IsValid()) BaseHUD->ShowMessageInHUD(FString("Not Enough Coins"), EMessageTypeToDisplay::Error);
 	
 	return false;
 }

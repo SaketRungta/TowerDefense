@@ -24,7 +24,7 @@ void ASUFOWaveManager::Tick(float DeltaSeconds)
 	{
 		bAllTheUFOsHaveBeenSpawned = false;
 		
-		if (const ASBaseHUD* BaseHUD = Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()))
+		if (BaseHUD.IsValid())
 			BaseHUD->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
 
 		SetActorTickEnabled(false);
@@ -38,7 +38,7 @@ void ASUFOWaveManager::BeginDestroy()
 		FTimerManager& TimerManager = World->GetTimerManager();
 		TimerManager.ClearAllTimersForObject(this);
 	}
-	
+
 	Super::BeginDestroy();
 }
 
@@ -55,7 +55,7 @@ void ASUFOWaveManager::BeginPlay()
 		{
 			SpawnNextWave();
 		},
-		2.f,
+		StartSpawningWaveDelay,
 		false
 	);
 }
@@ -82,11 +82,14 @@ void ASUFOWaveManager::SpawnNextWave()
 		return;
 	}
 	
+	BaseHUD = BaseHUD.IsValid() ? BaseHUD : Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD());
+	if(BaseHUD.IsValid()) BaseHUD->ShowMessageInHUD(FString::Printf(TEXT("Wave %d/%d"), CurrentWaveIndex + 1, WaveSpawningData.Num()), EMessageTypeToDisplay::Warning);
+	
 	if(BaseGameMode.IsValid()) BaseGameMode->SetCurrentWaveNumber(CurrentWaveIndex + 1);
 	
 	TArray<FWaveSpawnData> CurrentWaveData = WaveSpawningData[CurrentWaveIndex].WaveData;
 
-	NumWavesToSpawn = CurrentWaveData.Num();
+	NumSubWavesToSpawn = CurrentWaveData.Num();
 
 	for (int32 i = 0; i < CurrentWaveData.Num(); i++)
 	{
@@ -154,7 +157,7 @@ void ASUFOWaveManager::CheckAndSpawnNextWave()
 {
 	NumWavesSpawned += 1;
 
-	if (NumWavesSpawned == NumWavesToSpawn)
+	if (NumWavesSpawned == NumSubWavesToSpawn)
 	{
 		CurrentWaveIndex += 1;
 		

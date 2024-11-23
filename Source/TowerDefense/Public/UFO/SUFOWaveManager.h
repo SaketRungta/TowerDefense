@@ -8,6 +8,7 @@
 class ASUFO;
 class ASUFOSplinePath;
 class ASBaseGameMode;
+class ASBaseHUD;
 
 /**
  * Struct to contain the data related the wave to spawn
@@ -81,14 +82,6 @@ protected:
 	/** Called whenever this actor is being removed from a level, clears all timers to avoid possible crash */
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
-	/** Array containing the wave spawning data, to be set in BP */
-	UPROPERTY(EditAnywhere, Category = WaveData)
-	TArray<FWaveDataArray> WaveSpawningData;
-
-	/** Time Intervals in which waves have to be spawned */
-	UPROPERTY(EditAnywhere, Category = WaveData, meta = (ClampMin = "0.1", ClampMax = "10"))
-	float WavesSpawningRate = 3.f;
-
 private:
 	/** Handles the functionality to spawn the next wave, called by ASUFOWaveManager::CompletedSpawningWave and BeginPlay */
 	void SpawnNextWave();
@@ -102,11 +95,23 @@ private:
 	/** Checks if all the waves have been spawned, if true then calls to spawn the next wave */
 	void CheckAndSpawnNextWave();
 
+	/** Array containing the wave spawning data, to be set in BP */
+	UPROPERTY(EditAnywhere, Category = WaveData, meta = (AllowPrivateAccess = "true"))
+	TArray<FWaveDataArray> WaveSpawningData;
+
+	/** Time Intervals in which waves have to be spawned */
+	UPROPERTY(EditAnywhere, Category = WaveData, meta = (AllowPrivateAccess = "true", ClampMin = "0.1", ClampMax = "10"))
+	float WavesSpawningRate = 3.f;
+
+	/** Initial delay after which waves start spawning */
+	UPROPERTY(EditAnywhere, Category = WaveData, meta = (AllowPrivateAccess = "true", ClampMin = "0.1", ClampMax = "10"))
+	float StartSpawningWaveDelay = 2.f;
+	
 	/** Index of the currently spawning wave */
 	uint32 CurrentWaveIndex = 0;
 
 	/** Total number of sub waves that are required to spawn in the current wave */
-	uint32 NumWavesToSpawn = 0;
+	uint32 NumSubWavesToSpawn = 0;
 
 	/** Number of sub waves that have been spawned from the current wave */
 	uint32 NumWavesSpawned = 0;
@@ -114,6 +119,9 @@ private:
 	/** Used to set bindings to the game mode when ufo is destroyed ot reaches the end */
 	TWeakObjectPtr<ASBaseGameMode> BaseGameMode;
 
+	/** Used to display the new wave warning */
+	TWeakObjectPtr<ASBaseHUD> BaseHUD;
+	
 	/** Moves all the UFOs currently in the level along the spline path */
 	void MoveAllUFOsAlongTheSplinePath(const float& DeltaSeconds);
 
@@ -139,7 +147,7 @@ private:
 
 	/** Timer that spawns subsequent waves */
 	FTimerHandle SpawnNextWaveTimer;
-	
+
 public:
 	/** Removes the UFO destroyed by the player from the UFOsToMove array, called from ASUFO::OnTakeAnyDamageCallback */
 	void SpawnedUFODestroyedByPlayerCallback(ASUFO* DestroyedUFO);

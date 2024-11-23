@@ -164,7 +164,7 @@ private:
 public:
 	/** Called from base HUD to show error messages on the screen */
 	UFUNCTION(BlueprintImplementableEvent)
-	void ShowErrorMessage(const FString& InErrorMessage);
+	void ShowMessageInHUD(const FString& InMessage, EMessageTypeToDisplay InMessageType);
 
 	/** Called from base HUD to show the requested menu */
 	void ShowTheGivenMenu(const EMenuToShow InMenuToShow);
