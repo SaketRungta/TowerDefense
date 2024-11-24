@@ -82,6 +82,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UInputAction> EscapeButtonAction;
 
+	/** Input action for the mouse wheel scrolling action */
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UInputAction> MouseWheelAction;
+
 	/** Called when right mouse button is pressed or released */
 	void OnRightMouseButtonAction(const FInputActionValue& Value);
 
@@ -90,6 +94,9 @@ private:
 
 	/** Called when escape button is pressed, pauses the game */
 	void OnEscapeButtonAction(const FInputActionValue& Value);
+
+	/** Called when mouse wheel is scrolled, zooms in and out */
+	void OnMouseWheelAction(const FInputActionValue& Value);
 
 #pragma endregion Input
 
@@ -110,6 +117,18 @@ private:
 
 #pragma endregion CameraPanning
 
+	/** Speed at which the camera zooms in out */
+	UPROPERTY(EditDefaultsOnly, Category = Camera, meta = (ClampMin = "1", ClampMax = "100"))
+	float CameraZoomingSpeed = 15.f;
+	
+	/** Speed at which the camera zooms in out */
+	UPROPERTY(EditDefaultsOnly, Category = Camera, meta = (ClampMin = "1401", ClampMax = "6400"))
+	float MaxHeight = 2000.f;
+	
+	/** Speed at which the camera zooms in out */
+	UPROPERTY(EditDefaultsOnly, Category = Camera, meta = (ClampMin = "400", ClampMax = "1399"))
+	float MinHeight = 800.f;
+	
 	/** Default player controller ref, used to set up the input mapping context and to get the mouse position when required */
 	TWeakObjectPtr<APlayerController> PlayerController;
 

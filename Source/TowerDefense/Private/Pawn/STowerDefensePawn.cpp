@@ -52,6 +52,8 @@ void ASTowerDefensePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 		EnhancedInputComponent->BindAction(LeftMouseButtonAction, ETriggerEvent::Started, this, &ThisClass::OnLeftMouseButtonAction);
 
 		EnhancedInputComponent->BindAction(EscapeButtonAction, ETriggerEvent::Started, this, &ThisClass::OnEscapeButtonAction);
+
+		EnhancedInputComponent->BindAction(MouseWheelAction, ETriggerEvent::Started, this, &ThisClass::OnMouseWheelAction);
 	}
 }
 
@@ -133,6 +135,18 @@ void ASTowerDefensePawn::OnEscapeButtonAction(const FInputActionValue& Value)
 	
 	BaseHUD = BaseHUD.IsValid() ? BaseHUD : TObjectPtr<ASBaseHUD>(Cast<ASBaseHUD>(GetWorld()->GetFirstPlayerController()->GetHUD()));
 	if(BaseHUD.IsValid()) BaseHUD->ShowTheGivenMenu(MenuToShow);
+}
+
+void ASTowerDefensePawn::OnMouseWheelAction(const FInputActionValue& Value)
+{
+	const float AxisValue = Value.Get<float>();
+	
+	const FVector CurrentLocation = CameraComponent->GetComponentLocation();
+	const FVector UpVector = CameraComponent->GetForwardVector();
+	const FVector ZoomOffset = UpVector * AxisValue * CameraZoomingSpeed;
+	const FVector NewLocation = CurrentLocation + ZoomOffset;
+	if (NewLocation.Z >= MinHeight && NewLocation.Z <= MaxHeight)
+		CameraComponent->SetWorldLocation(NewLocation);
 }
 
 void ASTowerDefensePawn::CameraPanImplementation()
