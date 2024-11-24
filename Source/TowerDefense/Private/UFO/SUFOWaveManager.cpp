@@ -65,9 +65,12 @@ void ASUFOWaveManager::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	if (const UWorld* World = GetWorld())
 	{
 		FTimerManager& TimerManager = World->GetTimerManager();
-		TimerManager.ClearTimer(UFOSpawnTimer);
 		TimerManager.ClearTimer(SpawnNextWaveTimer);
 		TimerManager.ClearTimer(StartSpawningWaveTimer);
+		for (FTimerHandle& Timer : SubWaveTimers)
+		{
+			TimerManager.ClearTimer(Timer);
+		}
 		TimerManager.ClearAllTimersForObject(this);
 	}
 
@@ -105,10 +108,14 @@ void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& I
 		return;
 	}
 
-	SpawnUFOs(InWaveSpawnData);
+	// Add a new timer for this sub-wave
+	SubWaveTimers.Add(FTimerHandle());
+	const int32 SubWaveIndex = SubWaveTimers.Num() - 1;
+
+	SpawnUFOs(InWaveSpawnData, 0, SubWaveIndex);
 }
 
-void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned)
+void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned, int32 SubWaveIndex)
 {
 	if (InNumUFOSpawned >= InWaveSpawnData.SpawnCount)
 	{
@@ -121,32 +128,33 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 		GetActorTransform()
 	);
 
-	if(SpawnedUFO)
+	if (SpawnedUFO)
 	{
 		BaseGameMode = BaseGameMode.IsValid() ? BaseGameMode : TObjectPtr<ASBaseGameMode>(Cast<ASBaseGameMode>(GetWorld()->GetAuthGameMode()));
-		if(BaseGameMode.IsValid())
+		if (BaseGameMode.IsValid())
 		{
 			SpawnedUFO->OnUFODestroyed.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFODestroyedCallback);
 			SpawnedUFO->OnUFOReachedBase.AddDynamic(BaseGameMode.Get(), &ASBaseGameMode::OnUFOReachedBaseCallback);
 		}
-	}
-	
-	if (SpawnedUFO && InWaveSpawnData.SplinePath->IsValidLowLevel())
-	{
-		SpawnedUFO->SetSplinePath(InWaveSpawnData.SplinePath->GetSpline());
-		SpawnedUFO->SetWaveManager(this);
+
+		if (InWaveSpawnData.SplinePath->IsValidLowLevel())
+		{
+			SpawnedUFO->SetSplinePath(InWaveSpawnData.SplinePath->GetSpline());
+			SpawnedUFO->SetWaveManager(this);
+		}
+
+		UFOsToMove.Add(SpawnedUFO);
 	}
 
-	UFOsToMove.Add(SpawnedUFO);
-	
 	InNumUFOSpawned += 1;
-	
-	GetWorldTimerManager().ClearTimer(UFOSpawnTimer);
+
+	// Use the timer specific to this sub-wave
+	GetWorldTimerManager().ClearTimer(SubWaveTimers[SubWaveIndex]);
 	GetWorldTimerManager().SetTimer(
-		UFOSpawnTimer,
-		[this, InWaveSpawnData, InNumUFOSpawned]()
+		SubWaveTimers[SubWaveIndex],
+		[this, InWaveSpawnData, InNumUFOSpawned, SubWaveIndex]()
 		{
-			SpawnUFOs(InWaveSpawnData, InNumUFOSpawned);
+			SpawnUFOs(InWaveSpawnData, InNumUFOSpawned, SubWaveIndex);
 		},
 		InWaveSpawnData.SpawningRate,
 		false

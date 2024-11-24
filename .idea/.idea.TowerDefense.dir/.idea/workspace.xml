@@ -9,25 +9,129 @@
   <component name="ChangeListManager">
     <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/bridge-draw_bridge-draw.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/bridge-straight-pillar_bridge-straight-pillar.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/bridge-straight_bridge-straight.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/colormap.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/colormap_ncl1_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/door_door.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/flag-banner-long_flag-banner-long.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/flag-banner-short_flag-banner-short.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/flag-pennant_flag-pennant.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/flag-wide_flag-wide.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/flag_flag.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/gate_gate.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/ground-hills_ground-hills.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/ground_ground.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/metal-gate_metal-gate.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/rocks-large_rocks-large.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/rocks-small_rocks-small.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ballista-demolished_siege-ballista-demolished.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ballista_arrow.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ballista_siege-ballista.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ballista_wheel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ballista_wheel_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult-demolished_siege-catapult-demolished.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_catapult.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_siege-catapult.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_wheel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_wheel_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_wheel_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-catapult_wheel_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram-demolished_siege-ram-demolished.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_ram.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_siege-ram.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel_4.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-ram_wheel_5.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower-demolished_siege-tower-demolished.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower_siege-tower.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower_wheel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower_wheel_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower_wheel_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-tower_wheel_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet-demolished_siege-trebuchet-demolished.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_arm.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_catapult.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_catapult_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_siege-trebuchet.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_weight.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_weight_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_wheel.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_wheel_1.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_wheel_2.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/siege-trebuchet_wheel_3.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/stairs-stone-square_stairs-stone-square.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/stairs-stone_stairs-stone.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-base_tower-base.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-base_tower-hexagon-base.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-mid_tower-hexagon-mid.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-roof-secondary_tower-hexagon-roof-secondary.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-roof_tower-hexagon-roof.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-top-wood_tower-hexagon-top-wood.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-hexagon-top_tower-hexagon-top.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-slant-roof_tower-slant-roof.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-arch_tower-square-arch.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-base-border_tower-square-base-border.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-base-color.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-base_tower-square-base.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid-color.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid-door.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid-open-simple.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid-open.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid-windows.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-mid.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-roof.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top-color.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top-roof-high-windows.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top-roof-high.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top-roof-rounded.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top-roof.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square-top.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-square_tower-square.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tower-top.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tree-large.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tree-log.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tree-small.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/tree-trunk.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-corner-half-tower.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-corner-half.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-corner-slant.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-corner.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-doorway.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-half-modular.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-half.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-corner.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-gate.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-stairs-rail.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-stairs.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-wood-fence.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow-wood.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-narrow.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-pillar.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-stud.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall-to-narrow.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/KennyCastleKit/wall.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/TurretSelectionMenu/T_UI_TurretSelectMenu_ButtonHovered.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/TurretSelectionMenu/T_UI_TurretSelectMenu_ButtonHovered.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CatapultProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CatapultProjectile.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_BaseUFO.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Interfaces/BPI_WidgetInteractionInterface.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Interfaces/BPI_WidgetInteractionInterface.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HealthBarWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HealthBarWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_01.umap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_TestMap.umap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SBaseHUD.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SBaseHUD.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/STowerSelectionMenu.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/System/CommonTypes.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/System/CommonTypes.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFOWaveManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SBaseHUD.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SBaseHUD.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TowerDefense.sln.DotSettings.user" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TowerDefense.uproject.DotSettings.user" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,24 +150,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="TowerDefense" type="Uproject" factoryName="rider.uproject">
-      <configuration_1>
+      <configuration_1 setup="1">
         <option name="CONFIGURATION" value="Development Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="E:\UE_5.4\Engine\Binaries\Win64\UnrealEditor.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\mails\Documents\GitHub\TowerDefense\TowerDefense.uproject&quot;" />
@@ -72,11 +176,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       </configuration_1>
-      <configuration_2>
+      <configuration_2 setup="1">
         <option name="CONFIGURATION" value="DebugGame Editor" />
         <option name="PLATFORM" value="Win64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="E:\UE_5.4\Engine\Binaries\Win64\UnrealEditor-Win64-DebugGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value=" &quot;C:\Users\mails\Documents\GitHub\TowerDefense\TowerDefense.uproject&quot;" />
@@ -85,11 +189,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       </configuration_2>
-      <configuration_3>
+      <configuration_3 setup="1">
         <option name="CONFIGURATION" value="DebugGame" />
         <option name="PLATFORM" value="Win64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense-Win64-DebugGame.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -98,11 +202,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       </configuration_3>
-      <configuration_4>
+      <configuration_4 setup="1">
         <option name="CONFIGURATION" value="Development" />
         <option name="PLATFORM" value="Win64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -111,11 +215,11 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       </configuration_4>
-      <configuration_5>
+      <configuration_5 setup="1">
         <option name="CONFIGURATION" value="Shipping" />
         <option name="PLATFORM" value="Win64" />
-        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
         <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
         <option name="EXECUTABLE_PATH" value="C:\Users\mails\Documents\GitHub\TowerDefense\Binaries\Win64\TowerDefense-Win64-Shipping.exe" />
         <option name="MANDATORY_PROGRAM_PARAMETERS" value="" />
@@ -124,7 +228,9 @@
         <option name="PASS_PARENT_ENVS" value="1" />
         <option name="USE_EXTERNAL_CONSOLE" value="1" />
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="FORCE_CONSOLE" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       </configuration_5>
+      <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/TowerDefense.uproject" />
       <option name="AUTO_SELECT_PRIORITY" value="10010" />
       <method v="2">
@@ -144,7 +250,10 @@
       <workItem from="1732346206183" duration="1195000" />
       <workItem from="1732357504419" duration="3612000" />
       <workItem from="1732362646411" duration="1462000" />
-      <workItem from="1732369807849" duration="754000" />
+      <workItem from="1732369807849" duration="2097000" />
+      <workItem from="1732385044828" duration="481000" />
+      <workItem from="1732389162474" duration="800000" />
+      <workItem from="1732438299010" duration="2446000" />
     </task>
     <servers />
   </component>

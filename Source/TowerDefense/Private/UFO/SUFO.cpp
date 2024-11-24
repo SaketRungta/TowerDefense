@@ -22,8 +22,6 @@ ASUFO::ASUFO()
 	HealthBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
 	HealthBarWidget->SetDrawSize(FVector2D(75.f, 5.f));
 
-	CurrentHealth = MaxHealth;
-	
 	this->Tags.Add(FName(TEXT("UFO")));
 }
 
@@ -51,6 +49,8 @@ void ASUFO::BeginDestroy()
 void ASUFO::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	CurrentHealth = MaxHealth;
 	
 	OnTakeAnyDamage.AddDynamic(this, &ThisClass::OnTakeAnyDamageCallback);
 }

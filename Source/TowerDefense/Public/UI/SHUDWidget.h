@@ -161,6 +161,10 @@ private:
 	/** Stores the current life count as our bp will need it show the stars once level is completed */
 	uint32 CurrentLifeCount = 0;
 
+	/** Contains all the names of the level serial wise, so that each level stars earned data can be saved */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TArray<FString> LevelNames;
+	
 public:
 	/** Called from base HUD to show error messages on the screen */
 	UFUNCTION(BlueprintImplementableEvent)

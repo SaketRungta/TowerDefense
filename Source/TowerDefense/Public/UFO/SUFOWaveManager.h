@@ -90,7 +90,7 @@ private:
 	void CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& InWaveSpawnData);
 
 	/** Spawns the UFOs with the given data */
-	void SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned = 0);
+	void SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned, int32 SubWaveIndex);
 
 	/** Checks if all the waves have been spawned, if true then calls to spawn the next wave */
 	void CheckAndSpawnNextWave();
@@ -142,11 +142,10 @@ private:
 	/** Timer that starts spawning waves */
 	FTimerHandle StartSpawningWaveTimer;
 	
-	/** Timer that starts spawning ufos individually */
-	FTimerHandle UFOSpawnTimer;
-
 	/** Timer that spawns subsequent waves */
 	FTimerHandle SpawnNextWaveTimer;
+
+	TArray<FTimerHandle> SubWaveTimers;
 
 public:
 	/** Removes the UFO destroyed by the player from the UFOsToMove array, called from ASUFO::OnTakeAnyDamageCallback */
