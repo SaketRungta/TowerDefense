@@ -59,7 +59,7 @@ private:
 
 	/** Stores the current count of lives */
 	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (ClampMin = "1", ClampMax = "9999"))
-	uint32 LifeCount = 9991;
+	int32 LifeCount = 9991;
 
 	/** Stores the total number of waves for the current level */
 	uint32 TotalNumWaves = 91;

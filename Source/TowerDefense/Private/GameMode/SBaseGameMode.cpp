@@ -12,6 +12,8 @@ void ASBaseGameMode::OnUFOReachedBaseCallback(uint32 InUFOLifeCount)
 	LifeCount -= InUFOLifeCount;
 
 	if (LifeCount > 0) return;
+
+	LifeCount = 0;
 	
 	UGameplayStatics::SetGamePaused(this, true);
 
