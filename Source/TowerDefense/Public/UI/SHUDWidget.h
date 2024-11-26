@@ -164,6 +164,10 @@ private:
 	/** Contains all the names of the level serial wise, so that each level stars earned data can be saved */
 	UPROPERTY(EditDefaultsOnly, Category = Default)
 	TArray<FString> LevelNames;
+
+	/** Sound to play when a widget pops in */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<USoundBase> WidgetPopInOutSound;
 	
 public:
 	/** Called from base HUD to show error messages on the screen */

@@ -114,6 +114,8 @@ void USHUDWidget::ShowTheRequestedMenu()
 {
 	if (!LastPlayedAnim.IsValid()) return;
 	UnbindAllFromAnimationFinished(LastPlayedAnim.Get());
+
+	if (WidgetPopInOutSound) UGameplayStatics::PlaySound2D(GetWorld(), WidgetPopInOutSound);
 	
 	WidgetSwitcher->SetActiveWidgetIndex(WidgetIndexToActivate);
 	if (LastPlayedAnim.IsValid()) PlayAnimationForward(LastPlayedAnim.Get());
@@ -174,6 +176,8 @@ void USHUDWidget::PopInHUD()
 	if (!LastPlayedAnim.IsValid()) return;
 	UnbindAllFromAnimationFinished(LastPlayedAnim.Get());
 
+	if (WidgetPopInOutSound) UGameplayStatics::PlaySound2D(GetWorld(), WidgetPopInOutSound);
+	
 	UnbindAllFromAnimationFinished(HUDPopOutAnim);
 
 	PlayAnimationReverse(LastPlayedAnim.Get());
