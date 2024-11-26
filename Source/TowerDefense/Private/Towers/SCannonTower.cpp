@@ -2,11 +2,6 @@
 #include "Towers/SCannonTower.h"
 #include "Projectile/SProjectile.h"
 
-ASCannonTower::ASCannonTower()
-{
-	UpdateTowerDataFromDataTable(FName("CannonTower"));
-}
-
 bool ASCannonTower::FireTurret()
 {
 	if (!Super::FireTurret()) return false;

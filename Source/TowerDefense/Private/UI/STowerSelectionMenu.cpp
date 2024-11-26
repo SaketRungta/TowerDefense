@@ -8,27 +8,20 @@
 #include "Kismet/GameplayStatics.h"
 #include "Pawn/STowerDefensePawn.h"
 #include "Towers/SBaseTower.h"
+#include "Towers/STowerDataAsset.h"
 #include "UI/SBaseHUD.h"
 #include "UI/STowerSelectionMenuButton.h"
-
-USTowerSelectionMenu::USTowerSelectionMenu(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-	static ConstructorHelpers::FObjectFinder<UDataTable> Asset(TEXT("DataTable'/Game/TowerDefense/Blueprints/DataTable/DT_TowerData.DT_TowerData'"));
-	if (Asset.Succeeded())
-		if (const UDataTable* TowerDataTable = Asset.Object)
-			for (const FName& RowName : TowerDataTable->GetRowNames())
-				if (const FTowerDataTableRow* RowData = TowerDataTable->FindRow<FTowerDataTableRow>(RowName, TEXT("")))
-				{
-					TowerPriceMap.Add(RowName, RowData->TowerBuyingPrice);
-					TowerIconMap.Add(RowName, RowData->Icon);
-				}
-}
 
 bool USTowerSelectionMenu::Initialize()
 {
 	if (!Super::Initialize()) return false;
 
+	for (const TObjectPtr<USTowerDataAsset> CurrentDataAsset : DataAssetOfAllTowers)
+	{
+		TowerPriceMap.Add(CurrentDataAsset->TowerName, CurrentDataAsset->TowerBuyingPrice);
+		TowerIconMap.Add(CurrentDataAsset->TowerName, CurrentDataAsset->Icon);
+	}
+	
 	if (CannonButton)
 	{
 		CannonButton->GetTowerButton()->OnClicked.AddDynamic(this, &ThisClass::OnCannonButtonClicked);

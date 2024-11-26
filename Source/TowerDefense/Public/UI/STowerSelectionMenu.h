@@ -11,6 +11,7 @@ class ASBaseTower;
 class ASTowerDefensePawn;
 class ASBaseGameMode;
 class ASBaseHUD;
+class USTowerDataAsset;
 
 /**
  * Menu for the user to select tower from
@@ -22,9 +23,6 @@ class TOWERDEFENSE_API USTowerSelectionMenu : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	/** Default Constructor */
-	USTowerSelectionMenu(const FObjectInitializer& ObjectInitializer);
-	
 	/** Used to initialize widget components with bindings */
 	virtual bool Initialize() override;
 
@@ -75,7 +73,15 @@ private:
 #pragma endregion UIMethodsAndCallbacks
 	
 #pragma region TowerData
+
+	/** Array to store the data asset of all towers, used to fill in the price and icon for each tower */
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
+	TArray<TObjectPtr<USTowerDataAsset>> DataAssetOfAllTowers;
 	
+	/** Array containing all the towers name, making it easier to fetch data from table */
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
+	TArray<FName> TowerNames = { "CannonTower", "MachineGunTower", "ArcherTower", "CatapultTower" };
+
 	/** Canon tower to spawn, to be initialized from the blueprint */
 	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TSubclassOf<ASBaseTower> CanonTowerClass;
@@ -121,18 +127,16 @@ private:
 	/** Ref to the base HUD class to show error messages in viewport */
 	TWeakObjectPtr<ASBaseHUD> BaseHUD;
 	
-	/** Array containing all the towers name, making it easier to fetch data from table */
-	TArray<FName> TowerNames = { "CannonTower", "MachineGunTower", "ArcherTower", "CatapultTower" };
-
 	/** Map containing tower buying price against the tower name, set in constructor */
 	TMap<FName, uint32> TowerPriceMap;
 
 	/** Map containing tower icon against the tower name, set in constructor */
 	TMap<FName, FSlateBrush> TowerIconMap;
 
+	/** Callback when pop in anim finishes playing in reverse so that tower site can hide the widget component */
 	UFUNCTION()
 	void FinishedPlayingPopInAnim() const;
-	
+
 public:
 	/** Called from owning ASTowerSite to play the pop in anim in forward or reverse */
 	void PlayPopInAnimation(bool bIsReversed = false, const float& PlaybackSpeed = 1.f);

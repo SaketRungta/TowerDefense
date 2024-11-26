@@ -10,46 +10,7 @@ class ASProjectile;
 class UWidgetComponent;
 class ASTowerSite;
 class ASTowerDefensePawn;
-
-/**
- * Struct for the tower data table
- * Stores all the necessary data required by the tower
- * 
- * @param ProjectileClass: The projectile to be fired from this tower
- * @param FireRate: Successive intervals in which tower fires
- * @param ProjectilePoolSize: Count of the projectile that have been spawned for the tower projectile pool
- * @param ProjectileBaseDamage: Base damage dealt by the projectile of this tower
- * @param TowerBuyingPrice: Price of the tower required to buy it
- * @param TowerSellingPrice: Selling price of the tower
- * @param Icon: Icon of the tower to show in the tower selection menu 
- ********************************************************************************************/
-USTRUCT(BlueprintType)
-struct FTowerDataTableRow : public FTableRowBase
-{
-	GENERATED_BODY()
-
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ASProjectile> ProjectileClass;
-	
-	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "0.1", ClampMax = "7"))
-	float FireRate = 3.f;
-	
-	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "1", ClampMax = "15"))
-	uint32 ProjectilePoolSize = 5;
-	
-	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "1", ClampMax = "15"))
-	uint32 ProjectileBaseDamage = 1;
-	
-	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
-	uint32 TowerBuyingPrice = 100;
-	
-	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "50", ClampMax = "500"))
-	uint32 TowerSellingPrice = 100;
-
-	UPROPERTY(EditDefaultsOnly)
-	FSlateBrush Icon;
-	
-};
+class USTowerDataAsset;
 
 /**
  * Base class for tower
@@ -81,9 +42,6 @@ public:
 	/** Called from Player Pawn when RMB/LMB is clicked to set tower to unselected */
 	void SetTowerToUnselected();
 
-	/** Called from child classes to initialize tower data from data table */
-	void UpdateTowerDataFromDataTable(const FName InTowerName);
-	
 protected:
 	/** Begin play overloading */
 	virtual void BeginPlay() override;
@@ -154,26 +112,29 @@ private:
 
 #pragma region TowerData;
 	
+	/** The data asset class for this tower */
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
+	TObjectPtr<USTowerDataAsset> TowerDataAsset;
+	
 	/** The projectile that has to be spawned by this class */
-	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	TSubclassOf<ASProjectile> ProjectileClass;
 	
 	/** Intervals of time in which this turret can fire */
-	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	float FireRate = 3.f;
 
 	/** Number of projectiles this pool can spawn */
-	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	uint32 ProjectilePoolSize = 5;
 	
 	/** Base damage dealt by the projectile of this tower */
-	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	uint32 ProjectileBaseDamage = 1;
 	
 	/** Selling price of the tower */
-	UPROPERTY(VisibleAnywhere, Category = TowerData)
 	uint32 TowerSellingPrice = 100;
 
+	/** Sound to play when the tower fires */
+	UPROPERTY()
+	TObjectPtr<USoundBase> TowerFiringSound;
+	
 #pragma endregion TowerData;
 	
 	/** True when tower should fire, set from range sphere pverlap callbacks */

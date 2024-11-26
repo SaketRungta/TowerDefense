@@ -4,9 +4,11 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Interactions/STowerSite.h"
+#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Pawn/STowerDefensePawn.h"
 #include "Projectile/SProjectile.h"
+#include "Towers/STowerDataAsset.h"
 #include "UI/STowerSellingButton.h"
 
 ASBaseTower::ASBaseTower()
@@ -97,25 +99,20 @@ void ASBaseTower::SetTowerToUnselected()
 	bIsTowerSelected = false;
 }
 
-void ASBaseTower::UpdateTowerDataFromDataTable(const FName InTowerName)
-{
-	static ConstructorHelpers::FObjectFinder<UDataTable> Asset(TEXT("DataTable'/Game/TowerDefense/Blueprints/DataTable/DT_TowerData.DT_TowerData'"));
-	if (Asset.Succeeded())
-		if (const UDataTable* TowerDataTable = Asset.Object)
-			if (const FTowerDataTableRow* RowData = TowerDataTable->FindRow<FTowerDataTableRow>(InTowerName, TEXT("")))
-			{
-				this->ProjectileClass = RowData->ProjectileClass;
-				this->FireRate = RowData->FireRate;
-				this->ProjectilePoolSize = RowData->ProjectilePoolSize;
-				this->ProjectileBaseDamage = RowData->ProjectileBaseDamage;
-				this->TowerSellingPrice = RowData->TowerSellingPrice;
-			}
-}
-
 void ASBaseTower::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (TowerDataAsset)
+	{
+		this->ProjectileClass = TowerDataAsset->ProjectileClass;
+		this->FireRate = TowerDataAsset->FireRate;
+		this->ProjectilePoolSize = TowerDataAsset->ProjectilePoolSize;
+		this->ProjectileBaseDamage = TowerDataAsset->ProjectileBaseDamage;
+		this->TowerSellingPrice = TowerDataAsset->TowerSellingPrice;
+		this->TowerFiringSound = TowerDataAsset->TowerFiringSound;
+	}
+	
 	SetActorTickEnabled(false);
 
 	if (ProjectileClass) SpawnProjectilePool();
@@ -232,6 +229,8 @@ bool ASBaseTower::FireTurret()
 
 	bShouldFire = false;
 
+	UGameplayStatics::PlaySoundAtLocation(this, TowerFiringSound, GetActorLocation());
+	
 	GetWorldTimerManager().SetTimer(
 		FireCooldownTimer,
 [this]()

@@ -2,11 +2,6 @@
 #include "Towers/SArcherTower.h"
 #include "Projectile/SProjectile.h"
 
-ASArcherTower::ASArcherTower()
-{
-	UpdateTowerDataFromDataTable(FName("ArcherTower"));
-}
-
 bool ASArcherTower::FireTurret()
 {
 	if (!Super::FireTurret()) return false;

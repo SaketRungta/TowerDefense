@@ -14,10 +14,6 @@ class TOWERDEFENSE_API ASMachineGunTower : public ASBaseTower
 {
 	GENERATED_BODY()
 
-public:
-	/** Default Constructor */
-	ASMachineGunTower();
-	
 protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual bool FireTurret() override;

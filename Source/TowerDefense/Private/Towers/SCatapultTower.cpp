@@ -4,8 +4,6 @@
 
 ASCatapultTower::ASCatapultTower()
 {
-	UpdateTowerDataFromDataTable(FName("CatapultTower"));
-	
 	GetTurretMesh()->SetRelativeLocation(FVector(0.f, 0.f, 48.f));
 
 	TurretBase = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretBase"));
