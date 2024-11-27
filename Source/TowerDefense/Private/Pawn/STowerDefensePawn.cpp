@@ -21,7 +21,7 @@ ASTowerDefensePawn::ASTowerDefensePawn()
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(SceneRoot);
-	CameraComponent->SetRelativeRotation(FRotator(-50.f, -90.f, 0.f));
+	CameraComponent->SetRelativeRotation(FRotator(-65.f, -90.f, 0.f));
 }
 
 void ASTowerDefensePawn::Tick(float DeltaTime)
