@@ -7,6 +7,21 @@
 #include "System/CommonTypes.h"
 #include "UI/SBaseHUD.h"
 
+void ASBaseGameMode::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
+{
+	Super::InitGame(MapName, Options, ErrorMessage);
+
+	FString CurrentMapName = UGameplayStatics::GetCurrentLevelName(this);
+	
+	const FString Prefix = TEXT("lv_");
+	if (CurrentMapName.StartsWith(Prefix))
+	{
+		const FString LevelIndexString = CurrentMapName.RightChop(Prefix.Len());
+		const int32 LevelIndex = FCString::Atoi(*LevelIndexString);
+		CoinCount = InitialCoinsForEachLevel[LevelIndex];
+	}
+}
+
 void ASBaseGameMode::OnUFOReachedBaseCallback(uint32 InUFOLifeCount)
 {
 	LifeCount -= InUFOLifeCount;

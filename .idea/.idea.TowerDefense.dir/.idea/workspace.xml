@@ -9,13 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Pawn/BP_TowerDefensePawn.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameInstance/BP_GameInstance.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_MainMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Pawn/STowerDefensePawn.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +22,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://E:/UE_5.4/Engine/Source/Runtime/Engine/Classes/GameFramework/GameMode.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -147,7 +145,7 @@
       <workItem from="1732605825767" duration="8000" />
       <workItem from="1732633544808" duration="4543000" />
       <workItem from="1732649437511" duration="1710000" />
-      <workItem from="1732704985336" duration="1877000" />
+      <workItem from="1732704985336" duration="2846000" />
     </task>
     <servers />
   </component>

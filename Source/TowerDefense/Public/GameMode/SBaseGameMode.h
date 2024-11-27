@@ -16,6 +16,9 @@ class TOWERDEFENSE_API ASBaseGameMode : public AGameMode
 	GENERATED_BODY()
 
 public:
+	/** Called automatically when game starts */
+	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
+	
 	/**
 	 * Callback when any UFO is destroyed by the player
 	 * Adds the UFO value to the coin stash
@@ -54,7 +57,6 @@ public:
 	
 private:
 	/** Stores the current count of coins */
-	UPROPERTY(EditDefaultsOnly, Category = GameData, meta = (ClampMin = "99", ClampMax = "9999"))
 	uint32 CoinCount = 991;
 
 	/** Stores the current count of lives */
@@ -66,6 +68,10 @@ private:
 
 	/** Stores the currently active wave number */
 	uint32 CurrentWaveNumber = 1;
+
+	/** Coins to start the game with for each level */
+	UPROPERTY(EditDefaultsOnly, Category = GameData)
+	TArray<int32> InitialCoinsForEachLevel = { 100, 100, 150, 150, 250 };
 	
 public:
 	/** Getter for CoinsCount, used in USHUDWidget::BindCoinCount() */
