@@ -119,6 +119,7 @@ void ASBaseTower::BeginPlay()
 		this->ProjectileBaseDamage = TowerDataAsset->ProjectileBaseDamage;
 		this->TowerSellingPrice = TowerDataAsset->TowerSellingPrice;
 		this->TowerFiringSound = TowerDataAsset->TowerFiringSound;
+		this->TowerClickedSound = TowerDataAsset->TowerClickedSound;
 	}
 	
 	SetActorTickEnabled(false);
@@ -147,6 +148,9 @@ void ASBaseTower::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
+	if (TowerClickedSound)
+		UGameplayStatics::PlaySound2D(this, TowerClickedSound);
+	
 	ASBaseTower* TempTower = nullptr;
 
 	const ASCatapultTower* TempCatapultTower = Cast<ASCatapultTower>(this);

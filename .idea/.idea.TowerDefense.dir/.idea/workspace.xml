@@ -7,7 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="" />
+    <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSelectionMenu_Button.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_TowerSellButton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,6 +152,7 @@
       <workItem from="1732783084691" duration="3060000" />
       <workItem from="1732789586488" duration="3853000" />
       <workItem from="1732793549789" duration="112000" />
+      <workItem from="1732794209131" duration="336000" />
     </task>
     <servers />
   </component>

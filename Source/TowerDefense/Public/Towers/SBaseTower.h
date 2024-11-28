@@ -144,6 +144,10 @@ private:
 	UPROPERTY()
 	TObjectPtr<USoundBase> TowerFiringSound;
 	
+	/** Sound to play when player clicks on this tower */
+	UPROPERTY()
+	TObjectPtr<USoundBase> TowerClickedSound;
+
 #pragma endregion TowerData;
 	
 	/** True when tower should fire, set from range sphere pverlap callbacks */
