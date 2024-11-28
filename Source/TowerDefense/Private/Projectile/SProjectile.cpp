@@ -62,6 +62,9 @@ void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AAc
 			this,
 			UDamageType::StaticClass()
 			);
+
+	if (ProjectileHitSound)
+		UGameplayStatics::PlaySoundAtLocation(this, ProjectileHitSound, GetActorLocation());
 	
 	DeactivateThisObject();
 }

@@ -17,7 +17,7 @@ void ASBaseGameMode::InitGame(const FString& MapName, const FString& Options, FS
 	if (CurrentMapName.StartsWith(Prefix))
 	{
 		const FString LevelIndexString = CurrentMapName.RightChop(Prefix.Len());
-		const int32 LevelIndex = FCString::Atoi(*LevelIndexString);
+		const int32 LevelIndex = FCString::Atoi(*LevelIndexString) - 1;
 		CoinCount = InitialCoinsForEachLevel[LevelIndex];
 	}
 }

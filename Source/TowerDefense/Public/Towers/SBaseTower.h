@@ -62,6 +62,9 @@ protected:
 	 */
 	bool FindProjectileFromPool(ASProjectile*& InProjectileRef);
 
+	/** Contains all the enemies currently in range of the tower and if they can be attacked */
+	TMap<TWeakObjectPtr<AActor>, bool> InRangeEnemies;
+	
 private:
 
 #pragma region ComponentsAndCallback
@@ -104,8 +107,11 @@ private:
 
 #pragma endregion ComponentsAndCallback
 	
-	/** Called from ASBaseTower::Tick, when any enemy is in range and turret need to point at that enemy */
-	void SetTurretLookAtEnemy();
+	/**
+	 * Called from ASBaseTower::Tick, when any enemy is in range and turret need to point at that enemy
+	 * Checks if the enemy can be targeted and returns true
+	 */
+	bool SetTurretLookAtEnemy();
 
 	/** Called from ASBaseTower::BeginPlay to spawn the pool of projectiles for this turret */
 	void SpawnProjectilePool();
@@ -115,6 +121,9 @@ private:
 	/** The data asset class for this tower */
 	UPROPERTY(EditDefaultsOnly, Category = TowerData)
 	TObjectPtr<USTowerDataAsset> TowerDataAsset;
+
+	/** Range of the tower */
+	float TowerRange = 550.f;
 	
 	/** The projectile that has to be spawned by this class */
 	TSubclassOf<ASProjectile> ProjectileClass;
@@ -145,9 +154,6 @@ private:
 	
 	/** Ref to the player pawn so that we call set the last selected tower via interface */
 	TWeakObjectPtr<ASTowerDefensePawn> PlayerPawn;
-
-	/** Contains all the enemies currently in range of the turret */
-	TArray<TWeakObjectPtr<AActor>> InRangeEnemies;
 
 	/** Handles turret firing timers in ASBaseTower::FireTurret and is cleared by ASBaseTower::OnTowerRangeSphereEndOverlap when no of enemies are 0 */
 	FTimerHandle FireCooldownTimer;

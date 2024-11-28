@@ -105,6 +105,10 @@ private:
 
 #pragma endregion ProjectileProperties
 		
+	/** Sound when projectile hits a UFO */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<USoundBase> ProjectileHitSound;
+
 public:
 	/** Getter for bIsInUse, true when projectile is in use or is active and cannot be used */
 	FORCEINLINE bool IsProjectileInUse() const

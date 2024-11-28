@@ -3,6 +3,7 @@
 
 #include "Components/SplineComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "UFO/SUFOWaveManager.h"
 
 ASUFO::ASUFO()
@@ -89,6 +90,7 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 	{
 		OnUFODestroyed.Broadcast(UFOCoinValue);
 		if (WaveManager.IsValid()) WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
+		if (UFODestroyedSound) UGameplayStatics::PlaySoundAtLocation(this, UFODestroyedSound, GetActorLocation());
 		Destroy();
 		return;
 	}

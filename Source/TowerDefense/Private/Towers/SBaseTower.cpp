@@ -8,6 +8,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Pawn/STowerDefensePawn.h"
 #include "Projectile/SProjectile.h"
+#include "Towers/SCatapultTower.h"
 #include "Towers/STowerDataAsset.h"
 #include "UI/STowerSellingButton.h"
 
@@ -76,8 +77,8 @@ void ASBaseTower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	SetTurretLookAtEnemy();
-	FireTurret();
+	if (SetTurretLookAtEnemy())
+		FireTurret();
 }
 
 void ASBaseTower::PostInitializeComponents()
@@ -93,7 +94,9 @@ void ASBaseTower::PostInitializeComponents()
 void ASBaseTower::SetTowerToUnselected()
 {
 	TowerSellingWidget->SetHiddenInGame(true);
-	TowerRangeIndicatorMesh->SetHiddenInGame(true);
+	TowerRangeIndicatorMesh->SetHiddenInGame(true);	 
+	if (const ASCatapultTower* TempCatapultTower = Cast<ASCatapultTower>(this))
+		TempCatapultTower->ShowInnerRangeIndicatorMesh(false);
 	SetTowerEmissiveValue(0.f);
 
 	bIsTowerSelected = false;
@@ -105,6 +108,11 @@ void ASBaseTower::BeginPlay()
 
 	if (TowerDataAsset)
 	{
+		this->TowerRange = TowerDataAsset->TowerRange;
+		{
+			TowerRangeSphere->SetSphereRadius(TowerRange);
+			TowerRangeIndicatorMesh->SetRelativeScale3D(FVector(TowerRange/50.f));
+		}
 		this->ProjectileClass = TowerDataAsset->ProjectileClass;
 		this->FireRate = TowerDataAsset->FireRate;
 		this->ProjectilePoolSize = TowerDataAsset->ProjectilePoolSize;
@@ -140,6 +148,8 @@ void ASBaseTower::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
 	ASBaseTower* TempTower = nullptr;
+
+	const ASCatapultTower* TempCatapultTower = Cast<ASCatapultTower>(this);
 	
 	if(bIsTowerSelected)
 	{
@@ -148,6 +158,7 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 			TowerSellingWidget->SetHiddenInGame(true);
 			TowerRangeIndicatorMesh->SetHiddenInGame(true);
 		}
+		if (TempCatapultTower) TempCatapultTower->ShowInnerRangeIndicatorMesh(false);
 		SetTowerEmissiveValue(0.f);
 	}
 	else
@@ -157,6 +168,7 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 			TowerSellingWidget->SetHiddenInGame(false);
 			TowerRangeIndicatorMesh->SetHiddenInGame(false);
 		}
+		if (TempCatapultTower) TempCatapultTower->ShowInnerRangeIndicatorMesh(true);
 		SetTowerEmissiveValue(0.5f);
 
 		TempTower = this;
@@ -172,8 +184,8 @@ void ASBaseTower::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (InRangeEnemies.Contains(OtherActor) || !OtherActor->ActorHasTag(FName(TEXT("UFO")))) return;
-	
-	InRangeEnemies.Add(OtherActor);
+
+	InRangeEnemies.Add(OtherActor, true);
 	if (InRangeEnemies.Num() == 1)
 	{
 		SetActorTickEnabled(true);
@@ -193,12 +205,29 @@ void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ASBaseTower::SetTurretLookAtEnemy()
+bool ASBaseTower::SetTurretLookAtEnemy()
 {
-	const FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), InRangeEnemies[0]->GetActorLocation());
+	AActor* EnemyToTarget = nullptr;
+	for (const TTuple<TWeakObjectPtr<AActor>, bool> CurrentEnemy : InRangeEnemies)
+	{
+		if (InRangeEnemies[CurrentEnemy.Key])
+		{
+			EnemyToTarget = CurrentEnemy.Key.Get();
+			break;
+		}			
+	}
 
-	const FRotator TurretMeshCurrentRotation = TurretMesh->GetComponentRotation();
-	TurretMesh->SetWorldRotation(FRotator(TurretMeshCurrentRotation.Pitch, TurretLookAtEnemyRotation.Yaw, TurretMeshCurrentRotation.Roll));
+	if (EnemyToTarget)
+	{
+		const FRotator TurretLookAtEnemyRotation = UKismetMathLibrary::FindLookAtRotation(TurretMesh->GetComponentLocation(), EnemyToTarget->GetActorLocation());
+
+		const FRotator TurretMeshCurrentRotation = TurretMesh->GetComponentRotation();
+		TurretMesh->SetWorldRotation(FRotator(TurretMeshCurrentRotation.Pitch, TurretLookAtEnemyRotation.Yaw, TurretMeshCurrentRotation.Roll));
+
+		return true;
+	}
+	
+	return false;
 }
 
 void ASBaseTower::SpawnProjectilePool()

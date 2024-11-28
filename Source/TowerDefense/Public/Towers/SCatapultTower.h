@@ -22,6 +22,12 @@ public:
 	/** Tick event override */
 	virtual void Tick(float DeltaTime) override;
 
+	/** Called once all the components of the actor has been initialized */
+	virtual void PostInitializeComponents() override;
+
+	/** Called from parent class to show the inner range sphere */
+	void ShowInnerRangeIndicatorMesh(const bool bShowSphere = true) const;
+	
 private:
 	/** Mesh for the turret base */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
@@ -30,6 +36,22 @@ private:
 	/** Mesh for fake catapult projectile */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> CatapultProjectileMesh;
+
+	/** Sphere which enforces the inner range of the turret */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<USphereComponent> TowerInnerRangeSphere;
+
+	/** A plane static mesh which has the material that marks the inner range of the turret */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UStaticMeshComponent> TowerInnerRangeIndicatorMesh;
+
+	/** Callback when any actor overlaps the TowerInnerRangeSphere */
+	UFUNCTION()
+	void OnTowerInnerRangeSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	/** Callback when any actor ends overlap with the TowerInnerRangeSphere */
+	UFUNCTION()
+	void OnTowerInnerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	/** Sets the pitch of the turret mesh when turret is firing, called by BP, majorly for cosmetic purpose */
 	UFUNCTION(BlueprintCallable)
@@ -42,7 +64,14 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void FireProjectile();
 
+	/** Inner range of the tower in which catapult does not functions */
+	UPROPERTY(EditDefaultsOnly, Category = TowerData)
+	float TowerInnerRange = 500.f;
+	
 protected:
+	/** Begin play overloading */
+	virtual void BeginPlay() override;
+
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual bool FireTurret() override;
 

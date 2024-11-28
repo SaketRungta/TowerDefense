@@ -135,6 +135,10 @@ private:
 	 */
 	TWeakObjectPtr<ASUFOWaveManager> WaveManager;
 	
+	/** Sound when UFO is destroyed */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<USoundBase> UFODestroyedSound;
+
 public:
 	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */
 	UFUNCTION(BlueprintCallable)

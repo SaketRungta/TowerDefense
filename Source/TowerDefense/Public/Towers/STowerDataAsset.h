@@ -21,6 +21,10 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	FName TowerName = FName("");
 	
+	/** Range of the tower */
+	UPROPERTY(EditDefaultsOnly, meta = (ClampMin = "500", ClampMax = "9999"))
+	float TowerRange = 550.f;
+	
 	/** The projectile to be fired from this tower */
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ASProjectile> ProjectileClass;
