@@ -7,30 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/M_TurretInnerRangeRing.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/M_TurretInnerRangeRing.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Light.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Light.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CannonTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CatapultTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CatapultTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_MainMenu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_MainMenu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Projectile/SProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Projectile/SProjectile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SCatapultTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Projectile/SProjectile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCatapultTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SCatapultTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" afterDir="false" />
-    </list>
+    <list default="true" id="200f368b-5aed-471e-bb5a-3cdcdec17bc9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -168,6 +145,7 @@
       <workItem from="1732731611940" duration="4092000" />
       <workItem from="1732783084691" duration="3060000" />
       <workItem from="1732789586488" duration="3853000" />
+      <workItem from="1732793549789" duration="112000" />
     </task>
     <servers />
   </component>
