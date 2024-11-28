@@ -85,7 +85,6 @@ void ASBaseTower::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	TowerRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereOverlap);
 	TowerRangeSphere->OnComponentEndOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereEndOverlap);
 
 	OnClicked.AddDynamic(this, &ASBaseTower::OnActorClicked);
@@ -106,6 +105,18 @@ void ASBaseTower::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetActorTickEnabled(false);
+
+	/**
+	 * Reason for not binding in PostInitializeComponents
+	 *
+	 * When a tower is spawning where enemy is already in range then OnTowerRangeSphereOverlap calls SetActorTickEnabled(true)
+	 * But OnTowerRangeSphereOverlap is executed before Beginplay when it was binded in PostInitializeComponents
+	 * So when I moved the binding in here then tick is disabled at first then OnTowerRangeSphereOverlap is called
+	 * Then it checks if enemy is in range then tick is enabled again
+	 */
+	TowerRangeSphere->OnComponentBeginOverlap.AddDynamic(this, &ASBaseTower::OnTowerRangeSphereOverlap);
+	
 	if (TowerDataAsset)
 	{
 		this->TowerRange = TowerDataAsset->TowerRange;
@@ -122,8 +133,6 @@ void ASBaseTower::BeginPlay()
 		this->TowerClickedSound = TowerDataAsset->TowerClickedSound;
 	}
 	
-	SetActorTickEnabled(false);
-
 	if (ProjectileClass) SpawnProjectilePool();
 
 	if (USTowerSellingButton* TowerSellingButton = Cast<USTowerSellingButton>(TowerSellingWidget->GetWidget()))

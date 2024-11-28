@@ -150,7 +150,7 @@ private:
 
 #pragma endregion TowerData;
 	
-	/** True when tower should fire, set from range sphere pverlap callbacks */
+	/** True when tower should fire, set from range sphere overlap callbacks */
 	bool bShouldFire = false;
 	
 	/** True when tower is selected */

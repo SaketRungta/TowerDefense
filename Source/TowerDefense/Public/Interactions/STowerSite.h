@@ -77,6 +77,15 @@ private:
 
 	/**	True when site is disabled, when a tower is already placed on the site */
 	bool bIsSiteDisabled = false;
+
+	/**
+	 * True when cursor is over this site
+	 * Set from blueprints, when player clicks on the tower site when it is active this variable
+	 * helps to check if player is still hovering, if true then it will not change the emissive value
+	 * Used in ASTowerSite::SetTowerSiteToUnselected
+	 */
+	UPROPERTY(BlueprintReadWrite, Category = Defaults, meta = (AllowPrivateAccess = true))
+	bool bIsCursorOver = false;
 	
 public:
 	/** 

@@ -116,8 +116,10 @@ void ASTowerDefensePawn::OnLeftMouseButtonAction(const FInputActionValue& Value)
 	{
 		FHitResult HitResult;
 		PlayerController->GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(ECC_Visibility), true, HitResult);
-		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite"))) SetCurrentlySelectedTowerSite(nullptr);
-		if(!HitResult.GetActor()->ActorHasTag(FName("Tower"))) SetCurrentlySelectedTower(nullptr);
+		if(!HitResult.GetActor()->ActorHasTag(FName("TowerSite")))
+			SetCurrentlySelectedTowerSite(nullptr);
+		if(!HitResult.GetActor()->ActorHasTag(FName("Tower")))
+			SetCurrentlySelectedTower(nullptr);
 	}
 }
 

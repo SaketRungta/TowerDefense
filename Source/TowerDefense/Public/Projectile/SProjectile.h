@@ -84,7 +84,7 @@ private:
 	float DeactivationTime = 5.f;
 
 	/** Speed at which the projectile can be fired */
-	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "4500"))
+	UPROPERTY(EditAnywhere, Category = ProjectileProperties, meta = (ClampMin = "500", ClampMax = "99999"))
 	float FiringSpeed = 1500.f;
 	
 	/** True when the projectile is fired from a catapult */

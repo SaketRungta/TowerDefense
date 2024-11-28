@@ -38,7 +38,8 @@ void ASTowerSite::SetTowerSiteToUnselected()
 
 	TowerSelectionMenuWidget->PlayPopInAnimation(true, 2.f);
 	bIsSiteActive = false;
-	GetTowerSiteMesh()->SetScalarParameterValueOnMaterials(FName(TEXT("Emissive")), 0.f);
+	if (!bIsCursorOver)
+		GetTowerSiteMesh()->SetScalarParameterValueOnMaterials(FName(TEXT("Emissive")), 0.f);
 }
 
 void ASTowerSite::BeginPlay()
@@ -53,15 +54,28 @@ void ASTowerSite::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
 	if (bIsSiteDisabled) return;
 
-	PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
-	if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTowerSite(this);
+	if (!bIsSiteActive)
+	{
+		PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+		if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTowerSite(this);
 	
-	TowerSelectionMenuWidget = TowerSelectionMenuWidget.IsValid() ? TowerSelectionMenuWidget : TObjectPtr<USTowerSelectionMenu>(Cast<USTowerSelectionMenu>(TowerSelectionMenuWidgetComponent->GetWidget()));
-	if (TowerSelectionMenuWidget.IsValid()) TowerSelectionMenuWidget->PlayPopInAnimation(false, 2.f);
+		TowerSelectionMenuWidget = TowerSelectionMenuWidget.IsValid() ? TowerSelectionMenuWidget : TObjectPtr<USTowerSelectionMenu>(Cast<USTowerSelectionMenu>(TowerSelectionMenuWidgetComponent->GetWidget()));
+		if (TowerSelectionMenuWidget.IsValid()) TowerSelectionMenuWidget->PlayPopInAnimation(false, 2.f);
 
-	TowerSelectionMenuWidgetComponent->SetHiddenInGame(false);
+		TowerSelectionMenuWidgetComponent->SetHiddenInGame(false);
 
-	bIsSiteActive = true;
+		bIsSiteActive = true;
+	}
+	else
+	{
+		PlayerPawn = PlayerPawn.IsValid() ? PlayerPawn : TObjectPtr<ASTowerDefensePawn>(Cast<ASTowerDefensePawn>(GetWorld()->GetFirstPlayerController()->GetPawn()));
+		if (PlayerPawn.IsValid()) PlayerPawn->SetCurrentlySelectedTowerSite(nullptr);
+	
+		TowerSelectionMenuWidget = TowerSelectionMenuWidget.IsValid() ? TowerSelectionMenuWidget : TObjectPtr<USTowerSelectionMenu>(Cast<USTowerSelectionMenu>(TowerSelectionMenuWidgetComponent->GetWidget()));
+		if (TowerSelectionMenuWidget.IsValid()) TowerSelectionMenuWidget->PlayPopInAnimation(true, 2.f);
+
+		bIsSiteActive = false;
+	}
 }
 
 void ASTowerSite::HideTowerSelectionMenuWidgetComponent() const
