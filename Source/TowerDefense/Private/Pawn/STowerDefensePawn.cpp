@@ -162,5 +162,10 @@ void ASTowerDefensePawn::CameraPanImplementation()
 	DeltaLocation.X = (InitialMousePosition.X - CurrentMousePosition.X) * CameraPanSpeed;
 	DeltaLocation.Y = (InitialMousePosition.Y - CurrentMousePosition.Y) * CameraPanSpeed;
 
-	AddActorWorldOffset(DeltaLocation, true);
+	FVector NewLocation = GetActorLocation() + DeltaLocation;
+
+	NewLocation.X = FMath::Clamp(NewLocation.X, CameraMinBounds.X, CameraMaxBounds.X);
+	NewLocation.Y = FMath::Clamp(NewLocation.Y, CameraMinBounds.Y, CameraMaxBounds.Y);
+
+	SetActorLocation(NewLocation, true);
 }

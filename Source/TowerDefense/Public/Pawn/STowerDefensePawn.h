@@ -115,6 +115,14 @@ private:
 	UPROPERTY(EditAnywhere, Category = Camera, meta = (ClampMin = "0.001", ClampMax = "1"))
 	float CameraPanSpeed = 0.01f;
 
+	/** Minimum bounds of the camera */
+	UPROPERTY(EditAnywhere, Category = Camera)
+	FVector CameraMinBounds = FVector(-600.f, -1500.f, 0.f);
+	
+	/** Minimum bounds of the camera */
+	UPROPERTY(EditAnywhere, Category = Camera)
+	FVector CameraMaxBounds = FVector(600.f, 1500.f, 5000.f);
+
 #pragma endregion CameraPanning
 
 	/** Speed at which the camera zooms in out */
