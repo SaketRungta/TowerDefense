@@ -8,6 +8,7 @@
 class USplineComponent;
 class UWidgetComponent;
 class ASUFOWaveManager;
+class UNiagaraSystem;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHideHealthWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResetIfAnimIsPlaying);
@@ -138,6 +139,14 @@ private:
 	/** Sound when UFO is destroyed */
 	UPROPERTY(EditDefaultsOnly, Category = Default)
 	TObjectPtr<USoundBase> UFODestroyedSound;
+
+	/** Particle effect to spawn when the UFO is damaged */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<UNiagaraSystem> UFODamageParticleEffect;
+
+	/** Particle effect to spawn when the UFO is destroyed */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<UNiagaraSystem> ExplosionParticleEffect;
 
 public:
 	/** Bound to the health bar widget progress bar fill percent, NOTE: Is being used in BP */

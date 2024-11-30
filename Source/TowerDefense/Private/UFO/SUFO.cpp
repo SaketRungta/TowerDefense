@@ -5,6 +5,7 @@
 #include "Components/WidgetComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "UFO/SUFOWaveManager.h"
+#include "NiagaraFunctionLibrary.h"
 
 ASUFO::ASUFO()
 {
@@ -89,12 +90,21 @@ void ASUFO::OnTakeAnyDamageCallback(AActor* DamagedActor, float Damage, const cl
 	if (Damage>= CurrentHealth)
 	{
 		OnUFODestroyed.Broadcast(UFOCoinValue);
-		if (WaveManager.IsValid()) WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
-		if (UFODestroyedSound) UGameplayStatics::PlaySoundAtLocation(this, UFODestroyedSound, GetActorLocation());
+
+		if (WaveManager.IsValid())
+			WaveManager->SpawnedUFODestroyedByPlayerCallback(this);
+		if (UFODestroyedSound)
+			UGameplayStatics::PlaySoundAtLocation(this, UFODestroyedSound, GetActorLocation());
+		if (ExplosionParticleEffect)
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ExplosionParticleEffect, GetActorLocation());
+
 		Destroy();
 		return;
 	}
 	
+	if (UFODamageParticleEffect)
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, UFODamageParticleEffect, GetActorLocation());
+
 	OnResetIfAnimIsPlaying.Broadcast();	
 	
 	HealthBarWidget->SetHiddenInGame(false);
