@@ -8,8 +8,10 @@ bool ASArcherTower::FireTurret()
 
 	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
-		if (Projectile) Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
+		if (Projectile)
+			Projectile->ActivateThisObject(GetTurretMesh()->GetSocketTransform(FName("ProjectileFire")));
+		return true;
 	}
 
-	return true;
+	return false;
 }

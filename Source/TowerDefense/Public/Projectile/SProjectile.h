@@ -7,6 +7,7 @@
 
 class ASBaseTower;
 class UProjectileMovementComponent;
+class UNiagaraComponent;
 
 /**
  * Base projectile class
@@ -37,6 +38,9 @@ public:
 	void ActivateThisObject(const FTransform& InFiringSocketTransform);
 
 protected:
+	/** Begin play override */
+	virtual void BeginPlay() override;
+	
 	/** Called whenever this actor is being removed from a level, clears all timers to avoid possible crash */
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 	
@@ -52,6 +56,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UStaticMeshComponent> ProjectileMesh;
 
+	/** Projectile niagara trail */
+	UPROPERTY(EditDefaultsOnly, Category = Components)
+	TObjectPtr<UNiagaraComponent> ProjectileTrailComponent;
+	
 	/** Projectile movement component to handle the projectile physics */
 	UPROPERTY(EditDefaultsOnly, Category = Components)
 	TObjectPtr<UProjectileMovementComponent> ProjectileMovementComponent;

@@ -18,4 +18,8 @@ protected:
 	/** Invoked from ASBaseTower::OnTowerRangeSphereOverlap when enemy is in range to fire the turret */
 	virtual bool FireTurret() override;
 
+	/** Activates the muzzle flash for the cannon tower */
+	UFUNCTION(BlueprintImplementableEvent)
+	void ActivateMuzzleFlash();
+	
 };

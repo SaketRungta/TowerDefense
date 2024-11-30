@@ -8,27 +8,21 @@ bool ASMachineGunTower::FireTurret()
 
 	if (ASProjectile* Projectile = nullptr; FindProjectileFromPool(Projectile))
 	{
-		static uint32 TurretToFireFrom = 0;
-		FTransform ProjectileFireTransform;
+		static FName SocketToFireFrom = FName("ProjectileFire_Left");
 
-		switch (TurretToFireFrom)
-		{
-		case 0:
-			ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(FName("ProjectileFire_Left"));
-			TurretToFireFrom = 1;
-			break;
-		case 1:
-			ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(FName("ProjectileFire_Right"));
-			TurretToFireFrom = 0;
-			break;
-		default:
-			ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(FName("ProjectileFire_Left"));
-			TurretToFireFrom = 1;
-			break;			
-		}
+		if (SocketToFireFrom == FName("ProjectileFire_Left"))
+			SocketToFireFrom = FName("ProjectileFire_Right");
+		else
+			SocketToFireFrom = FName("ProjectileFire_Left");
+		
+		const FTransform ProjectileFireTransform = GetTurretMesh()->GetSocketTransform(SocketToFireFrom);
+		if (Projectile)
+			Projectile->ActivateThisObject(ProjectileFireTransform);
+		
+		ActivateMuzzleFlash(SocketToFireFrom);
 
-		if (Projectile) Projectile->ActivateThisObject(ProjectileFireTransform);
+		return true;
 	}
-
-	return true;
+	
+	return false;
 }

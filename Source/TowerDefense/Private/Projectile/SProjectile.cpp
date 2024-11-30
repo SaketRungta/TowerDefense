@@ -3,6 +3,7 @@
 
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "NiagaraComponent.h"
 
 ASProjectile::ASProjectile()
 {
@@ -13,9 +14,12 @@ ASProjectile::ASProjectile()
 
 	ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ProjectileMesh"));
 	ProjectileMesh->SetupAttachment(SceneRoot);
-
+	
+	ProjectileTrailComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("ProjectileTrailComponent"));
+	ProjectileTrailComponent->SetupAttachment(SceneRoot);
+	ProjectileTrailComponent->SetAutoActivate(false);
+	
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
-	ProjectileMovementComponent->MaxSpeed = 2800.f;
 	ProjectileMovementComponent->ProjectileGravityScale = 0.f;
 
 	SetActorEnableCollision(false);
@@ -71,6 +75,12 @@ void ASProjectile::OnProjectileHit(UPrimitiveComponent* OverlappedComponent, AAc
 
 void ASProjectile::ActivateThisObject(const FTransform& InFiringSocketTransform)
 {
+	if (ProjectileTrailComponent)
+	{
+		ProjectileTrailComponent->SetVisibility(true);
+		ProjectileTrailComponent->Activate();
+	}
+	
 	OwningTurretFiringSocketTransform = InFiringSocketTransform;
 
 	bIsInUse = true;
@@ -94,6 +104,14 @@ void ASProjectile::ActivateThisObject(const FTransform& InFiringSocketTransform)
 		);
 }
 
+void ASProjectile::BeginPlay()
+{
+	Super::BeginPlay();
+
+	ProjectileMovementComponent->InitialSpeed = FiringSpeed;
+	ProjectileMovementComponent->MaxSpeed = FiringSpeed;
+}
+
 void ASProjectile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	if (const UWorld* World = GetWorld())
@@ -108,8 +126,15 @@ void ASProjectile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void ASProjectile::DeactivateThisObject()
 {
+	if (ProjectileTrailComponent)
+	{
+		ProjectileTrailComponent->Deactivate();
+		ProjectileTrailComponent->DeactivateImmediate();
+		ProjectileTrailComponent->SetVisibility(false);
+	}
+	
 	ProjectileMovementComponent->Velocity = FVector(0.f);
-
+	
 	SetActorEnableCollision(false);
 
 	GetWorldTimerManager().ClearTimer(DeactivateTimer);
