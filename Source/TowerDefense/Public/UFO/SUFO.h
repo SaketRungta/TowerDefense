@@ -155,7 +155,7 @@ public:
 	{ return HealthPercentage; }
 
 	/** Setter for SplinePath, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetSplinePath(USplineComponent* InSplinePath);
+	void SetSplinePath(USplineComponent* InSplinePath);
 
 	/** Getter for SplinePath, called from ASUFOWaveManager::MoveAllUFOsAlongTheSplinePath */
 	FORCEINLINE const USplineComponent* GetSplinePath() const
@@ -174,6 +174,6 @@ public:
 	{ return MovementSpeed; }
 	
 	/** Setter for WaveManager, called from ASUFOWaveManager::SpawnUFOs */
-	FORCEINLINE void SetWaveManager(ASUFOWaveManager* InWaveManager);
+	void SetWaveManager(ASUFOWaveManager* InWaveManager);
 	
 };

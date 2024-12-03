@@ -145,6 +145,7 @@ private:
 	/** Timer that spawns subsequent waves */
 	FTimerHandle SpawnNextWaveTimer;
 
+	/** Timers to spawn sub waves */
 	TArray<FTimerHandle> SubWaveTimers;
 
 public:
