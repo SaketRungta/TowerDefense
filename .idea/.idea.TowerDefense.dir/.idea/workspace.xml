@@ -9,70 +9,14 @@
   <component name="ChangeListManager">
     <list default="true" id="38625a9c-6d32-4dc1-98ff-aa2da00205d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/dirt.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/dirt.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/dirtDark.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/dirtDark.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/foliage.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/foliage.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/stone.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/stone.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/stoneDark.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/stoneDark.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/water.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/water.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/wood.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Materials/wood.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/ModifiedModels/SM_CannonTurret.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/ModifiedModels/SM_CannonTurret.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/ModifiedModels/SM_Tower_01.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/ModifiedModels/SM_Tower_01.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/tile_tree_tree.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Assets/Models/tile_tree_tree.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Showcase_Sorted.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/KenneyTowerDefenseKit/Showcase_Sorted.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Audio/Game/BackGround_Music.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Audio/UI/WidgetPopInOut_Sound.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_Floor.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_Floor.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_TurretInnerRangeRing.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_TurretInnerRangeRing.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_TurretOuterRangeRing.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Materials/Mesh/M_TurretOuterRangeRing.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/ParticleEffects/NS_UFOExplosion.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/ParticleEffects/NS_UFOExplosion.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/Models/T_SM_Floor.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/Models/T_SM_InnerRangeRing.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/Models/T_SM_OuterRangeRing.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_ArcherProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_ArcherProjectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CannonProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CannonProjectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CatapultProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_CatapultProjectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_MachineGunProjectile.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Projectile/BP_MachineGunProjectile.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_ArcherTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CannonTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_CatapultTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Tower/BP_MachineGunTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Heavy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Heavy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Light.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Light.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Medium.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/UFO/BP_UFO_Medium.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Audio/Cues/BackGround_Music_Cue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Audio/Cues/BackGround_Music_Cue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Audio/Cues/ButtonClick_Sound_Cue.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Audio/Cues/ButtonClick_Sound_Cue.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Audio/Cues/WidgetPopInOut_Sound_Cue.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_ArcherTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_ArcherTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CannonTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_CannonTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/DataAsset/DA_MachineGunTower.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/GameMode/BP_BaseGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonHovered.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonHovered.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonNormal.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/ufo.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_FillingTreeQuad.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_FillingTreeQuad.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_Slider.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_Slider.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_UFOCoinsReward.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Input/IMA_InputContext.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Input/IMA_InputContext.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_1.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_10.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_10.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_2.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_2.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_3.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_3.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_4.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_4.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_5.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_5.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_6.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_6.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_7.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_7.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_8.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_8.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_9.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_9.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/GameMode/SBaseGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Towers/SBaseTower.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFO.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UFO/SUFOWaveManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/UI/SHUDWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/GameMode/SBaseGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/SBaseTower.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Towers/STowerDataAsset.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UFO/SUFO.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/UI/SHUDWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Environment/SRandomPrefabTile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Environment/SRandomPrefabTile.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Environment/SRandomPrefabTile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Environment/SRandomPrefabTile.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +149,7 @@
       <workItem from="1733591386605" duration="1406000" />
       <workItem from="1733671840325" duration="1968000" />
       <workItem from="1733676609461" duration="1798000" />
-      <workItem from="1733754702374" duration="2961000" />
+      <workItem from="1733754702374" duration="5297000" />
     </task>
     <servers />
   </component>
