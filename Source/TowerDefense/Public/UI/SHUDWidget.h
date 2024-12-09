@@ -165,9 +165,17 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Default)
 	TArray<FString> LevelNames;
 
-	/** Sound to play when a widget pops in */
+	/** Sound to play when the pause menu pops in or out */
 	UPROPERTY(EditDefaultsOnly, Category = Default)
-	TObjectPtr<USoundBase> WidgetPopInOutSound;
+	TObjectPtr<USoundBase> PauseMenuPopInOutSound;
+	
+	/** Sound to play when level completed menu pops in */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<USoundBase> LevelCompletedMenuSound;
+	
+	/** Sound to play when try again menu pops in */
+	UPROPERTY(EditDefaultsOnly, Category = Default)
+	TObjectPtr<USoundBase> TryAgainMenuSound;
 	
 public:
 	/** Called from base HUD to show error messages on the screen */

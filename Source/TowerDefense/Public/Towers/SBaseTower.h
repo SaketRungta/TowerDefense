@@ -63,6 +63,7 @@ protected:
 	bool FindProjectileFromPool(ASProjectile*& InProjectileRef);
 
 	/** Contains all the enemies currently in range of the tower and if they can be attacked */
+	UPROPERTY(VisibleAnywhere)
 	TMap<TWeakObjectPtr<AActor>, bool> InRangeEnemies;
 	
 private:
@@ -170,6 +171,9 @@ private:
 	 * When this tower is sold by the user we need to enable the tower
 	 */
 	TWeakObjectPtr<ASTowerSite> TowerSite;
+	
+	/** Contains all the enemies currently in range of the tower in a sorted order the first one on the top and last one in the bottom */
+	TArray<TWeakObjectPtr<AActor>> OrderedInRangeEnemies;
 	
 public:
 	/** Getter for the TurretMesh */

@@ -13,7 +13,7 @@ class UNiagaraSystem;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHideHealthWidget);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnResetIfAnimIsPlaying);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFODestroyed, int32, UFOValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUFOReachedBase, uint32, UFOLifeCount);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUFOReachedBase);
 
 /**
  * Base UFO class
@@ -103,7 +103,7 @@ private:
 	uint32 CurrentHealth;
 
 	/** Stores the max health of UFO */
-	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
+	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "999"))
 	uint32 MaxHealth = 10;
 
 	/** Percentage of health the ufo has 0 is lowest 1 highest */
@@ -112,10 +112,6 @@ private:
 	/** Coin value of the ufo to add when player destroys it */
 	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "100"))
 	uint32 UFOCoinValue = 10;
-
-	/** Value of life to deduct when ufo reaches the base */
-	UPROPERTY(EditDefaultsOnly, Category = UFOData, meta = (ClampMin = "1", ClampMax = "10"))
-	uint32 UFOLifeDamageCount = 1;
 
 #pragma endregion UFOData
 	

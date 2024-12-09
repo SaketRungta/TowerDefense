@@ -50,7 +50,7 @@ public:
 	uint32 ProjectilePoolSize = 5;
 	
 	/** Base damage dealt by the projectile of this tower */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile, meta = (ClampMin = "1", ClampMax = "15"))
+	UPROPERTY(EditDefaultsOnly, Category = Projectile, meta = (ClampMin = "1", ClampMax = "999"))
 	uint32 ProjectileBaseDamage = 1;
 	
 	/** Sound to play when the tower fires */

@@ -23,9 +23,18 @@ void ASUFOWaveManager::Tick(float DeltaSeconds)
 	if (bAllTheUFOsHaveBeenSpawned && UFOsToMove.Num() == 0)
 	{
 		bAllTheUFOsHaveBeenSpawned = false;
-		
-		if (BaseHUD.IsValid())
-			BaseHUD->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
+
+		FTimerHandle ShowLevelCompletedTimer;
+		GetWorldTimerManager().SetTimer(
+			ShowLevelCompletedTimer,
+			[this]()
+			{
+				if (BaseHUD.IsValid())
+					BaseHUD->ShowTheGivenMenu(EMenuToShow::LevelCompleted);
+			},
+			1.5f,
+			false
+			);		
 
 		SetActorTickEnabled(false);
 	}
@@ -117,12 +126,6 @@ void ASUFOWaveManager::CheckAndSpawnTheWaveWithGivenData(const FWaveSpawnData& I
 
 void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFOSpawned, int32 SubWaveIndex)
 {
-	if (InNumUFOSpawned >= InWaveSpawnData.SpawnCount)
-	{
-		CheckAndSpawnNextWave();
-		return;
-	}
-
 	ASUFO* SpawnedUFO = GetWorld()->SpawnActor<ASUFO>(
 		InWaveSpawnData.UFOToSpawn,
 		GetActorTransform()
@@ -148,8 +151,15 @@ void ASUFOWaveManager::SpawnUFOs(FWaveSpawnData InWaveSpawnData, uint32 InNumUFO
 
 	InNumUFOSpawned += 1;
 
-	// Use the timer specific to this sub-wave
 	GetWorldTimerManager().ClearTimer(SubWaveTimers[SubWaveIndex]);
+	
+	if (InNumUFOSpawned >= InWaveSpawnData.SpawnCount)
+	{
+		CheckAndSpawnNextWave();
+		return;
+	}
+
+	// Use the timer specific to this sub-wave
 	GetWorldTimerManager().SetTimer(
 		SubWaveTimers[SubWaveIndex],
 		[this, InWaveSpawnData, InNumUFOSpawned, SubWaveIndex]()

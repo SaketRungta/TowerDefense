@@ -22,9 +22,9 @@ void ASBaseGameMode::InitGame(const FString& MapName, const FString& Options, FS
 	}
 }
 
-void ASBaseGameMode::OnUFOReachedBaseCallback(uint32 InUFOLifeCount)
+void ASBaseGameMode::OnUFOReachedBaseCallback()
 {
-	LifeCount -= InUFOLifeCount;
+	LifeCount -= 1;
 
 	if (LifeCount > 0) return;
 

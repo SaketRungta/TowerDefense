@@ -115,11 +115,29 @@ void USHUDWidget::ShowTheRequestedMenu()
 	if (!LastPlayedAnim.IsValid()) return;
 	UnbindAllFromAnimationFinished(LastPlayedAnim.Get());
 
-	if (WidgetPopInOutSound) UGameplayStatics::PlaySound2D(GetWorld(), WidgetPopInOutSound);
-	
 	WidgetSwitcher->SetActiveWidgetIndex(WidgetIndexToActivate);
 	if (LastPlayedAnim.IsValid()) PlayAnimationForward(LastPlayedAnim.Get());
 
+	switch (WidgetIndexToActivate)
+	{
+	case 1:
+		if (LevelCompletedMenuSound)
+			UGameplayStatics::PlaySound2D(GetWorld(), LevelCompletedMenuSound);
+		break;
+	case 2:
+		if (TryAgainMenuSound)
+			UGameplayStatics::PlaySound2D(GetWorld(), TryAgainMenuSound);
+		break;
+	case 3:
+		if (PauseMenuPopInOutSound)
+			UGameplayStatics::PlaySound2D(GetWorld(), PauseMenuPopInOutSound);
+		break;
+	default:
+		if (PauseMenuPopInOutSound)
+			UGameplayStatics::PlaySound2D(GetWorld(), PauseMenuPopInOutSound);
+		break;
+	}
+	
 	FWidgetAnimationDynamicEvent OnLastPlayedAnimFinishedPlaying;
 	OnLastPlayedAnimFinishedPlaying.BindUFunction(this, FName("PlayStarsAnim"));
 	
@@ -176,7 +194,8 @@ void USHUDWidget::PopInHUD()
 	if (!LastPlayedAnim.IsValid()) return;
 	UnbindAllFromAnimationFinished(LastPlayedAnim.Get());
 
-	if (WidgetPopInOutSound) UGameplayStatics::PlaySound2D(GetWorld(), WidgetPopInOutSound);
+	if (PauseMenuPopInOutSound)
+		UGameplayStatics::PlaySound2D(GetWorld(), PauseMenuPopInOutSound);
 	
 	UnbindAllFromAnimationFinished(HUDPopOutAnim);
 

@@ -81,7 +81,7 @@ void ASUFO::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void ASUFO::OnUFOReachedBaseCall()
 {
-	OnUFOReachedBase.Broadcast(UFOLifeDamageCount);
+	OnUFOReachedBase.Broadcast();
 	Destroy();
 }
 

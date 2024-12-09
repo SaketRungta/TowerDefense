@@ -30,12 +30,12 @@ public:
 	
 	/**
 	 * Callback when any UFO is reaches the end
-	 * Deducts life from the life count
+	 * Deducts one life from the life count
 	 * Checks if lives are over then ends the game
 	 * Wave manager class does the binding
 	 */
 	UFUNCTION()
-	void OnUFOReachedBaseCallback(uint32 InUFOLifeCount);
+	void OnUFOReachedBaseCallback();
 
 	/**
 	 * Returns true and deducts coins

@@ -77,7 +77,7 @@ void ASBaseTower::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (SetTurretLookAtEnemy())
+	if (OrderedInRangeEnemies.Num() > 0 && SetTurretLookAtEnemy())
 		FireTurret();
 }
 
@@ -199,6 +199,7 @@ void ASBaseTower::OnTowerRangeSphereOverlap(UPrimitiveComponent* OverlappedCompo
 	if (InRangeEnemies.Contains(OtherActor) || !OtherActor->ActorHasTag(FName(TEXT("UFO")))) return;
 
 	InRangeEnemies.Add(OtherActor, true);
+	OrderedInRangeEnemies.Add(OtherActor);
 	if (InRangeEnemies.Num() == 1)
 	{
 		SetActorTickEnabled(true);
@@ -211,6 +212,7 @@ void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedCo
 	if (!InRangeEnemies.Contains(OtherActor)) return;
 
 	InRangeEnemies.Remove(OtherActor);
+	OrderedInRangeEnemies.Remove(OtherActor);
 	if (InRangeEnemies.Num() == 0)
 	{
 		SetActorTickEnabled(false);
@@ -221,14 +223,23 @@ void ASBaseTower::OnTowerRangeSphereEndOverlap(UPrimitiveComponent* OverlappedCo
 bool ASBaseTower::SetTurretLookAtEnemy()
 {
 	AActor* EnemyToTarget = nullptr;
+	if (InRangeEnemies[OrderedInRangeEnemies[0]])
+	{
+		EnemyToTarget = OrderedInRangeEnemies[0].Get();
+	}
+
+	/*
 	for (const TTuple<TWeakObjectPtr<AActor>, bool> CurrentEnemy : InRangeEnemies)
 	{
 		if (InRangeEnemies[CurrentEnemy.Key])
 		{
 			EnemyToTarget = CurrentEnemy.Key.Get();
+			int32 Index = OrderedInRangeEnemies.Find(EnemyToTarget);
+			EnemyToTarget = OrderedInRangeEnemies[Index].Get();
 			break;
 		}			
 	}
+	*/
 
 	if (EnemyToTarget)
 	{
