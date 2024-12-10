@@ -7,17 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38625a9c-6d32-4dc1-98ff-aa2da00205d1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TowerDefense.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonHovered.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonHovered.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonNormal.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/T_UI_RetryButtonNormal.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Assets/Textures/UI/LevelCompletedMenu/ufo.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_FillingTreeQuad.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Actors/Other/BP_FillingTreeQuad.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Blueprints/Widgets/WBP_HUDWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_3.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/TowerDefense/Maps/lv_3.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Private/Environment/SRandomPrefabTile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Private/Environment/SRandomPrefabTile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/TowerDefense/Public/Environment/SRandomPrefabTile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/TowerDefense/Public/Environment/SRandomPrefabTile.h" afterDir="false" />
-    </list>
+    <list default="true" id="38625a9c-6d32-4dc1-98ff-aa2da00205d1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -149,7 +139,7 @@
       <workItem from="1733591386605" duration="1406000" />
       <workItem from="1733671840325" duration="1968000" />
       <workItem from="1733676609461" duration="1798000" />
-      <workItem from="1733754702374" duration="5297000" />
+      <workItem from="1733754702374" duration="5373000" />
     </task>
     <servers />
   </component>
